@@ -1,0 +1,200 @@
+﻿<Application x:Class="CasparLauncher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CasparLauncher" StartupUri="Launcher.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="BaseIcon" TargetType="{x:Type Path}">
+                <Setter Property="Width" Value="512" />
+                <Setter Property="Height" Value="512" />
+                <Setter Property="Fill" Value="{StaticResource Foreground}" />
+            </Style>
+            
+            <Style x:Key="AppIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource BaseIcon}">
+                <Setter Property="Width" Value="439" />
+                <Setter Property="Height" Value="439" />
+                <Setter Property="Fill" Value="{StaticResource Foreground}" />
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.3" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
+            <Style x:Key="PlayIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Width" Value="443" />
+                <Setter Property="Height" Value="443" />
+                <Setter Property="Data" Value="M415.934 212.799L36.788 2.097C32.411-0.377 28.65-0.661 25.51 1.242c-3.14 1.902-4.708 5.328-4.708 10.276V431.78   c0 4.952 1.569 8.381 4.708 10.284c3.14 1.902 6.901 1.622 11.278-0.855l379.146-210.703c4.381-2.478 6.571-5.434 6.571-8.856   C422.505 218.224 420.314 215.274 415.934 212.799z" />
+            </Style>
+            
+            <Style x:Key="StopIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Data" Value="M414.41 24.123C398.333 8.042 378.963 0 356.315 0H82.228C59.58 0 40.21 8.042 24.126 24.123   C8.045 40.207 0.003 59.576 0.003 82.225v274.084c0 22.647 8.042 42.018 24.123 58.102c16.084 16.084 35.454 24.126 58.102 24.126   h274.084c22.648 0 42.018-8.042 58.095-24.126c16.084-16.084 24.126-35.454 24.126-58.102V82.225   C438.532 59.576 430.49 40.204 414.41 24.123z" />
+            </Style>
+            
+            <Style x:Key="ConfigIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Data" Value="M436.25 181.438c-1.529-2.002-3.524-3.193-5.995-3.571l-52.249-7.992c-2.854-9.137-6.756-18.461-11.704-27.98   c3.422-4.758 8.559-11.466 15.41-20.129c6.851-8.661 11.703-14.987 14.561-18.986c1.523-2.094 2.279-4.281 2.279-6.567   c0-2.663-0.66-4.755-1.998-6.28c-6.848-9.708-22.552-25.885-47.106-48.536c-2.275-1.903-4.661-2.854-7.132-2.854   c-2.857 0-5.14 0.855-6.854 2.567l-40.539 30.549c-7.806-3.999-16.371-7.52-25.693-10.565l-7.994-52.529   c-0.191-2.474-1.287-4.521-3.285-6.139C255.95 0.806 253.623 0 250.954 0h-63.38c-5.52 0-8.947 2.663-10.278 7.993   c-2.475 9.513-5.236 27.214-8.28 53.1c-8.947 2.86-17.607 6.476-25.981 10.853l-39.399-30.549   c-2.474-1.903-4.948-2.854-7.422-2.854c-4.187 0-13.179 6.804-26.979 20.413c-13.8 13.612-23.169 23.841-28.122 30.69   c-1.714 2.474-2.568 4.664-2.568 6.567c0 2.286 0.95 4.57 2.853 6.851c12.751 15.42 22.936 28.549 30.55 39.403   c-4.759 8.754-8.47 17.511-11.132 26.265l-53.105 7.992c-2.093 0.382-3.9 1.621-5.424 3.715C0.76 182.531 0 184.722 0 187.002   v63.383c0 2.478 0.76 4.709 2.284 6.708c1.524 1.998 3.521 3.195 5.996 3.572l52.25 7.71c2.663 9.325 6.564 18.743 11.704 28.257   c-3.424 4.761-8.563 11.468-15.415 20.129c-6.851 8.665-11.709 14.989-14.561 18.986c-1.525 2.102-2.285 4.285-2.285 6.57   c0 2.471 0.666 4.658 1.997 6.561c7.423 10.284 23.125 26.272 47.109 47.969c2.095 2.094 4.475 3.138 7.137 3.138   c2.857 0 5.236-0.852 7.138-2.563l40.259-30.553c7.808 3.997 16.371 7.519 25.697 10.568l7.993 52.529   c0.193 2.471 1.287 4.518 3.283 6.14c1.997 1.622 4.331 2.423 6.995 2.423h63.38c5.53 0 8.952-2.662 10.287-7.994   c2.471-9.514 5.229-27.213 8.274-53.098c8.946-2.858 17.607-6.476 25.981-10.855l39.402 30.84c2.663 1.712 5.141 2.563 7.42 2.563   c4.186 0 13.131-6.752 26.833-20.27c13.709-13.511 23.13-23.79 28.264-30.837c1.711-1.902 2.569-4.09 2.569-6.561   c0-2.478-0.947-4.862-2.857-7.139c-13.698-16.754-23.883-29.882-30.546-39.402c3.806-7.043 7.519-15.701 11.136-25.98l52.817-7.988   c2.279-0.383 4.189-1.622 5.708-3.716c1.523-2.098 2.279-4.288 2.279-6.571v-63.376   C438.533 185.671 437.777 183.438 436.25 181.438z M270.946 270.939c-14.271 14.277-31.497 21.416-51.676 21.416   c-20.177 0-37.401-7.139-51.678-21.416c-14.272-14.271-21.411-31.498-21.411-51.673c0-20.177 7.135-37.401 21.411-51.678   c14.277-14.272 31.504-21.411 51.678-21.411c20.179 0 37.406 7.139 51.676 21.411c14.274 14.277 21.413 31.501 21.413 51.678   C292.359 239.441 285.221 256.669 270.946 270.939z" />
+            </Style>
+            
+            <Style x:Key="RefreshIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Data" Value="M 219.26562 0.00390625 C 166.92163 0.00390625 121.24461 15.846062 82.224609 47.539062 C 43.203609 79.228062 17.508719 120.57489 5.1367188 171.58789 L 5.1367188 173.58398 C 5.1367188 176.05798 6.0406094 178.20181 7.8496094 180.00781 C 9.6586094 181.81681 11.797484 182.71875 14.271484 182.71875 L 71.085938 182.71875 C 75.274938 182.71875 78.128344 180.5293 79.652344 176.1543 C 87.645344 157.1223 92.687203 145.98895 94.783203 142.75195 C 108.1052 121.05395 125.80672 104.01653 147.88672 91.644531 C 169.96872 79.273531 193.75872 73.085938 219.26172 73.085938 C 257.52272 73.085938 290.73425 86.125172 318.90625 112.20117 L 279.50195 151.59766 C 275.89495 155.21466 274.08008 159.50022 274.08008 164.44922 C 274.08008 169.39722 275.89395 173.68088 279.50195 177.29688 C 283.12295 180.91387 287.40647 182.7207 292.35547 182.7207 L 420.26172 182.7207 C 425.21072 182.7207 429.49437 180.91388 433.10938 177.29688 C 436.72237 173.68087 438.5293 169.39822 438.5293 164.44922 L 438.5293 36.542969 C 438.5293 31.593969 436.73337 27.311359 433.10938 23.693359 C 429.49538 20.081359 425.21172 18.269531 420.26172 18.269531 C 415.31372 18.269531 411.03506 20.081359 407.41406 23.693359 L 370.30078 60.529297 C 349.93578 41.303297 326.61752 26.406703 300.35352 15.845703 C 274.09152 5.2837031 247.05562 0.00390625 219.26562 0.00390625 z M 18.273438 255.80078 C 13.321438 255.80078 9.0398281 257.61242 5.4238281 261.23242 C 1.8078281 264.84442 -1.1842379e-015 269.13208 0 274.08008 L 0 401.98633 C 0 406.93133 1.8068281 411.21898 5.4238281 414.83398 C 9.0428281 418.44398 13.326391 420.26172 18.275391 420.26172 C 23.223391 420.26172 27.503094 418.44498 31.121094 414.83398 L 67.951172 378.00195 C 88.318172 397.41195 111.49361 412.35622 137.47461 422.82422 C 163.45561 433.29622 190.33995 438.52539 218.12695 438.52539 C 270.28195 438.52539 315.76966 422.67923 354.59766 390.99023 C 393.42566 359.30223 418.93019 317.94941 431.11719 266.94141 C 431.30819 266.56141 431.39844 265.89331 431.39844 264.94531 C 431.39844 262.46731 430.49159 260.33453 428.68359 258.51953 C 426.87359 256.72053 424.73191 255.8125 422.25391 255.8125 L 367.4375 255.8125 C 363.2495 255.8125 360.394 257.99991 358.875 262.37891 C 350.885 281.41291 345.83709 292.5423 343.74609 295.7793 C 330.42009 317.4723 312.71853 334.51377 290.64453 346.88477 C 268.56153 359.25977 244.76963 365.44141 219.26562 365.44141 C 200.80462 365.44141 183.00691 362.01797 165.87891 355.16797 C 148.74891 348.30997 133.42411 338.60011 119.91211 326.03711 L 159.02734 286.92578 C 162.64234 283.31278 164.45117 279.02412 164.45117 274.07812 C 164.45117 269.13013 162.64234 264.84342 159.02734 261.23242 C 155.41034 257.61242 151.13064 255.80078 146.18164 255.80078 L 18.273438 255.80078 z " />
+            </Style>
+            
+            <Style x:Key="PlayButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="Transparent" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Path x:Name="IconPath" Style="{StaticResource PlayIcon}">
+                                        </Path>
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="IconPath" Property="Fill" Value="{StaticResource BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="StopButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="Transparent" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Path x:Name="IconPath" Style="{StaticResource StopIcon}">
+                                            <Path.RenderTransform>
+                                                <ScaleTransform CenterX="260" CenterY="220" ScaleX="0.8" ScaleY="0.8" />
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="IconPath" Property="Fill" Value="{StaticResource BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="PlusIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Width" Value="402" />
+                <Setter Property="Height" Value="402" />
+                <Setter Property="Fill" Value="{StaticResource Foreground}" />
+                <Setter Property="Data" Value="M394 154.175c-5.331-5.33-11.806-7.994-19.417-7.994H255.811V27.406c0-7.611-2.666-14.084-7.994-19.414   C242.488 2.666 236.02 0 228.398 0h-54.812c-7.612 0-14.084 2.663-19.414 7.993c-5.33 5.33-7.994 11.803-7.994 19.414v118.775   H27.407c-7.611 0-14.084 2.664-19.414 7.994S0 165.973 0 173.589v54.819c0 7.618 2.662 14.086 7.992 19.411   c5.33 5.332 11.803 7.994 19.414 7.994h118.771V374.59c0 7.611 2.664 14.089 7.994 19.417c5.33 5.325 11.802 7.987 19.414 7.987   h54.816c7.617 0 14.086-2.662 19.417-7.987c5.332-5.331 7.994-11.806 7.994-19.417V255.813h118.77   c7.618 0 14.089-2.662 19.417-7.994c5.329-5.325 7.994-11.793 7.994-19.411v-54.819C401.991 165.973 399.332 159.502 394 154.175z" />
+            </Style>
+            
+            <Style x:Key="MinusIcon" TargetType="{x:Type Path}" BasedOn="{StaticResource AppIcon}">
+                <Setter Property="Width" Value="402" />
+                <Setter Property="Height" Value="402" />
+                <Setter Property="Data" Value="M394 154.174c-5.331-5.33-11.806-7.995-19.417-7.995H27.406c-7.611 0-14.084 2.665-19.414 7.995   C2.662 159.503 0 165.972 0 173.587v54.82c0 7.617 2.662 14.086 7.992 19.41c5.33 5.332 11.803 7.994 19.414 7.994h347.176   c7.611 0 14.086-2.662 19.417-7.994c5.325-5.324 7.991-11.793 7.991-19.41v-54.82C401.991 165.972 399.332 159.5 394 154.174z" />
+            </Style>
+            
+            <Style x:Key="PlusButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="Transparent" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Path x:Name="IconPath" Style="{StaticResource PlusIcon}" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="IconPath" Property="Fill" Value="{StaticResource BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="MinusButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="Transparent" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Path x:Name="IconPath" Style="{StaticResource MinusIcon}" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="IconPath" Property="Fill" Value="{StaticResource BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ConfigButton" TargetType="Button" BasedOn="{StaticResource StandardButton}">
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5" />
+                    </Trigger>
+                </Style.Triggers>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Rectangle Fill="Transparent" />
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Viewbox Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                        <Path x:Name="IconPath" Style="{StaticResource ConfigIcon}" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="IconPath" Property="Fill" Value="{StaticResource BackgroundSelected}" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

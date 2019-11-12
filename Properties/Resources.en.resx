@@ -1,0 +1,488 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppTitle" xml:space="preserve">
+    <value>Server Launcher</value>
+  </data>
+  <data name="BluefishConsumer" xml:space="preserve">
+    <value>Bluefish consumer</value>
+  </data>
+  <data name="BrowseForFileButton" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="BrowseForPathButton" xml:space="preserve">
+    <value>Pick folder...</value>
+  </data>
+  <data name="ClosePromptCaption" xml:space="preserve">
+    <value>Close application</value>
+  </data>
+  <data name="ClosePromptMessage" xml:space="preserve">
+    <value>This app keeps all the server components running. Closing it will end all server services.
+Do you want to continue?</value>
+  </data>
+  <data name="ConfigFileDialogFilterDescription" xml:space="preserve">
+    <value>Configuration files</value>
+  </data>
+  <data name="ConfigFileText" xml:space="preserve">
+    <value>Configuration file</value>
+  </data>
+  <data name="ConfigTabAboutGb" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="ConfigTabAboutProjectDescription" xml:space="preserve">
+    <value>CasparCG Server is a Windows and Linux software used to play out professional graphics, audio and video to multiple outputs as a layerbased real-time compositor. It has been in 24/7 broadcast production since 2006. And the best, it's free. Used by most broadcasters in Europe.
+More info at:</value>
+  </data>
+  <data name="ConfigTabAboutProjectName" xml:space="preserve">
+    <value>CasparCG project</value>
+  </data>
+  <data name="ConfigTabOptionsCbHead" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ConfigTabLangValue" xml:space="preserve">
+    <value>Force language</value>
+  </data>
+  <data name="ConfigWindowChannelsBfDevice" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="ConfigWindowChannelsBfEmbedAudio" xml:space="preserve">
+    <value>Embedded audio</value>
+  </data>
+  <data name="ConfigWindowChannelsBfKeyer" xml:space="preserve">
+    <value>Keyer</value>
+  </data>
+  <data name="ConfigWindowChannelsBfKeyerAudio" xml:space="preserve">
+    <value>Internal keyer audio source</value>
+  </data>
+  <data name="ConfigWindowChannelsBfSdiStream" xml:space="preserve">
+    <value>SDI stream</value>
+  </data>
+  <data name="ConfigWindowChannelsBfWatchdog" xml:space="preserve">
+    <value>Watchdog</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelConfigGbHeader" xml:space="preserve">
+    <value>Channel settings</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelListItemDisplay" xml:space="preserve">
+    <value>Channel {0}</value>
+  </data>
+  <data name="ConfigWindowChannelsChannels" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelVideoMode" xml:space="preserve">
+    <value>Video mode</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerConfigGbHeader" xml:space="preserve">
+    <value>Consumer settings</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumers" xml:space="preserve">
+    <value>Consumers</value>
+  </data>
+  <data name="ConfigWindowChannelsDlBuffer" xml:space="preserve">
+    <value>Buffer depth</value>
+  </data>
+  <data name="ConfigWindowChannelsDlDevice" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="ConfigWindowChannelsDlEmbedAudio" xml:space="preserve">
+    <value>Embeded audio</value>
+  </data>
+  <data name="ConfigWindowChannelsDlKeyDevice" xml:space="preserve">
+    <value>Key device</value>
+  </data>
+  <data name="ConfigWindowChannelsDlKeyer" xml:space="preserve">
+    <value>Keyer</value>
+  </data>
+  <data name="ConfigWindowChannelsDlKeyOnly" xml:space="preserve">
+    <value>Key only</value>
+  </data>
+  <data name="ConfigWindowChannelsDlLatency" xml:space="preserve">
+    <value>Latency</value>
+  </data>
+  <data name="ConfigWindowChannelsFfArgs" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="ConfigWindowChannelsFfPath" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="ConfigWindowChannelsHeader" xml:space="preserve">
+    <value>Channels</value>
+  </data>
+  <data name="ConfigWindowChannelsNiNoOptions" xml:space="preserve">
+    <value>This consumer has no settings</value>
+  </data>
+  <data name="ConfigWindowChannelsNnAllowFields" xml:space="preserve">
+    <value>Allow fields</value>
+  </data>
+  <data name="ConfigWindowChannelsNnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ConfigWindowChannelsSaChannelLayout" xml:space="preserve">
+    <value>Channel layout</value>
+  </data>
+  <data name="ConfigWindowChannelsSaLatency" xml:space="preserve">
+    <value>Latency</value>
+  </data>
+  <data name="ConfigWindowChannelsScAlwaysOn" xml:space="preserve">
+    <value>Always on top</value>
+  </data>
+  <data name="ConfigWindowChannelsScAspect" xml:space="preserve">
+    <value>Aspect ratio</value>
+  </data>
+  <data name="ConfigWindowChannelsScBorderless" xml:space="preserve">
+    <value>Borderless</value>
+  </data>
+  <data name="ConfigWindowChannelsScColourSpace" xml:space="preserve">
+    <value>Colour space</value>
+  </data>
+  <data name="ConfigWindowChannelsScDevice" xml:space="preserve">
+    <value>Device</value>
+  </data>
+  <data name="ConfigWindowChannelsScHeight" xml:space="preserve">
+    <value>Height</value>
+  </data>
+  <data name="ConfigWindowChannelsScInteractive" xml:space="preserve">
+    <value>Interactive</value>
+  </data>
+  <data name="ConfigWindowChannelsScKeyOnly" xml:space="preserve">
+    <value>Key Only</value>
+  </data>
+  <data name="ConfigWindowChannelsScSbsKey" xml:space="preserve">
+    <value>Side by side key</value>
+  </data>
+  <data name="ConfigWindowChannelsScStretch" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="ConfigWindowChannelsScVsync" xml:space="preserve">
+    <value>Vsync</value>
+  </data>
+  <data name="ConfigWindowChannelsScWidth" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="ConfigWindowChannelsScWindowed" xml:space="preserve">
+    <value>Windowed</value>
+  </data>
+  <data name="ConfigWindowChannelsScX" xml:space="preserve">
+    <value>X position</value>
+  </data>
+  <data name="ConfigWindowChannelsScY" xml:space="preserve">
+    <value>Y position</value>
+  </data>
+  <data name="ConfigWindowOptionsTabAmcpGb" xml:space="preserve">
+    <value>AMCP</value>
+  </data>
+  <data name="ConfigWindowOptionsTabAmcpMediaHost" xml:space="preserve">
+    <value>Media scanner host</value>
+  </data>
+  <data name="ConfigWindowOptionsTabAmcpMediaPort" xml:space="preserve">
+    <value>Media scanner port</value>
+  </data>
+  <data name="ConfigWindowOptionsTabAmcpPort" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFlashBuffer" xml:space="preserve">
+    <value>Buffer depth</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFlashGb" xml:space="preserve">
+    <value>Flash</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHeader" xml:space="preserve">
+    <value>Server options</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlDebugPort" xml:space="preserve">
+    <value>Debugging port</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlEnableGpu" xml:space="preserve">
+    <value>Enable GPU</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlGb" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="ConfigWindowOptionsTabLogGb" xml:space="preserve">
+    <value>Log</value>
+  </data>
+  <data name="ConfigWindowOptionsTabLogLogLevel" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="ConfigWindowOptionsTabNdiAutoload" xml:space="preserve">
+    <value>Autoload</value>
+  </data>
+  <data name="ConfigWindowOptionsTabNdiGb" xml:space="preserve">
+    <value>NDI</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscAmcpDisable" xml:space="preserve">
+    <value>Disable send to AMCP clients</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscDefaultPort" xml:space="preserve">
+    <value>Default port</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscGb" xml:space="preserve">
+    <value>OSC</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscPredClientAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscPredClientPort" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="ConfigWindowOptionsTabOscPredefinedClients" xml:space="preserve">
+    <value>Predefined clients</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPassGb" xml:space="preserve">
+    <value>Clear passphrase</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPassValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPathsDataPath" xml:space="preserve">
+    <value>Data path</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPathsGb" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPathsLogPath" xml:space="preserve">
+    <value>Log path</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPathsMediaPath" xml:space="preserve">
+    <value>Media path</value>
+  </data>
+  <data name="ConfigWindowOptionsTabPathsTemplatePath" xml:space="preserve">
+    <value>Template path</value>
+  </data>
+  <data name="ConfigWindowSaveButton" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ConfigWindowTitle" xml:space="preserve">
+    <value>Edit server configuration</value>
+  </data>
+  <data name="ContextMenuCasparItemHeader" xml:space="preserve">
+    <value>Restart server</value>
+  </data>
+  <data name="ContextMenuExitItemHeader" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ContextMenuScannerItemHeader" xml:space="preserve">
+    <value>Restart media scanner</value>
+  </data>
+  <data name="DecklinkConsumer" xml:space="preserve">
+    <value>Decklink consumer</value>
+  </data>
+  <data name="FFConsumer" xml:space="preserve">
+    <value>FFmpeg consumer</value>
+  </data>
+  <data name="FileDialogFilterDescription" xml:space="preserve">
+    <value>Executables</value>
+  </data>
+  <data name="IvgaConsumer" xml:space="preserve">
+    <value>iVGA consumer</value>
+  </data>
+  <data name="NdiConsumer" xml:space="preserve">
+    <value>NDI consumer</value>
+  </data>
+  <data name="OpenConfigEditorEditButtonText" xml:space="preserve">
+    <value>Edit file</value>
+  </data>
+  <data name="ScreenConsumer" xml:space="preserve">
+    <value>Screen consumer</value>
+  </data>
+  <data name="StatusTabHeader" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SystemAudioConsumer" xml:space="preserve">
+    <value>System Audio consumer</value>
+  </data>
+  <data name="ConfigBufferLines" xml:space="preserve">
+    <value>Console buffer</value>
+  </data>
+  <data name="ConfigOpenAtLogin" xml:space="preserve">
+    <value>Open at login</value>
+  </data>
+  <data name="ContextMenuDiagItemHeader" xml:space="preserve">
+    <value>Open diagnostics window</value>
+  </data>
+  <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
+    <value>Rebuild media database</value>
+  </data>
+  <data name="NewExecutableName" xml:space="preserve">
+    <value>New executable</value>
+  </data>
+  <data name="ConfigTabExecGbHeader" xml:space="preserve">
+    <value>Executables</value>
+  </data>
+  <data name="ConfigTabServerConfigHeader" xml:space="preserve">
+    <value>Server configuration</value>
+  </data>
+  <data name="DeleteExecutablePromptCaption" xml:space="preserve">
+    <value>Delete executable</value>
+  </data>
+  <data name="DeleteExecutablePromptMessage" xml:space="preserve">
+    <value>Do you really want to delete the executable? (this can't be undone)</value>
+  </data>
+  <data name="ExecutableConfigWindowArgs" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="ExecutableConfigWindowAuto" xml:space="preserve">
+    <value>Autostart</value>
+  </data>
+  <data name="ExecutableConfigWindowAutoDesc" xml:space="preserve">
+    <value>Launch automatically on startup</value>
+  </data>
+  <data name="ExecutableConfigWindowCommands" xml:space="preserve">
+    <value>Startup commands</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsDelay" xml:space="preserve">
+    <value>Delay between commands</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsDelayDesc" xml:space="preserve">
+    <value>Wait time between each startup command (milliseconds)</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsDgHeader" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsEnabled" xml:space="preserve">
+    <value>Enable commands</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsEnabledDesc" xml:space="preserve">
+    <value>Enables writing commands to the console</value>
+  </data>
+  <data name="ExecutableConfigWindowDelay" xml:space="preserve">
+    <value>Startup delay</value>
+  </data>
+  <data name="ExecutableConfigWindowDelayDesc" xml:space="preserve">
+    <value>Wait time before launch (milliseconds)</value>
+  </data>
+  <data name="ExecutableConfigWindowName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ExecutableConfigWindowPath" xml:space="preserve">
+    <value>Executable path</value>
+  </data>
+  <data name="ExecutableConfigWindowTitle" xml:space="preserve">
+    <value>Executable configuration</value>
+  </data>
+  <data name="ExecutableNotFoundWarningCaption" xml:space="preserve">
+    <value>Wrong path</value>
+  </data>
+  <data name="ExecutableNotFoundWarningMessage" xml:space="preserve">
+    <value>Check executable file path</value>
+  </data>
+  <data name="OpenConfigEditorNewButtonText" xml:space="preserve">
+    <value>New file</value>
+  </data>
+</root>
