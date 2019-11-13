@@ -83,7 +83,7 @@
                                             <Path Style="{StaticResource StopIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
-                                    <Button Name="RebuildButton" Click="RebuildMedia_Click" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}" Margin="20 0 2 0">
+                                    <Button Name="RebuildButton" Click="RebuildMedia_Click" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}" Margin="10 0 10 0">
                                         <Viewbox>
                                             <Path Style="{StaticResource RefreshIcon}" Margin="20" />
                                         </Viewbox>
