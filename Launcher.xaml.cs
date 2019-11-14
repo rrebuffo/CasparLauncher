@@ -430,16 +430,17 @@ namespace CasparLauncher
 
                     if (e.Key == Key.Enter)
                     {
-                        executable.Write(target.Text);
-                        target.Text = "";
+                        executable.Write();
                     }
                     if (e.Key == Key.Up)
                     {
-                        // Go backward in History
+                        executable.PreviousHistoryCommand();
+                        target.CaretIndex = target.Text.Length;
                     }
                     if (e.Key == Key.Down)
                     {
-                        // Go forward in History
+                        executable.NextHistoryCommand();
+                        target.CaretIndex = target.Text.Length;
                     }
                 }
             }

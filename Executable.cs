@@ -24,6 +24,7 @@ namespace CasparLauncher
 
         public Executable()
         {
+            History.Add("");
             StartupTimer.Tick += StartupTimer_Tick;
             PropertyChanged += Executable_PropertyChanged;
             Commands.CollectionChanged += Commands_CollectionChanged;
@@ -278,6 +279,55 @@ namespace CasparLauncher
             }
         }
 
+
+        private int HistoryIndex
+        {
+            get
+            {
+                if (CurrentHistoryIndex >= History.Count) CurrentHistoryIndex = History.Count - 1;
+                if (CurrentHistoryIndex < 0) CurrentHistoryIndex = 0;
+                return History.Count - (CurrentHistoryIndex + 1);
+            }
+        }
+
+        public int CurrentHistoryIndex { get; set; } = 0;
+
+        private string _currentcommand = "";
+        public string CurrentCommand
+        {
+            get
+            {
+                return _currentcommand;
+            }
+            set
+            {
+                if(CurrentHistoryIndex>0)
+                {
+                    if (value == History[HistoryIndex])
+                    {
+                        _currentcommand = value;
+                        OnPropertyChanged("CurrentCommand");
+                    }
+                    else
+                    {
+                        _currentcommand = value;
+                        History[History.Count-1] = value;
+                        CurrentHistoryIndex = 0;
+                        OnPropertyChanged("CurrentCommand");
+                    }
+                }
+                else
+                {
+                    if (_currentcommand != value)
+                    {
+                        _currentcommand = value;
+                        History[History.Count - 1] = value;
+                        OnPropertyChanged("CurrentCommand");
+                    }
+                }
+            }
+        }
+
         private string _output = "";
         public string Output
         {
@@ -492,6 +542,31 @@ namespace CasparLauncher
         public void Stop()
         {
             StopProcess();
+        }
+
+        public string PreviousHistoryCommand()
+        {
+            CurrentHistoryIndex++;
+            return CurrentCommand = History[HistoryIndex];
+        }
+
+        public string NextHistoryCommand()
+        {
+            CurrentHistoryIndex--;
+            return CurrentCommand = History[HistoryIndex];
+        }
+
+        public void Write()
+        {
+            Write(CurrentCommand);
+            History.Add("");
+            CurrentHistoryIndex = 0;
+            CurrentCommand = "";
+
+            for(var i=0; i<History.Count;i++)
+            {
+                Debug.WriteLine($"{i.ToString("dd")}: {History[i]}");
+            }
         }
 
         public void Write(string command)
