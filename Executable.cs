@@ -81,12 +81,6 @@ namespace CasparLauncher
 
         #region PROPERTIES
 
-        private void StartupTimer_Tick(object sender, EventArgs e)
-        {
-            StartupTimer.Stop();
-            StartProcess();
-        }
-
         private string _path = null;
         public string Path
         {
@@ -462,6 +456,12 @@ namespace CasparLauncher
             Running = true;
 
             if(AllowCommands && Commands.Any()) SendStartupCommands();
+        }
+
+        private void StartupTimer_Tick(object sender, EventArgs e)
+        {
+            StartupTimer.Stop();
+            StartProcess();
         }
 
         private void SendStartupCommands()
