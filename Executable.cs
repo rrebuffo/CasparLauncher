@@ -558,6 +558,7 @@ namespace CasparLauncher
 
         public void Write()
         {
+            if (CurrentCommand.Length == 0) return;
             Write(CurrentCommand);
             if (CurrentHistoryIndex == 0) History.Add("");
             else CurrentHistoryIndex = 0;
