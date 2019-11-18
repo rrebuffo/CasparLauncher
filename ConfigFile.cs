@@ -194,6 +194,23 @@ namespace CasparLauncher
             }
         }
 
+        private string _fontPath = "font/";
+        public string FontPath
+        {
+            get
+            {
+                return _fontPath;
+            }
+            set
+            {
+                if (_fontPath != value)
+                {
+                    _fontPath = value;
+                    OnPropertyChanged("FontPath");
+                }
+            }
+        }
+
         private string _lockPass = "secret";
         public string LockPass
         {
@@ -346,6 +363,7 @@ namespace CasparLauncher
             XH.NewTextNode(x, "media-path", MediaPath, n_paths);
             XH.NewTextNode(x, "log-path", LogPath, n_paths);
             XH.NewTextNode(x, "data-path", DataPath, n_paths);
+            XH.NewTextNode(x, "font-path", FontPath, n_paths);
             XH.NewTextNode(x, "template-path", TemplatePath, n_paths);
             #endregion
 
@@ -551,6 +569,9 @@ namespace CasparLauncher
                                     break;
                                 case "template-path":
                                     TemplatePath = sub_element.Value;
+                                    break;
+                                case "font-path":
+                                    FontPath = sub_element.Value;
                                     break;
                             }
                         }

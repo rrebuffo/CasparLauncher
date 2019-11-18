@@ -269,6 +269,16 @@
                                     <ColumnDefinition MinWidth="50" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabPathsFontPath}" Grid.Column="0" Margin="5,7" />
+                                <TextBox Grid.Column="1" Text="{Binding Path=FontPath}" VerticalContentAlignment="Center" />
+                                <Button Name="PickFontPathButton" Padding="5 0" Grid.Column="2" Content="{x:Static l:Resources.BrowseForPathButton}" Click="PickFontPathButton_Click" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                    <ColumnDefinition MinWidth="50" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
                                 <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabPathsLogPath}" Grid.Column="0" Margin="5,7" />
                                 <TextBox Grid.Column="1" Text="{Binding Path=LogPath}" VerticalContentAlignment="Center" />
                                 <Button Name="PickLogPathButton" Padding="5 0" Grid.Column="2" Content="{x:Static l:Resources.BrowseForPathButton}" Click="PickLogPathButton_Click" />

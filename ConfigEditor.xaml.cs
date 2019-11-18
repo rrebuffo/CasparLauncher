@@ -164,6 +164,13 @@ namespace CasparLauncher
             if (newFolder != null) file.TemplatePath = newFolder;
         }
 
+        private void PickFontPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            ConfigFile file = DataContext as ConfigFile;
+            string newFolder = SelectFolder(file.FontPath, true);
+            if (newFolder != null) file.FontPath = newFolder;
+        }
+
         private void PickLogPathButton_Click(object sender, RoutedEventArgs e)
         {
             ConfigFile file = DataContext as ConfigFile;

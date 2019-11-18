@@ -485,4 +485,7 @@ More info at:</value>
   <data name="OpenConfigEditorNewButtonText" xml:space="preserve">
     <value>New file</value>
   </data>
+  <data name="ConfigWindowOptionsTabPathsFontPath" xml:space="preserve">
+    <value>Font path</value>
+  </data>
 </root>
