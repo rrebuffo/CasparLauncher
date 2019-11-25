@@ -92,7 +92,7 @@
                                 <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <TextBox Name="ConsoleOutputTextBox" Background="{StaticResource LightBackground}" FontFamily="Consolas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" FontSize="12" Text="{Binding Path=Output, Mode=OneWay}" TextChanged="ConsoleOutputTextBox_TextChanged" IsReadOnly="True" IsReadOnlyCaretVisible="False" />
+                                <TextBox Name="ConsoleOutputTextBox" Background="{StaticResource LightBackground}" FontFamily="Consolas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" FontSize="12" Text="{Binding Path=Output, Mode=OneWay}" TextChanged="ConsoleOutputTextBox_TextChanged" IsReadOnly="True" IsReadOnlyCaretVisible="False" Loaded="ConsoleOutputTextBox_Loaded" />
                             </Grid>
                         </Grid>
                     </DataTemplate>

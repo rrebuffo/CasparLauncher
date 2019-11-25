@@ -273,16 +273,6 @@ namespace CasparLauncher
             ((TextBox)target).ScrollToEnd();
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            ScrollToEnd(sender);
-        }
-
-        private void TextBox_Initialized(object sender, EventArgs e)
-        {
-            ScrollToEnd(sender);
-        }
-
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Executable executable = ((FrameworkElement)sender).DataContext as Executable;
@@ -301,6 +291,11 @@ namespace CasparLauncher
         }
 
         private void ConsoleOutputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            ScrollToEnd(sender);
+        }
+
+        private void ConsoleOutputTextBox_Loaded(object sender, RoutedEventArgs e)
         {
             ScrollToEnd(sender);
         }
