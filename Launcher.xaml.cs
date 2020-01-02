@@ -35,7 +35,6 @@ namespace CasparLauncher
             SetupEventHandlers();
             InitializeComponent();
             LoadSettings();
-            SetupTray();
             StartExecutables();
         }
 
@@ -114,6 +113,23 @@ namespace CasparLauncher
             base.OnClosing(e);
         }
 
+        private bool IsSystemThemeLight()
+        {
+            string keypath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+            string value = "SystemUsesLightTheme";
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(keypath))
+            {
+                object obj = key?.GetValue(value);
+                if (obj is null) return false;
+                return (int)obj > 0;
+            }
+        }
+
+        private void LauncherLoaded(object sender, RoutedEventArgs e)
+        {
+            SetupTray();
+        }
+
         #endregion
 
         #region TRAY ICON
@@ -121,8 +137,15 @@ namespace CasparLauncher
         private void SetupTray()
         {
             TrayIcon = new WF.NotifyIcon();
-            Stream IconStream = Application.GetResourceStream(new Uri(@"pack://application:,,,/Resources/NotifyIcon.ico")).Stream;
-            TrayIcon.Icon = new Icon(IconStream);
+            double size = 16 * PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
+            int iconsize = 16;
+            if (size >= 20) iconsize = 20;
+            if (size >= 24) iconsize = 24;
+            if (size >= 32) iconsize = 32;
+            if (size >= 48) iconsize = 256;
+            string iconpath = IsSystemThemeLight() ? "NotifyIconLight.ico" : "NotifyIconDark.ico";
+            Stream IconStream = Application.GetResourceStream(new Uri($@"pack://application:,,,/Resources/{iconpath}")).Stream;
+            TrayIcon.Icon = new Icon(IconStream,new System.Drawing.Size(iconsize,iconsize));
             IconStream.Dispose();
 
             TrayIcon.MouseUp += TrayIcon_MouseUp;
