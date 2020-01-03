@@ -239,8 +239,16 @@ namespace CasparLauncher
         private void ClearScannerDatabases()
         {
             if (ScannerExecutable is null || !ScannerExecutable.Exists || ScannerExecutable.Running) return;
-            
-            string scanner_dir = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(ScannerExecutable.Path));
+
+            string scanner_dir;
+            try
+            {
+                scanner_dir = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(ScannerExecutable.Path));
+            }
+            catch(Exception)
+            {
+                scanner_dir = AppDomain.CurrentDomain.BaseDirectory;
+            }
             string media_dir = System.IO.Path.Combine(scanner_dir, ".\\_media\\");
             string pad_dir = System.IO.Path.Combine(scanner_dir, ".\\pouch__all_dbs__\\");
             if (Directory.Exists(scanner_dir) && Directory.Exists(media_dir) && Directory.Exists(pad_dir))
