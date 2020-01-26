@@ -345,12 +345,12 @@ namespace CasparLauncher
             if (openFileDialog.ShowDialog() == true)
             {
                 executable = Settings.AddExecutable(openFileDialog.FileName);
+                OpenExecutableOptions(executable);
             }
             else
             {
-                executable = Settings.AddExecutable();
+                return;
             }
-            OpenExecutableOptions(executable);
         }
 
         private void ExecutableConfig_Click(object sender, RoutedEventArgs e)
