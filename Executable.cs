@@ -53,7 +53,8 @@ namespace CasparLauncher
                 e.PropertyName == "AutoStart" ||
                 e.PropertyName == "StartupDelay" ||
                 e.PropertyName == "CommandsDelay" ||
-                e.PropertyName == "AllowCommands")
+                e.PropertyName == "AllowCommands" ||
+                e.PropertyName == "AllowMultipleInstances")
             {
                 OnModified();
             }
@@ -70,6 +71,7 @@ namespace CasparLauncher
                     new XElement("auto", AutoStart.ToString()),
                     new XElement("sdel", StartupDelay.ToString()),
                     new XElement("acmd", AllowCommands.ToString()),
+                    new XElement("amin", AllowMultipleInstances.ToString()),
                     new XElement("cdel", CommandsDelay.ToString()),
                     new XElement("commands",
                     from c in Commands
@@ -273,6 +275,22 @@ namespace CasparLauncher
             }
         }
 
+        private bool _allowMultipleInstances = false;
+        public bool AllowMultipleInstances
+        {
+            get
+            {
+                return _allowMultipleInstances;
+            }
+            set
+            {
+                if (_allowMultipleInstances != value)
+                {
+                    _allowMultipleInstances = value;
+                    OnPropertyChanged("AllowMultipleInstances");
+                }
+            }
+        }
 
         private int HistoryIndex
         {
@@ -409,7 +427,7 @@ namespace CasparLauncher
             {
                 throw (new Exception("ExecutablePathNotFound"));
             }
-            if (IsRunning(_path)) KillAllRunningInstances(_path);
+            if (!AllowMultipleInstances && IsRunning(_path)) KillAllRunningInstances(_path);
 
             ProcessStartInfo info = new ProcessStartInfo();
             info.CreateNoWindow = true;

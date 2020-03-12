@@ -488,4 +488,10 @@ Más información en:</value>
   <data name="ConfigWindowOptionsTabPathsFontPath" xml:space="preserve">
     <value>Ruta de fuentes</value>
   </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabled" xml:space="preserve">
+    <value>Múltiples instancias</value>
+  </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
+    <value>Permite la ejecución de múltiples procesos con el mismo nombre (CasparCG.exe permite diferentes archivos de configuración especificando la ruta en el campo argumentos)</value>
+  </data>
 </root>

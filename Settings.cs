@@ -55,6 +55,7 @@ namespace CasparLauncher
                         AutoStart = bool.Parse(executable.Element("auto").Value),
                         StartupDelay = int.Parse(executable.Element("sdel").Value),
                         AllowCommands = bool.Parse(executable.Element("acmd").Value),
+                        AllowMultipleInstances = bool.Parse(executable.Element("amin").Value),
                         CommandsDelay = int.Parse(executable.Element("cdel").Value)
                     };
                     foreach(XElement command in executable.Element("commands").Descendants())

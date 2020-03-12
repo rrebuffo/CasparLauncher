@@ -488,4 +488,10 @@ More info at:</value>
   <data name="ConfigWindowOptionsTabPathsFontPath" xml:space="preserve">
     <value>Font path</value>
   </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabled" xml:space="preserve">
+    <value>Allow multiple instances</value>
+  </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
+    <value>Enables running multiple processes with the same name (CasparCG.exe allows different config files specifying its path in the arguments field)</value>
+  </data>
 </root>
