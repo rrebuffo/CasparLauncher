@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using L = CasparLauncher.Properties.Resources;
 using S = CasparLauncher.Properties.Settings;
@@ -20,10 +21,12 @@ namespace CasparLauncher
         protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
 
         public ObservableCollection<Executable> Executables { get; set; } = new ObservableCollection<Executable>();
+        DispatcherTimer SaveTimer = new DispatcherTimer();
 
         public Settings()
         {
             LoadSettings();
+            SaveTimer.Interval = TimeSpan.FromMilliseconds(100);
             Executables.CollectionChanged += Executables_CollectionChanged;
         }
 
@@ -31,6 +34,10 @@ namespace CasparLauncher
         {
             _bufferLines = S.Default.BufferLines;
             _openAtLogin = S.Default.OpenAtLogin;
+            PosX = S.Default.LauncherWindowPosX;
+            PosY = S.Default.LauncherWindowPosY;
+            Width = S.Default.LauncherWindowWidth;
+            Height = S.Default.LauncherWindowHeight;
             ParseSettings(S.Default.Executables);
             InitExecutables();
         }
@@ -202,6 +209,97 @@ namespace CasparLauncher
                     OnPropertyChanged("SelectedLanguage");
                 }
             }
+        }
+
+        private double _posX = 0;
+        public double PosX
+        {
+            get
+            {
+                return _posX;
+            }
+            set
+            {
+                if (_posX != value)
+                {
+                    _posX = value;
+                    OnPropertyChanged("PosX");
+                }
+            }
+        }
+
+        private double _posY = 0;
+        public double PosY
+        {
+            get
+            {
+                return _posY;
+            }
+            set
+            {
+                if (_posY != value)
+                {
+                    _posY = value;
+                    OnPropertyChanged("PosY");
+                }
+            }
+        }
+
+        private double _width = 1000;
+        public double Width
+        {
+            get
+            {
+                return _width;
+            }
+            set
+            {
+                if (_width != value)
+                {
+                    _width = value;
+                    OnPropertyChanged("Width");
+                }
+            }
+        }
+
+        private double _height = 600;
+        public double Height
+        {
+            get
+            {
+                return _height;
+            }
+            set
+            {
+                if (_height != value)
+                {
+                    _height = value;
+                    OnPropertyChanged("Height");
+                }
+            }
+        }
+
+        public void SaveWindowPosition()
+        {
+            S.Default.LauncherWindowPosX = _posX;
+            S.Default.LauncherWindowPosY = _posY;
+            S.Default.LauncherWindowWidth = _width;
+            S.Default.LauncherWindowHeight = _height;
+            S.Default.Save();
+            S.Default.Upgrade();
+        }
+
+        public void SaveWindowPosition(bool delay)
+        {
+            SaveTimer.Tick += SaveWindowPosition;
+            SaveTimer.Start();
+        }
+
+        private void SaveWindowPosition(object sender, EventArgs e)
+        {
+            SaveTimer.Stop();
+            SaveTimer.Tick -= SaveWindowPosition;
+            SaveWindowPosition();
         }
 
         private void SetStartup(bool set = true)

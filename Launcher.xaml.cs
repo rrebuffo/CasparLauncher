@@ -44,6 +44,7 @@ namespace CasparLauncher
         private WF.NotifyIcon TrayIcon;
         private WF.ContextMenu TrayMenu;
         private WindowState PreviousState = WindowState.Normal;
+        private bool InTray = false;
         private ObservableCollection<string> ServerStartupCommands { get; set; } = new ObservableCollection<string>();
         
         public bool IsShiftDown
@@ -70,6 +71,7 @@ namespace CasparLauncher
             KeyDown += Launcher_KeyDown;
             KeyUp += Launcher_KeyUp;
             Activated += Launcher_Activated;
+            SizeChanged += Launcher_SizeChanged;
         }
 
         private void LoadSettings()
@@ -78,6 +80,8 @@ namespace CasparLauncher
             if (Settings.Executables.Where(e => e.IsServer).Any()) CasparExecutable = Settings.Executables.Where(e => e.IsServer).First();
             if (Settings.Executables.Where(e => e.IsScanner).Any()) ScannerExecutable = Settings.Executables.Where(e => e.IsScanner).First();
             DataContext = Settings;
+            PreviousState = S.Default.LauncherWindowState;
+            WindowState = PreviousState;
             Settings.SelectedLanguage = (Languages)S.Default.ForcedLanguage;
         }
 
@@ -91,6 +95,17 @@ namespace CasparLauncher
             bool wasCodeClosed = new StackTrace().GetFrames().FirstOrDefault(x => x.GetMethod() == typeof(Window).GetMethod("Close")) != null;
             if (!wasCodeClosed)
             {
+                e.Cancel = true;
+                MinimizeToTray();
+            }
+
+            base.OnClosing(e);
+        }
+
+        public void Shutdown(bool prompt = false)
+        {
+            if(prompt)
+            {
                 MessageBoxResult close = MessageBox.Show(l.Resources.ClosePromptMessage, l.Resources.ClosePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 switch (close)
                 {
@@ -98,7 +113,6 @@ namespace CasparLauncher
                         break;
                     case MessageBoxResult.No:
                     default:
-                        e.Cancel = true;
                         return;
                 }
             }
@@ -110,7 +124,7 @@ namespace CasparLauncher
 
             foreach(Executable executable in Settings.Executables) if (executable.Running) executable.Stop();
 
-            base.OnClosing(e);
+            Application.Current.Shutdown();
         }
 
         private bool IsSystemThemeLight()
@@ -208,7 +222,7 @@ namespace CasparLauncher
 
         private void TrayMenu_ExitItem_Click(object sender, EventArgs e)
         {
-            Close();
+            Shutdown(true);
         }
 
         private void TrayMenu_ScannerItem_Click(object sender, EventArgs e)
@@ -224,7 +238,7 @@ namespace CasparLauncher
         private void TrayIcon_MouseUp(object sender, WF.MouseEventArgs e)
         {
             if (e.Button != WF.MouseButtons.Left) return;
-            WindowState = PreviousState;
+            ActivateInstance();
         }
         #endregion
 
@@ -406,28 +420,43 @@ namespace CasparLauncher
         {
             if(WindowState == WindowState.Minimized)
             {
-                ShowInTaskbar = false;
+                if(InTray) ShowInTaskbar = false;
             }
             else
             {
                 ShowInTaskbar = true;
+                S.Default.LauncherWindowState = WindowState;
+                S.Default.Save();
+                S.Default.Upgrade();
                 Activate();
             }
         }
 
+        private void Launcher_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal) Settings.SaveWindowPosition(true);
+        }
+
         public void ActivateInstance()
         {
-            WindowState = WindowState.Normal;
+            InTray = false;
+            if(WindowState == WindowState.Minimized) WindowState = PreviousState;
             Topmost = true;
             Activate();
             Topmost = false;
             Focus();
         }
 
-        private void Launcher_Initialized(object sender, EventArgs e)
+        private void MinimizeToTray()
         {
+            InTray = true;
             PreviousState = WindowState;
             WindowState = WindowState.Minimized;
+        }
+
+        private void Launcher_Initialized(object sender, EventArgs e)
+        {
+            MinimizeToTray();
         }
 
         private void Launcher_Activated(object sender, EventArgs e)

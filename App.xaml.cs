@@ -80,6 +80,11 @@ namespace CasparLauncher
                 CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("es-ES");
             }
         }
+
+        private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
+        {
+            Current.Dispatcher.BeginInvoke((Action)(() => ((Launcher)Current.MainWindow).Shutdown()));
+        }
     }
 
     public enum Languages

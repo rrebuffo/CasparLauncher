@@ -11,11 +11,11 @@
     <Setting Name="BufferLines" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
-    <Setting Name="LauncherWindowPosX" Type="System.String" Scope="User">
-      <Value Profile="(Default)">auto</Value>
+    <Setting Name="LauncherWindowPosX" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="LauncherWindowPosY" Type="System.String" Scope="User">
-      <Value Profile="(Default)">auto</Value>
+    <Setting Name="LauncherWindowPosY" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="LauncherWindowWidth" Type="System.Double" Scope="User">
       <Value Profile="(Default)">1000</Value>
@@ -25,6 +25,9 @@
     </Setting>
     <Setting Name="Executables" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="LauncherWindowState" Type="System.Windows.WindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
     </Setting>
   </Settings>
 </SettingsFile>

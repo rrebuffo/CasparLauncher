@@ -61,10 +61,10 @@ namespace CasparLauncher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("auto")]
-        public string LauncherWindowPosX {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double LauncherWindowPosX {
             get {
-                return ((string)(this["LauncherWindowPosX"]));
+                return ((double)(this["LauncherWindowPosX"]));
             }
             set {
                 this["LauncherWindowPosX"] = value;
@@ -73,10 +73,10 @@ namespace CasparLauncher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("auto")]
-        public string LauncherWindowPosY {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public double LauncherWindowPosY {
             get {
-                return ((string)(this["LauncherWindowPosY"]));
+                return ((double)(this["LauncherWindowPosY"]));
             }
             set {
                 this["LauncherWindowPosY"] = value;
@@ -116,6 +116,18 @@ namespace CasparLauncher.Properties {
             }
             set {
                 this["Executables"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.WindowState LauncherWindowState {
+            get {
+                return ((global::System.Windows.WindowState)(this["LauncherWindowState"]));
+            }
+            set {
+                this["LauncherWindowState"] = value;
             }
         }
     }
