@@ -72,6 +72,7 @@ namespace CasparLauncher
             KeyUp += Launcher_KeyUp;
             Activated += Launcher_Activated;
             SizeChanged += Launcher_SizeChanged;
+            LocationChanged += Launcher_LocationChanged;
         }
 
         private void LoadSettings()
@@ -433,6 +434,11 @@ namespace CasparLauncher
         }
 
         private void Launcher_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (WindowState == WindowState.Normal) Settings.SaveWindowPosition(true);
+        }
+
+        private void Launcher_LocationChanged(object sender, EventArgs e)
         {
             if (WindowState == WindowState.Normal) Settings.SaveWindowPosition(true);
         }
