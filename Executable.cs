@@ -418,10 +418,29 @@ namespace CasparLauncher
         {
             foreach (Process p in Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(file)))
             {
-                p.Kill();
+                KillTreeOf(p.Id);
             }
         }
-        
+
+        private void KillTreeOf(int id)
+        {
+            KillChildsOf((uint)id);
+            Process.GetProcessById(id).Kill();
+        }
+
+        private void KillChildsOf(uint id)
+        {
+            using (ManagementObjectSearcher searcher = new ManagementObjectSearcher(new SelectQuery($"SELECT * FROM Win32_Process where ParentProcessId={id}")))
+            {
+                foreach (var child in searcher.Get())
+                {
+                    uint pid = (uint)child["ProcessId"];
+                    KillChildsOf(pid);
+                    Process.GetProcessById((int)pid).Kill();
+                }
+            }
+        }
+
         private void Setup()
         {
             if (!Exists)
