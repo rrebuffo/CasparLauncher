@@ -338,13 +338,10 @@ namespace CasparLauncher
             try
             {
                 string val = string.Format("_{0}", value);
-                Debug.WriteLine("value: "+val);
-                Debug.WriteLine("prop: "+prop);
                 return Enum.Parse(prop, val);
             }
             catch (Exception e)
             {
-                Debug.WriteLine(e.Data);
                 return null;
             }
 

@@ -15,15 +15,104 @@
         MinWidth="800" MinHeight="400" Background="{StaticResource LightBackground}"
         WindowStyle="SingleBorderWindow" ResizeMode="CanResize"
         Loaded="LauncherLoaded"
+        DpiChanged="LauncherWindow_DpiChanged" ContextMenuService.IsEnabled="False"
         WindowStartupLocation="Manual" Title="{x:Static l:Resources.AppTitle}">
     <Window.Resources>
         <local:BooleanToVisibilityConverter x:Key="boolToVisibility" False="Collapsed" True="Visible" />
         <local:BooleanToVisibilityConverter x:Key="invBoolToVisibility" False="Visible" True="Collapsed" />
+        <local:ItemsLayoutConverter x:Key="itemsToCols" Rows="False"/>
+        <local:ItemsLayoutConverter x:Key="itemsToRows" Rows="True"/>
         <local:InvertBooleanConverter x:Key="invertBool" />
         <local:IcoToImageSourceConverter x:Key="icoToSource" />
         <local:ListBoxSelectedConverter x:Key="lbSelected" />
         <local:EnumConverter x:Key="enumConverter" />
+
+
+        <CompositeCollection x:Key="ExecutableMenuItems" x:Shared="False">
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExecStartItemHeader}" IsEnabled="{Binding Path=Running, Converter={StaticResource invertBool}}" Click="Start_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" x:Name="IconPath" Style="{StaticResource PlayIcon}" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExecStopItemHeader}" IsEnabled="{Binding Path=Running}" Click="Stop_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource StopIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExecRestartItemHeader}" IsEnabled="{Binding Path=Running}" Click="Restart_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource RestartIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            
+            <Separator Visibility="{Binding Path=IsServer,Converter={StaticResource boolToVisibility}}"/>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExecDiagItemHeader}" Visibility="{Binding Path=IsServer,Converter={StaticResource boolToVisibility}}" Click="Diag_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource DiagIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            
+            <Separator Visibility="{Binding Path=IsScanner,Converter={StaticResource boolToVisibility}}"/>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuRebuildMediaDbItemHeader}" Visibility="{Binding Path=IsScanner,Converter={StaticResource boolToVisibility}}" Click="Rebuild_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource RefreshIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator />
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExecConfigItemHeader}" Click="Config_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource ConfigIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </CompositeCollection>
+        
+        <Image Width="16" Height="16" x:Key="ExecutableIconImage" x:Shared="False" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}}"/>
+        <Style x:Key="ExecutableItemStyle" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource StandardMenuItem}">
+            <Setter Property="Icon" Value="{StaticResource ExecutableIconImage}"/>
+            <Setter Property="Header" Value="{Binding Path=Name}"/>
+            <Setter Property="ItemsSource" Value="{StaticResource ExecutableMenuItems}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Exists}" Value="False">
+                    <Setter Property="Icon">
+                        <Setter.Value>
+                            <Viewbox Width="16" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
+                                <Grid>
+                                    <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
+                                    <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
+                                </Grid>
+                            </Viewbox>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <local:TrayMenuStyleSelector x:Key="trayMenuItemStyle" ExecutableItemStyle="{StaticResource ExecutableItemStyle}" MenuItemStyle="{StaticResource StandardMenuItem}"/>
+        <CollectionViewSource x:Key="ExecutablesCollection" Source="{Binding Path=Executables}" />
+        <CompositeCollection x:Key="TrayMenuItems" x:Shared="False">
+            <MenuItem Header="{x:Static l:Resources.ContextMenuStartAllHeader}" Click="StartAll">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource PlayIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuStopAllHeader}" Click="StopAll">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource StopIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuRestartAllHeader}" Click="RestartAll">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{StaticResource Foreground}" Style="{StaticResource RestartIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator/>
+            <CollectionContainer Collection="{Binding Source={StaticResource ExecutablesCollection}}" />
+            <Separator/>
+            <MenuItem Header="{x:Static l:Resources.ContextMenuExitItemHeader}" Click="TrayMenu_ExitItem_Click"/>
+        </CompositeCollection>
     </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu Name="TrayMenu" StaysOpen="True" Placement="MousePoint" ItemsSource="{StaticResource TrayMenuItems}" ItemContainerStyleSelector="{StaticResource trayMenuItemStyle}"/>
+    </Window.ContextMenu>
     <Grid>
         <Grid Name="ConsoleTabs" Grid.Row="1">
             <Grid.Resources>
@@ -48,7 +137,6 @@
                     </Style>
                 </TabControl.ItemContainerStyle>
                 <TabControl.Resources>
-                    <CollectionViewSource x:Key="ExecutablesCollection" Source="{Binding Path=Executables}" />
                     <DataTemplate DataType="{x:Type local:Executable}">
                         <Grid>
                             <Grid.Resources>
@@ -84,6 +172,11 @@
                                             <Path Style="{StaticResource StopIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
+                                    <Button Name="OpenDiagButton" Click="OpenDiag_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" Margin="10 0 10 0">
+                                        <Viewbox>
+                                            <Path Style="{StaticResource DiagIcon}" Margin="20" />
+                                        </Viewbox>
+                                    </Button>
                                     <Button Name="RebuildButton" Click="RebuildMedia_Click" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}" Margin="10 0 10 0">
                                         <Viewbox>
                                             <Path Style="{StaticResource RefreshIcon}" Margin="20" />
@@ -93,7 +186,7 @@
                                 <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <TextBox Name="ConsoleOutputTextBox" Background="{StaticResource LightBackground}" FontFamily="Consolas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" FontSize="12" Text="{Binding Path=Output, Mode=OneWay}" TextChanged="ConsoleOutputTextBox_TextChanged" IsReadOnly="True" IsReadOnlyCaretVisible="False" Loaded="ConsoleOutputTextBox_Loaded" />
+                                <TextBox Name="ConsoleOutputTextBox" Background="{StaticResource LightBackground}" FontFamily="Consolas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" FontSize="12" Text="{Binding Path=Output, Mode=OneWay}" TextChanged="ConsoleOutputTextBox_TextChanged" IsReadOnly="True" IsReadOnlyCaretVisible="False" IsUndoEnabled="False" Loaded="ConsoleOutputTextBox_Loaded" />
                             </Grid>
                         </Grid>
                     </DataTemplate>
@@ -104,13 +197,13 @@
                             <ItemsControl ItemsSource="{Binding Path=Executables}">
                                 <ItemsControl.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <UniformGrid Rows="1"></UniformGrid>
+                                        <UniformGrid Columns="{Binding Path=Executables.Count, Converter={StaticResource itemsToCols}}" Rows="{Binding Path=Executables.Count, Converter={StaticResource itemsToRows}}"></UniformGrid>
                                     </ItemsPanelTemplate>
                                 </ItemsControl.ItemsPanel>
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type local:Executable}">
-                                        <Grid>
-                                            <Button Name="ExecutableButton" Margin="10" Width="200" Height="200" Click="ExecutableButton_Click">
+                                        <Grid Margin="10">
+                                            <Button Name="ExecutableButton" MinWidth="100" MaxWidth="375" MinHeight="80" MaxHeight="300" Click="ExecutableButton_Click">
                                                 <Button.Style>
                                                     <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
                                                         <Setter Property="BorderBrush" Value="Transparent" />
@@ -171,7 +264,13 @@
                                                     </Style>
                                                 </Button.Style>
                                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                                    <Image Margin="5 " Width="32" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}, Mode=OneWay}" />
+                                                    <Viewbox Margin="5" Width="32" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
+                                                        <Grid>
+                                                            <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
+                                                            <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
+                                                        </Grid>
+                                                    </Viewbox>
+                                                    <Image Margin="5" Width="32" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}, Mode=OneWay}" Visibility="{Binding Path=Exists, Converter={StaticResource boolToVisibility}}" />
                                                     <TextBlock Margin="5" Text="{Binding Path=Name, Mode=OneWay}" Opacity=".5" />
                                                 </StackPanel>
                                             </Button>
@@ -217,7 +316,7 @@
                                     <Path Style="{StaticResource ConfigIcon}" />
                                 </Viewbox>
                             </TabItem.Header>
-                            <ScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto" Template="{DynamicResource ScrollViewerControlTemplate1}">
+                            <ScrollViewer Focusable="False" VerticalScrollBarVisibility="Auto">
                                 <StackPanel>
                                     <GroupBox>
                                         <GroupBox.Header>
@@ -241,7 +340,13 @@
                                                             <ColumnDefinition Width="Auto" />
                                                         </Grid.ColumnDefinitions>
                                                         <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                            <Image Margin="5 0" Width="16" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}, Mode=OneWay}" />
+                                                            <Viewbox Margin="5" Width="16" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
+                                                                <Grid>
+                                                                    <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
+                                                                    <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
+                                                                </Grid>
+                                                            </Viewbox>
+                                                            <Image Margin="5 0" Width="16" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}, Mode=OneWay}" Visibility="{Binding Path=Exists, Converter={StaticResource boolToVisibility}}" />
                                                             <TextBlock Grid.Column="1" Text="{Binding Name}" HorizontalAlignment="Left" Margin="2 5" />
                                                         </StackPanel>
                                                         <TextBlock Grid.Column="1" Text="{Binding Path=Path, Mode=OneWay}" Style="{StaticResource FieldDescriptionTextBlock}" />
@@ -249,8 +354,9 @@
                                                             <Button Name="ExecutableStart" Height="16" Padding="5 0" Click="StartButton_Click" Style="{StaticResource PlayButton}" IsEnabled="{Binding Path=Running, Converter={StaticResource invertBool}}" />
                                                             <Button Name="ExecutableStop" Height="16" Padding="5 0" Click="StopButton_Click" Style="{StaticResource StopButton}" IsEnabled="{Binding Path=Running}" />
                                                             <Border Width="10" />
-                                                            <Button Name="ExecutableConfig" Height="16" Padding="5 0" Style="{StaticResource ConfigButton}" Visibility="{Binding IsShiftDown, Source={x:Reference LauncherWindow}, Converter={StaticResource invBoolToVisibility}}" Click="ExecutableConfig_Click" />
-                                                            <Button Name="ExecutableRemove" Height="16" Padding="5 0" Style="{StaticResource MinusButton}" Visibility="{Binding IsShiftDown, Source={x:Reference LauncherWindow}, Converter={StaticResource boolToVisibility}}" Click="ExecutableRemove_Click" />
+                                                            <Button Name="ExecutableConfig" Height="16" Padding="5 0" Style="{StaticResource ConfigButton}" Click="ExecutableConfig_Click" />
+                                                            <Border Width="10" />
+                                                            <Button Name="ExecutableRemove" Foreground="#CC0000" Height="16" Padding="5 0" Style="{StaticResource TrashButton}" IsEnabled="{Binding Path=Running, Converter={StaticResource invertBool}}" Click="ExecutableRemove_Click" />
                                                         </StackPanel>
                                                     </Grid>
                                                 </DataTemplate>
@@ -262,14 +368,15 @@
                                             <Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="{StaticResource DescColWidth}" />
-                                                    <ColumnDefinition MinWidth="50" />
                                                     <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
                                                 </Grid.ColumnDefinitions>
                                                 <TextBlock Text="{x:Static l:Resources.ConfigFileText}" Grid.Column="0" Margin="5,7" />
                                                 <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left">
                                                     <Button Name="EditConfigButton" Padding="10 0" Content="{x:Static l:Resources.OpenConfigEditorEditButtonText}" Click="EditConfigButton_Click" />
                                                     <Button Name="NewConfigButton" Padding="10 0" Content="{x:Static l:Resources.OpenConfigEditorNewButtonText}" Click="NewConfigButton_Click" HorizontalAlignment="Left" />
                                                 </StackPanel>
+                                                <TextBlock Grid.Column="2" Text="{x:Static l:Resources.ConfigTabEditConfigFilesDesc}" Style="{StaticResource FieldDescriptionTextBlock}" />
                                             </Grid>
                                         </StackPanel>
                                     </GroupBox>

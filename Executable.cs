@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -378,7 +379,7 @@ namespace CasparLauncher
         {
             get
             {
-                if (_path is null) return false;
+                if (string.IsNullOrEmpty(_path)) return false;
                 string path = System.IO.Path.GetFullPath(_path);
                 return (Directory.Exists(System.IO.Path.GetDirectoryName(path)) && File.Exists(path));
             }
@@ -420,7 +421,7 @@ namespace CasparLauncher
                 p.Kill();
             }
         }
-
+        
         private void Setup()
         {
             if (!Exists)
@@ -460,7 +461,11 @@ namespace CasparLauncher
             }
             catch (Exception e)
             {
-                OnProcessError();
+                if (e.Message == "ExecutablePathNotFound") OnProcessPathError();
+                else
+                {
+                    OnProcessError();
+                }
                 return;
             }
 
@@ -581,11 +586,6 @@ namespace CasparLauncher
             if (CurrentHistoryIndex == 0) History.Add("");
             else CurrentHistoryIndex = 0;
             CurrentCommand = "";
-
-            for(var i=0; i<History.Count;i++)
-            {
-                Debug.WriteLine($"{i.ToString("dd")}: {History[i]}");
-            }
         }
 
         public void Write(string command)
@@ -600,15 +600,28 @@ namespace CasparLauncher
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
 
-        public event EventHandler ProcessError;
-        protected virtual void OnProcessError() { ProcessError?.Invoke(this, new EventArgs()); }
+        public event EventHandler<ExecutableEventArgs> ProcessError;
+        protected virtual void OnProcessError() { ProcessError?.Invoke(this, new ExecutableEventArgs(this)); }
 
-        public event EventHandler ProcessExited;
-        protected virtual void OnProcessExited() { ProcessExited?.Invoke(this, new EventArgs()); }
+        public event EventHandler<ExecutableEventArgs> ProcessPathError;
+        protected virtual void OnProcessPathError() { ProcessPathError?.Invoke(this, new ExecutableEventArgs(this)); }
+
+        public event EventHandler<ExecutableEventArgs> ProcessExited;
+        protected virtual void OnProcessExited() { ProcessExited?.Invoke(this, new ExecutableEventArgs(this)); }
 
         public event EventHandler Modified;
         protected virtual void OnModified() { Modified?.Invoke(this, new EventArgs()); }
 
         #endregion
+    }
+
+    class ExecutableEventArgs : EventArgs
+    {
+        public Executable Executable { get; private set; }
+
+        public ExecutableEventArgs(Executable executable)
+        {
+            Executable = executable;
+        }
     }
 }

@@ -371,14 +371,8 @@ More info at:</value>
   <data name="ConfigWindowTitle" xml:space="preserve">
     <value>Edit server configuration</value>
   </data>
-  <data name="ContextMenuCasparItemHeader" xml:space="preserve">
-    <value>Restart server</value>
-  </data>
   <data name="ContextMenuExitItemHeader" xml:space="preserve">
     <value>Exit</value>
-  </data>
-  <data name="ContextMenuScannerItemHeader" xml:space="preserve">
-    <value>Restart media scanner</value>
   </data>
   <data name="DecklinkConsumer" xml:space="preserve">
     <value>Decklink consumer</value>
@@ -413,7 +407,7 @@ More info at:</value>
   <data name="ConfigOpenAtLogin" xml:space="preserve">
     <value>Open at login</value>
   </data>
-  <data name="ContextMenuDiagItemHeader" xml:space="preserve">
+  <data name="ContextMenuExecDiagItemHeader" xml:space="preserve">
     <value>Open diagnostics window</value>
   </data>
   <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
@@ -493,5 +487,38 @@ More info at:</value>
   </data>
   <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
     <value>Enables running multiple processes with the same name (CasparCG.exe allows different config files specifying its path in the arguments field)</value>
+  </data>
+  <data name="ConfigTabEditConfigFilesDesc" xml:space="preserve">
+    <value>To edit a different file than 'casparcg.config', hold the Shift key while clicking the 'Edit file' button</value>
+  </data>
+  <data name="ContextMenuExecConfigItemHeader" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="ContextMenuExecRestartItemHeader" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="ContextMenuExecStartItemHeader" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="ContextMenuExecStopItemHeader" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="ContextMenuRestartAllHeader" xml:space="preserve">
+    <value>Restart all</value>
+  </data>
+  <data name="ContextMenuStartAllHeader" xml:space="preserve">
+    <value>Start all</value>
+  </data>
+  <data name="ContextMenuStopAllHeader" xml:space="preserve">
+    <value>Stop all</value>
+  </data>
+  <data name="ExecutableConfigWindowGbOptionsHeader" xml:space="preserve">
+    <value>Executable options</value>
+  </data>
+  <data name="ExecutableErrorMessage" xml:space="preserve">
+    <value>Error while starting the process</value>
+  </data>
+  <data name="ExecutableStoppedMessage" xml:space="preserve">
+    <value>The process has stopped</value>
   </data>
 </root>

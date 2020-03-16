@@ -23,7 +23,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
 using WF = System.Windows.Forms;
-using l = CasparLauncher.Properties;
+using l = CasparLauncher.Properties.Resources;
 using S = CasparLauncher.Properties.Settings;
 
 namespace CasparLauncher
@@ -40,12 +40,9 @@ namespace CasparLauncher
 
         private Settings Settings { get; set; }
         private Executable CasparExecutable;
-        private Executable ScannerExecutable;
-        private WF.NotifyIcon TrayIcon;
-        private WF.ContextMenu TrayMenu;
+        private WF.NotifyIcon TrayIcon = new WF.NotifyIcon();
         private WindowState PreviousState = WindowState.Normal;
         private bool InTray = false;
-        private ObservableCollection<string> ServerStartupCommands { get; set; } = new ObservableCollection<string>();
         
         public bool IsShiftDown
         {
@@ -79,16 +76,35 @@ namespace CasparLauncher
         {
             Settings = new Settings();
             if (Settings.Executables.Where(e => e.IsServer).Any()) CasparExecutable = Settings.Executables.Where(e => e.IsServer).First();
-            if (Settings.Executables.Where(e => e.IsScanner).Any()) ScannerExecutable = Settings.Executables.Where(e => e.IsScanner).First();
             DataContext = Settings;
             PreviousState = S.Default.LauncherWindowState;
             WindowState = PreviousState;
             Settings.SelectedLanguage = (Languages)S.Default.ForcedLanguage;
+            Settings.ExecutableError += Settings_ExecutableError;
+            Settings.ExecutablePathError += Settings_ExecutablePathError;
+            Settings.ExecutableExited += Settings_ExecutableExited;
+        }
+
+        private void Settings_ExecutablePathError(object sender, ExecutableEventArgs e)
+        {
+            TrayIcon.ShowBalloonTip(3000, string.Format("{0}: {1}",e.Executable.Name,l.ExecutableNotFoundWarningCaption), l.ExecutableNotFoundWarningMessage, WF.ToolTipIcon.Warning);
+        }
+
+        private void Settings_ExecutableError(object sender, ExecutableEventArgs e)
+        {
+            if (TrayIcon is null) return;
+            TrayIcon.ShowBalloonTip(3000, e.Executable.Name, l.ExecutableErrorMessage, WF.ToolTipIcon.Error);
+        }
+
+        private void Settings_ExecutableExited(object sender, ExecutableEventArgs e)
+        {
+            if (TrayIcon is null) return;
+            TrayIcon.ShowBalloonTip(3000, e.Executable.Name, l.ExecutableStoppedMessage, WF.ToolTipIcon.Info);
         }
 
         private void StartExecutables()
         {
-            foreach (Executable executable in Settings.Executables) if (executable.AutoStart) executable.Start(true);
+            foreach (Executable ex in Settings.Executables) if (ex.AutoStart && !IsShiftDown) ex.Start(true);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -107,7 +123,7 @@ namespace CasparLauncher
         {
             if(prompt)
             {
-                MessageBoxResult close = MessageBox.Show(l.Resources.ClosePromptMessage, l.Resources.ClosePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                MessageBoxResult close = MessageBox.Show(l.ClosePromptMessage, l.ClosePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
                 switch (close)
                 {
                     case MessageBoxResult.Yes:
@@ -123,7 +139,7 @@ namespace CasparLauncher
 
             TrayIcon.Visible = false;
 
-            foreach(Executable executable in Settings.Executables) if (executable.Running) executable.Stop();
+            foreach(Executable ex in Settings.Executables) if (ex.Running) ex.Stop();
 
             Application.Current.Shutdown();
         }
@@ -151,7 +167,14 @@ namespace CasparLauncher
 
         private void SetupTray()
         {
-            TrayIcon = new WF.NotifyIcon();
+            SetTrayIcon();
+            TrayIcon.MouseDown += TrayIcon_MouseDown;
+            TrayIcon.MouseUp += TrayIcon_MouseUp;
+            TrayIcon.Visible = true;
+        }
+
+        private void SetTrayIcon()
+        {
             double size = 16 * PresentationSource.FromVisual(this).CompositionTarget.TransformToDevice.M11;
             int iconsize = 16;
             if (size >= 20) iconsize = 20;
@@ -160,80 +183,84 @@ namespace CasparLauncher
             if (size >= 48) iconsize = 256;
             string iconpath = IsSystemThemeLight() ? "NotifyIconLight.ico" : "NotifyIconDark.ico";
             Stream IconStream = Application.GetResourceStream(new Uri($@"pack://application:,,,/Resources/{iconpath}")).Stream;
-            TrayIcon.Icon = new Icon(IconStream,new System.Drawing.Size(iconsize,iconsize));
+            TrayIcon.Icon = new Icon(IconStream, new System.Drawing.Size(iconsize, iconsize));
             IconStream.Dispose();
-
-            TrayIcon.MouseUp += TrayIcon_MouseUp;
-
-            TrayIcon.Visible = true;
-
-            TrayMenu = new WF.ContextMenu();
-            WF.MenuItem TrayMenu_DiagWindow = new WF.MenuItem();
-            WF.MenuItem TrayMenu_RebuildMedia = new WF.MenuItem();
-            WF.MenuItem TrayMenu_CasparItem = new WF.MenuItem();
-            WF.MenuItem TrayMenu_ScannerItem = new WF.MenuItem();
-            WF.MenuItem TrayMenu_ExitItem = new WF.MenuItem();
-
-
-            TrayMenu.MenuItems.Add(TrayMenu_DiagWindow);
-            TrayMenu.MenuItems.Add(TrayMenu_RebuildMedia);
-            TrayMenu.MenuItems.Add("-");
-            TrayMenu.MenuItems.Add(TrayMenu_CasparItem);
-            TrayMenu.MenuItems.Add(TrayMenu_ScannerItem);
-            TrayMenu.MenuItems.Add("-");
-            TrayMenu.MenuItems.Add(TrayMenu_ExitItem);
-
-            // RebuildDB Menu Item
-            TrayMenu_RebuildMedia.Index = 0;
-            TrayMenu_RebuildMedia.Text = l.Resources.ContextMenuRebuildMediaDbItemHeader;
-            TrayMenu_RebuildMedia.Click += TrayMenu_RebuildMedia_Click;
-
-            // Diag Menu Item
-            TrayMenu_DiagWindow.Index = 1;
-            TrayMenu_DiagWindow.Text = l.Resources.ContextMenuDiagItemHeader;
-            TrayMenu_DiagWindow.Click += TrayMenu_DiagWindow_Click;
-
-            // Caspar Menu Item
-            TrayMenu_CasparItem.Index = 3;
-            TrayMenu_CasparItem.Text = l.Resources.ContextMenuCasparItemHeader;
-            TrayMenu_CasparItem.Click += TrayMenu_CasparItem_Click;
-
-            // Scanner Menu Item
-            TrayMenu_ScannerItem.Index = 4;
-            TrayMenu_ScannerItem.Text = l.Resources.ContextMenuScannerItemHeader;
-            TrayMenu_ScannerItem.Click += TrayMenu_ScannerItem_Click;
-
-            // Exit Menu Item
-            TrayMenu_ExitItem.Index = 6;
-            TrayMenu_ExitItem.Text = l.Resources.ContextMenuExitItemHeader;
-            TrayMenu_ExitItem.Click += TrayMenu_ExitItem_Click;
-
-            TrayIcon.ContextMenu = TrayMenu;
         }
 
-        private void TrayMenu_RebuildMedia_Click(object sender, EventArgs e)
+        private void StartAll(object sender, RoutedEventArgs e)
         {
-            RebuildMediaDb();
+            foreach(Executable ex in Settings.Executables.Where(ex => !ex.Running)) ex.Start();
         }
 
-        private void TrayMenu_DiagWindow_Click(object sender, EventArgs e)
+        private void StopAll(object sender, RoutedEventArgs e)
         {
-            OpenDiag();
+            foreach (Executable ex in Settings.Executables.Where(ex => ex.Running)) ex.Stop();
         }
 
-        private void TrayMenu_ExitItem_Click(object sender, EventArgs e)
+        private void RestartAll(object sender, RoutedEventArgs e)
+        {
+            foreach (Executable ex in Settings.Executables.Where(ex => ex.Running)) ex.Process.Kill();
+        }
+
+        private Executable GetItemExecutable(object item)
+        {
+            object ex = ((FrameworkElement)item).DataContext;
+            if (ex is Executable) return ex as Executable;
+            else return null;
+        }
+
+        private void Start_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            ex.Start();
+        }
+
+        private void Stop_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            ex.Stop();
+        }
+
+        private void Restart_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            ex.Process.Kill();
+        }
+
+        private void Config_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            OpenExecutableConfig(ex);
+        }
+
+        private void Rebuild_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            RebuildMediaDb(ex);
+        }
+
+        private void Diag_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            OpenDiag(ex);
+        }
+
+        private void TrayMenu_ExitItem_Click(object sender, RoutedEventArgs e)
         {
             Shutdown(true);
         }
 
-        private void TrayMenu_ScannerItem_Click(object sender, EventArgs e)
+        private void TrayIcon_MouseDown(object sender, WF.MouseEventArgs e)
         {
-            if (ScannerExecutable != null && ScannerExecutable.Running) ScannerExecutable.Process.Kill();
-        }
-
-        private void TrayMenu_CasparItem_Click(object sender, EventArgs e)
-        {
-            if (CasparExecutable != null && CasparExecutable.Running) CasparExecutable.Process.Kill();
+            if (e.Button != WF.MouseButtons.Right) return;
+            TrayMenu.IsOpen = true;
+            Activate();
         }
 
         private void TrayIcon_MouseUp(object sender, WF.MouseEventArgs e)
@@ -245,20 +272,20 @@ namespace CasparLauncher
 
         #region SPECIAL COMMANDS
 
-        private void OpenDiag()
+        private void OpenDiag(Executable ex)
         {
-            if (CasparExecutable is null || !CasparExecutable.Running) return;
-            CasparExecutable.Write("DIAG");
+            if (ex is null || !ex.Running) return;
+            ex.Write("DIAG");
         }
 
-        private void ClearScannerDatabases()
+        private void ClearScannerDatabases(Executable ex)
         {
-            if (ScannerExecutable is null || !ScannerExecutable.Exists || ScannerExecutable.Running) return;
+            if (ex is null || !ex.Exists || ex.Running) return;
 
             string scanner_dir;
             try
             {
-                scanner_dir = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(ScannerExecutable.Path));
+                scanner_dir = System.IO.Path.GetFullPath(System.IO.Path.GetDirectoryName(ex.Path));
             }
             catch(Exception)
             {
@@ -280,25 +307,26 @@ namespace CasparLauncher
             }
         }
 
-        private void RebuildMediaDb()
+        private void RebuildMediaDb(Executable ex)
         {
-            if (ScannerExecutable is null || !ScannerExecutable.Exists) return;
-            if (ScannerExecutable.Running)
+            if (ex is null || !ex.Exists) return;
+            if (ex.Running)
             {
-                ScannerExecutable.Stop();
-                ScannerExecutable.ProcessExited += RebuildAndRestart;
+                ex.Stop();
+                ex.ProcessExited += RebuildAndRestart;
             }
             else
             {
-                ClearScannerDatabases();
+                ClearScannerDatabases(ex);
             }
         }
 
         private void RebuildAndRestart(object sender, EventArgs e)
         {
-            ScannerExecutable.ProcessExited -= RebuildAndRestart;
-            ClearScannerDatabases();
-            ScannerExecutable.Start();
+            Executable ex = sender as Executable;
+            ex.ProcessExited -= RebuildAndRestart;
+            ClearScannerDatabases(ex);
+            ex.Start();
         }
 
         #endregion
@@ -309,8 +337,10 @@ namespace CasparLauncher
 
         private void ExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            Executable exec = ((FrameworkElement)sender).DataContext as Executable;
-            exec.IsSelected = true;
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            if (ex.Exists) ex.IsSelected = true;
+            else ConfigTab.IsSelected = true;
         }
 
         // Executables TabItem UI Handlers
@@ -321,19 +351,30 @@ namespace CasparLauncher
 
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
-            Executable executable = ((FrameworkElement)sender).DataContext as Executable;
-            executable.Start();
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            ex.Start();
         }
 
         private void StopButton_Click(object sender, RoutedEventArgs e)
         {
-            Executable executable = ((FrameworkElement)sender).DataContext as Executable;
-            executable.Stop();
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            ex.Stop();
         }
 
         private void RebuildMedia_Click(object sender, RoutedEventArgs e)
         {
-            RebuildMediaDb();
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            RebuildMediaDb(ex);
+        }
+
+        private void OpenDiag_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            OpenDiag(ex);
         }
 
         private void ConsoleOutputTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -351,29 +392,36 @@ namespace CasparLauncher
 
         private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
             {
                 Multiselect = false,
                 Filter = l.Resources.FileDialogFilterDescription + " (*.EXE)|*.exe"
             };
-            Executable executable;
+            Executable ex;
             if (openFileDialog.ShowDialog() == true)
             {
-                executable = Settings.AddExecutable(openFileDialog.FileName);
+                ex = Settings.AddExecutable(openFileDialog.FileName);
             }
             else
             {
-                executable = Settings.AddExecutable();
+                ex = Settings.AddExecutable();
             }
-            OpenExecutableOptions(executable);
+            */
+            OpenExecutableConfig(Settings.AddExecutable());
         }
 
         private void ExecutableConfig_Click(object sender, RoutedEventArgs e)
         {
-            Executable executable = ((FrameworkElement)sender).DataContext as Executable;
+            Executable ex = ((FrameworkElement)sender).DataContext as Executable;
+            OpenExecutableConfig(ex);
+        }
+
+        private void OpenExecutableConfig(Executable ex)
+        {
             ExecutableOptions executableOptions = new ExecutableOptions()
             {
-                DataContext = executable,
+                DataContext = ex,
                 Owner = this
             };
             executableOptions.ShowDialog();
@@ -381,13 +429,18 @@ namespace CasparLauncher
 
         private void ExecutableRemove_Click(object sender, RoutedEventArgs e)
         {
-            Executable executable = ((FrameworkElement)sender).DataContext as Executable;
-
-            MessageBoxResult remove = MessageBox.Show(l.Resources.DeleteExecutablePromptMessage, l.Resources.DeleteExecutablePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            if (!ex.Exists)
+            {
+                Settings.Executables.Remove(ex);
+                return;
+            }
+            MessageBoxResult remove = MessageBox.Show(l.DeleteExecutablePromptMessage, l.DeleteExecutablePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Question);
             switch (remove)
             {
                 case MessageBoxResult.Yes:
-                    Settings.Executables.Remove(executable);
+                    Settings.Executables.Remove(ex);
                     break;
                 case MessageBoxResult.No:
                 default:
@@ -470,6 +523,11 @@ namespace CasparLauncher
             OnPropertyChanged("IsShiftDown");
         }
 
+        private void LauncherWindow_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            SetTrayIcon();
+        }
+
         private void Launcher_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift)) IsShiftDown = true;
@@ -477,7 +535,7 @@ namespace CasparLauncher
 
         private void Launcher_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyUp(Key.LeftShift) || Keyboard.IsKeyUp(Key.RightShift)) IsShiftDown = false;
+            if (Keyboard.IsKeyUp(Key.LeftShift) && Keyboard.IsKeyUp(Key.RightShift)) IsShiftDown = false;
 
             IInputElement focused = FocusManager.GetFocusedElement(this);
             if (focused is TextBox)
@@ -486,21 +544,21 @@ namespace CasparLauncher
                 if (target.Name == "ConsoleCommandTextBox")
                 {
                     object context = target.DataContext;
-                    Executable executable = (context is Executable) ? context as Executable : null;
-                    if (executable is null || !executable.AllowCommands) return;
+                    Executable ex = (context is Executable) ? context as Executable : null;
+                    if (ex is null || !ex.AllowCommands) return;
 
                     if (e.Key == Key.Enter)
                     {
-                        executable.Write();
+                        ex.Write();
                     }
                     if (e.Key == Key.Up)
                     {
-                        executable.PreviousHistoryCommand();
+                        ex.PreviousHistoryCommand();
                         target.CaretIndex = target.Text.Length;
                     }
                     if (e.Key == Key.Down)
                     {
-                        executable.NextHistoryCommand();
+                        ex.NextHistoryCommand();
                         target.CaretIndex = target.Text.Length;
                     }
                 }
@@ -526,7 +584,7 @@ namespace CasparLauncher
                     Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
                     {
                         Multiselect = false,
-                        Filter = l.Resources.ConfigFileDialogFilterDescription + "|*.config"
+                        Filter = l.ConfigFileDialogFilterDescription + "|*.config"
                     };
 
                     if (openFileDialog.ShowDialog() == true)
@@ -546,16 +604,6 @@ namespace CasparLauncher
             configWindow.Owner = this;
             configWindow.DataContext = file;
             configWindow.ShowDialog();
-        }
-
-        private void OpenExecutableOptions(Executable executable)
-        {
-            ExecutableOptions executableOptions = new ExecutableOptions()
-            {
-                DataContext = executable,
-                Owner = this
-            };
-            executableOptions.ShowDialog();
         }
 
         #endregion

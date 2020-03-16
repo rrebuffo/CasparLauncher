@@ -180,6 +180,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Para editar un archivo de configuración diferente a &apos;casparcg.config&apos; mantenga presionada la tecla Mayús mientras presiona el botón &apos;Editar archivo&apos;.
+        /// </summary>
+        public static string ConfigTabEditConfigFilesDesc {
+            get {
+                return ResourceManager.GetString("ConfigTabEditConfigFilesDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ejecutables.
         /// </summary>
         public static string ConfigTabExecGbHeader {
@@ -864,20 +873,47 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reiniciar servidor.
+        ///   Looks up a localized string similar to Configuración.
         /// </summary>
-        public static string ContextMenuCasparItemHeader {
+        public static string ContextMenuExecConfigItemHeader {
             get {
-                return ResourceManager.GetString("ContextMenuCasparItemHeader", resourceCulture);
+                return ResourceManager.GetString("ContextMenuExecConfigItemHeader", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Abrir ventana de diagnóstico.
         /// </summary>
-        public static string ContextMenuDiagItemHeader {
+        public static string ContextMenuExecDiagItemHeader {
             get {
-                return ResourceManager.GetString("ContextMenuDiagItemHeader", resourceCulture);
+                return ResourceManager.GetString("ContextMenuExecDiagItemHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reiniciar.
+        /// </summary>
+        public static string ContextMenuExecRestartItemHeader {
+            get {
+                return ResourceManager.GetString("ContextMenuExecRestartItemHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar.
+        /// </summary>
+        public static string ContextMenuExecStartItemHeader {
+            get {
+                return ResourceManager.GetString("ContextMenuExecStartItemHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detener.
+        /// </summary>
+        public static string ContextMenuExecStopItemHeader {
+            get {
+                return ResourceManager.GetString("ContextMenuExecStopItemHeader", resourceCulture);
             }
         }
         
@@ -900,11 +936,29 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reiniciar escáner de medios.
+        ///   Looks up a localized string similar to Reiniciar todos.
         /// </summary>
-        public static string ContextMenuScannerItemHeader {
+        public static string ContextMenuRestartAllHeader {
             get {
-                return ResourceManager.GetString("ContextMenuScannerItemHeader", resourceCulture);
+                return ResourceManager.GetString("ContextMenuRestartAllHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Iniciar todos.
+        /// </summary>
+        public static string ContextMenuStartAllHeader {
+            get {
+                return ResourceManager.GetString("ContextMenuStartAllHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detener todos.
+        /// </summary>
+        public static string ContextMenuStopAllHeader {
+            get {
+                return ResourceManager.GetString("ContextMenuStopAllHeader", resourceCulture);
             }
         }
         
@@ -1035,6 +1089,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Opciones del ejecutable.
+        /// </summary>
+        public static string ExecutableConfigWindowGbOptionsHeader {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowGbOptionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Múltiples instancias.
         /// </summary>
         public static string ExecutableConfigWindowMultipleInstancesEnabled {
@@ -1080,6 +1143,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error al iniciar el proceso.
+        /// </summary>
+        public static string ExecutableErrorMessage {
+            get {
+                return ResourceManager.GetString("ExecutableErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ubicación del ejecutable incorrecta.
         /// </summary>
         public static string ExecutableNotFoundWarningCaption {
@@ -1094,6 +1166,15 @@ namespace CasparLauncher.Properties {
         public static string ExecutableNotFoundWarningMessage {
             get {
                 return ResourceManager.GetString("ExecutableNotFoundWarningMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El proceso se ha detenido.
+        /// </summary>
+        public static string ExecutableStoppedMessage {
+            get {
+                return ResourceManager.GetString("ExecutableStoppedMessage", resourceCulture);
             }
         }
         

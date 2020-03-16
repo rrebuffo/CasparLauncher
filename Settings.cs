@@ -20,6 +20,15 @@ namespace CasparLauncher
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
 
+        public event EventHandler<ExecutableEventArgs> ExecutableError;
+        protected virtual void OnExecutableError(Executable ex) { ExecutableError?.Invoke(this, new ExecutableEventArgs(ex)); }
+
+        public event EventHandler<ExecutableEventArgs> ExecutablePathError;
+        protected virtual void OnExecutablePathError(Executable ex) { ExecutablePathError?.Invoke(this, new ExecutableEventArgs(ex)); }
+
+        public event EventHandler<ExecutableEventArgs> ExecutableExited;
+        protected virtual void OnExecutableExited(Executable ex) { ExecutableExited?.Invoke(this, new ExecutableEventArgs(ex)); }
+
         public ObservableCollection<Executable> Executables { get; set; } = new ObservableCollection<Executable>();
         DispatcherTimer SaveTimer = new DispatcherTimer();
 
@@ -47,12 +56,8 @@ namespace CasparLauncher
             try
             {
                 XElement executables = XElement.Parse(settings);
-                Debug.WriteLine(executables.ToString());
                 foreach (XElement executable in executables.Elements())
                 {
-                    Debug.WriteLine("ELEMENT: ");
-                    Debug.WriteLine(executable.Element("path").ToString());
-
                     Executable new_executable = new Executable()
                     {
                         Settings = this,
@@ -110,15 +115,29 @@ namespace CasparLauncher
             {
                 executable.Modified -= ExecutableModified;
                 executable.ProcessError -= Executable_ProcessError;
+                executable.ProcessPathError -= Executable_ProcessPathError;
+                executable.ProcessExited -= Executable_ProcessExited;
 
                 executable.Modified += ExecutableModified;
                 executable.ProcessError += Executable_ProcessError;
+                executable.ProcessPathError += Executable_ProcessPathError;
+                executable.ProcessExited += Executable_ProcessExited;
             }
         }
 
-        private void Executable_ProcessError(object sender, EventArgs e)
+        private void Executable_ProcessError(object sender, ExecutableEventArgs e)
         {
-            MessageBox.Show(L.ExecutableNotFoundWarningMessage, L.ExecutableNotFoundWarningCaption);
+            OnExecutableError(e.Executable);
+        }
+
+        private void Executable_ProcessPathError(object sender, ExecutableEventArgs e)
+        {
+            OnExecutablePathError(e.Executable);
+        }
+
+        private void Executable_ProcessExited(object sender, ExecutableEventArgs e)
+        {
+            OnExecutableExited(e.Executable);
         }
 
         private void Executables_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

@@ -374,14 +374,14 @@ Más información en:</value>
   <data name="ConfigWindowTitle" xml:space="preserve">
     <value>Editar configuración del servidor</value>
   </data>
-  <data name="ContextMenuCasparItemHeader" xml:space="preserve">
-    <value>Reiniciar servidor</value>
+  <data name="ContextMenuRestartAllHeader" xml:space="preserve">
+    <value>Reiniciar todos</value>
   </data>
   <data name="ContextMenuExitItemHeader" xml:space="preserve">
     <value>Salir</value>
   </data>
-  <data name="ContextMenuScannerItemHeader" xml:space="preserve">
-    <value>Reiniciar escáner de medios</value>
+  <data name="ContextMenuStartAllHeader" xml:space="preserve">
+    <value>Iniciar todos</value>
   </data>
   <data name="DecklinkConsumer" xml:space="preserve">
     <value>Salida Decklink</value>
@@ -422,7 +422,7 @@ Más información en:</value>
   <data name="ExecutableNotFoundWarningMessage" xml:space="preserve">
     <value>Compruebe la ruta del ejecutable</value>
   </data>
-  <data name="ContextMenuDiagItemHeader" xml:space="preserve">
+  <data name="ContextMenuExecDiagItemHeader" xml:space="preserve">
     <value>Abrir ventana de diagnóstico</value>
   </data>
   <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
@@ -493,5 +493,32 @@ Más información en:</value>
   </data>
   <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
     <value>Permite la ejecución de múltiples procesos con el mismo nombre (CasparCG.exe permite diferentes archivos de configuración especificando la ruta en el campo argumentos)</value>
+  </data>
+  <data name="ContextMenuStopAllHeader" xml:space="preserve">
+    <value>Detener todos</value>
+  </data>
+  <data name="ConfigTabEditConfigFilesDesc" xml:space="preserve">
+    <value>Para editar un archivo de configuración diferente a 'casparcg.config' mantenga presionada la tecla Mayús mientras presiona el botón 'Editar archivo'</value>
+  </data>
+  <data name="ContextMenuExecConfigItemHeader" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="ContextMenuExecRestartItemHeader" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="ContextMenuExecStartItemHeader" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="ContextMenuExecStopItemHeader" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="ExecutableConfigWindowGbOptionsHeader" xml:space="preserve">
+    <value>Opciones del ejecutable</value>
+  </data>
+  <data name="ExecutableErrorMessage" xml:space="preserve">
+    <value>Error al iniciar el proceso</value>
+  </data>
+  <data name="ExecutableStoppedMessage" xml:space="preserve">
+    <value>El proceso se ha detenido</value>
   </data>
 </root>

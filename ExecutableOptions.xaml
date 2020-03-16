@@ -86,7 +86,7 @@
                     </Style>
                 </ScrollViewer.Resources>
             <StackPanel>
-                <GroupBox Header="Opciones del ejecutable">
+                <GroupBox Header="{x:Static l:Resources.ExecutableConfigWindowGbOptionsHeader}">
                     <StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
