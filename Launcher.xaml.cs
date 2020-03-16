@@ -32,6 +32,7 @@ namespace CasparLauncher
     {
         public Launcher()
         {
+            Directory.SetCurrentDirectory(System.IO.Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName));
             SetupEventHandlers();
             InitializeComponent();
             LoadSettings();
