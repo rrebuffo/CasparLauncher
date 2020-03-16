@@ -36,6 +36,7 @@ namespace CasparLauncher
         {
             LoadSettings();
             SaveTimer.Interval = TimeSpan.FromMilliseconds(100);
+            SaveTimer.Tick += SaveWindowPosition;
             Executables.CollectionChanged += Executables_CollectionChanged;
         }
 
@@ -300,6 +301,7 @@ namespace CasparLauncher
 
         public void SaveWindowPosition()
         {
+            SaveTimer.Stop();
             S.Default.LauncherWindowPosX = _posX;
             S.Default.LauncherWindowPosY = _posY;
             S.Default.LauncherWindowWidth = _width;
@@ -310,14 +312,12 @@ namespace CasparLauncher
 
         public void SaveWindowPosition(bool delay)
         {
-            SaveTimer.Tick += SaveWindowPosition;
+            SaveTimer.Stop();
             SaveTimer.Start();
         }
 
         private void SaveWindowPosition(object sender, EventArgs e)
         {
-            SaveTimer.Stop();
-            SaveTimer.Tick -= SaveWindowPosition;
             SaveWindowPosition();
         }
 
