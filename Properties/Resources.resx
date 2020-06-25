@@ -521,4 +521,7 @@ Más información en:</value>
   <data name="ExecutableStoppedMessage" xml:space="preserve">
     <value>El proceso se ha detenido</value>
   </data>
+  <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
+    <value>Habilitar</value>
+  </data>
 </root>

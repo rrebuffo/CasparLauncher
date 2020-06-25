@@ -648,6 +648,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Habilitar.
+        /// </summary>
+        public static string ConfigWindowOptionsTabFlashEnableProducer {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabFlashEnableProducer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Flash.
         /// </summary>
         public static string ConfigWindowOptionsTabFlashGb {

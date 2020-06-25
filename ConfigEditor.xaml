@@ -335,7 +335,16 @@
                                 <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFlashBuffer}" Grid.Column="0" Margin="5,7" />
                                 <TextBox Grid.Column="1" Text="{Binding Path=FlashBuffer}" VerticalContentAlignment="Center" />
                             </Grid>
-                        </StackPanel>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                        <ColumnDefinition MinWidth="50" Width="{StaticResource IntValueWidth}" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFlashEnableProducer}" Grid.Column="0" Margin="5,7" />
+                                    <CheckBox Grid.Column="1" IsChecked="{Binding Path=FlashEnableProducer}" />
+                                </Grid>
+                            </StackPanel>
                     </GroupBox>
                     <GroupBox Header="{x:Static l:Resources.ConfigWindowOptionsTabHtmlGb}">
                         <StackPanel>

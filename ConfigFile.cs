@@ -126,6 +126,23 @@ namespace CasparLauncher
             }
         }
 
+        private bool _flashEnableProducer = false;
+        public bool FlashEnableProducer
+        {
+            get
+            {
+                return _flashEnableProducer;
+            }
+            set
+            {
+                if (_flashEnableProducer != value)
+                {
+                    _flashEnableProducer = value;
+                    OnPropertyChanged("FlashEnableProducer");
+                }
+            }
+        }
+
         private string _mediaPath = "media/";
         public string MediaPath
         {
@@ -498,6 +515,7 @@ namespace CasparLauncher
             XmlNode n_flash = XH.NewNode(x, "flash", configuration);
             string v_flash_bd = (FlashBuffer > 0) ? I(FlashBuffer) : "auto";
             XH.NewTextNode(x, "buffer-depth", v_flash_bd, n_flash);
+            XH.NewTextNode(x, "enabled", B(FlashEnableProducer), n_flash);
             #endregion
 
             #region HTML
@@ -579,12 +597,17 @@ namespace CasparLauncher
                         break;
 
                     case "flash":
-                        if (element.Descendants("buffer-depth").Any())
+                        foreach (XElement sub_element in element.Descendants())
                         {
-                            if (element.Descendants("buffer-depth").First().Value == "auto")
-                                FlashBuffer = 0;
-                            else
-                                FlashBuffer = Convert.ToInt32(element.Descendants("buffer-depth").First().Value);
+                            switch (sub_element.Name.LocalName)
+                            {
+                                case "buffer-depth":
+                                    FlashBuffer = (sub_element.Value == "auto") ? 0 : Convert.ToInt32(sub_element.Value);
+                                    break;
+                                case "enabled":
+                                    FlashEnableProducer = Convert.ToBoolean(sub_element.Value);
+                                    break;
+                            }
                         }
                         break;
 
