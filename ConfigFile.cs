@@ -592,16 +592,10 @@ namespace CasparLauncher
         {
             XDocument configFile;
             XElement configuration;
-            try
-            {
-                configFile = XDocument.Load(File);
-                configuration = configFile.Descendants("configuration").First();
-                if (configuration is null || !configuration.Descendants().Any()) return;
-            }
-            catch(Exception e)
-            {
-                return;
-            }
+
+            configFile = XDocument.Load(File);
+            configuration = configFile.Descendants("configuration").First();
+            if (configuration is null || !configuration.Descendants().Any()) throw new Exception();
 
             foreach(XElement element in configuration.Descendants())
             {

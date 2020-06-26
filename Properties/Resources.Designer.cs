@@ -1305,6 +1305,33 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string OpenConfigEditorErrorCaption {
+            get {
+                return ResourceManager.GetString("OpenConfigEditorErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El archivo de configuración contiene errores.
+        /// </summary>
+        public static string OpenConfigEditorFileError {
+            get {
+                return ResourceManager.GetString("OpenConfigEditorFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al abrir el archivo de configuración.
+        /// </summary>
+        public static string OpenConfigEditorIOError {
+            get {
+                return ResourceManager.GetString("OpenConfigEditorIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nuevo archivo.
         /// </summary>
         public static string OpenConfigEditorNewButtonText {

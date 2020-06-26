@@ -598,7 +598,19 @@ namespace CasparLauncher
                     }
                 }
                 if (file.File is null) return;
-                file.LoadConfigFile();
+                try
+                {
+                    file.LoadConfigFile();
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(l.OpenConfigEditorIOError, l.OpenConfigEditorErrorCaption,MessageBoxButton.OK,MessageBoxImage.Error);
+                    return;
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(l.OpenConfigEditorFileError, l.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
 
             ConfigEditor configWindow = new ConfigEditor();

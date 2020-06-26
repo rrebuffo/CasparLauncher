@@ -545,4 +545,13 @@ More info at:</value>
   <data name="ConfigWindowStatusMessageSaveSuccess" xml:space="preserve">
     <value>The file has been saved successfully</value>
   </data>
+  <data name="OpenConfigEditorIOError" xml:space="preserve">
+    <value>Error opening the configuration file</value>
+  </data>
+  <data name="OpenConfigEditorErrorCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OpenConfigEditorFileError" xml:space="preserve">
+    <value>The configuration file is malformed</value>
+  </data>
 </root>

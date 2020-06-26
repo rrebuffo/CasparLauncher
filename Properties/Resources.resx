@@ -545,4 +545,13 @@ Más información en:</value>
   <data name="ConfigWindowStatusMessageSaveSuccess" xml:space="preserve">
     <value>El archivo se guardó correctamente</value>
   </data>
+  <data name="OpenConfigEditorIOError" xml:space="preserve">
+    <value>Error al abrir el archivo de configuración</value>
+  </data>
+  <data name="OpenConfigEditorErrorCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="OpenConfigEditorFileError" xml:space="preserve">
+    <value>El archivo de configuración contiene errores</value>
+  </data>
 </root>
