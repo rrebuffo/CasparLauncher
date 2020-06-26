@@ -533,4 +533,7 @@ More info at:</value>
   <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
     <value>Enable Producer</value>
   </data>
+  <data name="ConfigWindowChannelsBfUhdMode" xml:space="preserve">
+    <value>UHD mode</value>
+  </data>
 </root>

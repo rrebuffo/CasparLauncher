@@ -452,6 +452,7 @@ namespace CasparLauncher
                         XH.NewTextNode(x, "keyer", E(c.Keyer), bf);
                         XH.NewTextNode(x, "internal-keyer-audio-source", E(c.KeyerAudio), bf);
                         XH.NewTextNode(x, "watchdog", I(c.Watchdog), bf);
+                        XH.NewTextNode(x, "uhd-mode", E(c.UhdMode), bf);
                     }
                     if (consumer is SystemAudioConsumer)
                     {
@@ -838,6 +839,9 @@ namespace CasparLauncher
                                                                 break;
                                                             case "watchdog":
                                                                 n_bf.Watchdog = Convert.ToInt32(consumer_sub.Value);
+                                                                break;
+                                                            case "uhd-mode":
+                                                                n_bf.UhdMode = (BluefishUhdMode)CheckForEnumValue(typeof(BluefishUhdMode), consumer_sub.Value);
                                                                 break;
                                                         }
                                                     }
@@ -1284,6 +1288,23 @@ namespace CasparLauncher
                 {
                     _watchdog = value;
                     OnPropertyChanged("KeyDevice");
+                }
+            }
+        }
+
+        private BluefishUhdMode _uhdMode = BluefishUhdMode._0;
+        public BluefishUhdMode UhdMode
+        {
+            get
+            {
+                return _uhdMode;
+            }
+            set
+            {
+                if (_uhdMode != value)
+                {
+                    _uhdMode = value;
+                    OnPropertyChanged("UhdMode");
                 }
             }
         }
@@ -1909,6 +1930,21 @@ namespace CasparLauncher
 
         [Description("Disabled")]
         _disabled
+    }
+
+    public enum BluefishUhdMode
+    {
+        [Description("Disable BVC-Multi_Link")]
+        _0,
+
+        [Description("Auto")]
+        _1,
+
+        [Description("Force 2SI output")]
+        _2,
+
+        [Description("Force SQ output")]
+        _3
     }
 
     public enum BluefishKeyerAudio

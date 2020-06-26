@@ -820,6 +820,29 @@
                                             <TextBlock Text="{x:Static l:Resources.ConfigWindowChannelsBfWatchdog}" Grid.Column="0" Margin="5,7" Style="{StaticResource PropertyNameTextBlock}" />
                                             <TextBox Grid.Column="1" Text="{Binding Path=Watchdog}" VerticalContentAlignment="Center" />
                                         </Grid>
+                                        <!--    UHD MODE   -->
+                                        <Grid>
+                                            <Grid.Resources>
+                                                <ObjectDataProvider x:Key="BluefishUhdModeList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="local:BluefishUhdMode" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </Grid.Resources>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                                <ColumnDefinition MinWidth="50" Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Static l:Resources.ConfigWindowChannelsBfUhdMode}" Grid.Column="0" Margin="5,7" Style="{StaticResource PropertyNameTextBlock}" />
+                                            <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource BluefishUhdModeList}}" SelectedValue="{Binding Path=UhdMode}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type local:BluefishUhdMode}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </Grid>
                                     </StackPanel>
                                 </DataTemplate>
                                 <DataTemplate DataType="{x:Type local:ScreenConsumer}">

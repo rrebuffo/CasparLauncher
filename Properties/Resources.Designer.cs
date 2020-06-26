@@ -270,6 +270,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modo UHD.
+        /// </summary>
+        public static string ConfigWindowChannelsBfUhdMode {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsBfUhdMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Watchdog.
         /// </summary>
         public static string ConfigWindowChannelsBfWatchdog {
