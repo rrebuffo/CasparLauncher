@@ -17,18 +17,22 @@ using System.Windows.Media.Animation;
 using System.Windows.Threading;
 using System.IO;
 using l = CasparLauncher.Properties.Resources;
+using System.ComponentModel;
 
 namespace CasparLauncher
 {
     /// <summary>
     /// Lógica de interacción para ConfigEditor.xaml
     /// </summary>
-    public partial class ConfigEditor : Window
+    public partial class ConfigEditor : Window, INotifyPropertyChanged
     {
         public ConfigEditor()
         {
             InitializeComponent();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
@@ -250,5 +254,118 @@ namespace CasparLauncher
             string newFolder = SelectFolder(file.LogPath, true);
             if (newFolder != null) file.LogPath = newFolder;
         }
+
+        #region Drag & Drop
+
+        private void TopDropBorder_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            ((Border)sender).Opacity = 0;
+            MoveChannel(DraggedItem.DataContext as Channel, ((Border)sender).DataContext as Channel, false);
+        }
+
+        private void BotDropBorder_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            ((Border)sender).Opacity = 0;
+            MoveChannel(DraggedItem.DataContext as Channel, ((Border)sender).DataContext as Channel, true);
+        }
+
+        private void MoveChannel(Channel origin, Channel target, bool bottom)
+        {
+            Drag = false;
+            if (origin == target) return;
+            ConfigFile file = DataContext as ConfigFile;
+            file.Channels.Remove(origin);
+            file.Channels.Insert(file.Channels.IndexOf(target) + (bottom?1:0), origin);
+            ChannelsUpdated = true;
+            DraggedItem = null;
+        }
+
+        private Point StartPoint;
+
+        private bool drag = false;
+        public bool Drag
+        {
+            get
+            {
+                return drag;
+            }
+            set
+            {
+                if (drag != value)
+                {
+                    drag = value;
+                    OnPropertyChanged("Drag");
+                }
+            }
+        }
+
+        public bool ChannelsUpdated
+        {
+            get
+            {
+                return false;
+            }
+            set
+            {
+                OnPropertyChanged("ChannelsUpdated");
+            }
+        }
+
+        private ListBoxItem DraggedItem;
+
+        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListBoxItem)
+            {
+                DraggedItem = sender as ListBoxItem;
+                this.MouseMove += HandleDrag;
+                StartPoint = e.GetPosition(this);
+            }
+        }
+
+        private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DraggedItem = null;
+            MouseMove -= HandleDrag;
+            Drag = false;
+        }
+
+        private void HandleMouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+                (sender as ListBox).ReleaseMouseCapture();
+        }
+
+        private void HandleDrag(object sender, MouseEventArgs e)
+        {
+            if (DraggedItem is null)
+            {
+                ((Border)sender).Opacity = 0;
+                Drag = false;
+                MouseMove -= HandleDrag;
+                return;
+            }
+            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Settings.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Settings.DragThreshold)
+            {
+                Drag = true;
+                DragDrop.DoDragDrop(DraggedItem, DraggedItem.DataContext, DragDropEffects.Move);
+                MouseMove -= HandleDrag;
+            }
+        }
+
+        private void Border_DragEnter(object sender, DragEventArgs e)
+        {
+            ((Border)sender).Opacity = 1;
+        }
+
+        private void Border_DragLeave(object sender, DragEventArgs e)
+        {
+            ((Border)sender).Opacity = 0;
+        }
+
+        #endregion
+
     }
 }

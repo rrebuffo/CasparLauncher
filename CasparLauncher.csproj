@@ -109,6 +109,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Command.cs" />
+    <Compile Include="Converters\DragBorderConverters.cs" />
     <Compile Include="Converters\ItemsLayoutConverter.cs" />
     <Compile Include="ExecutableOptions.xaml.cs">
       <DependentUpon>ExecutableOptions.xaml</DependentUpon>

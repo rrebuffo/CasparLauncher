@@ -24,6 +24,11 @@
         <local:EnumConverter x:Key="enumConverter" />
         <local:NameAndIndexConverter x:Key="nameIndexConverter" />
         <local:ListBoxSelectedConverter x:Key="lbSelected" />
+        <local:BooleanToVisibilityConverter x:Key="boolToVisibility" False="Collapsed" True="Visible" />
+        <local:BooleanToVisibilityConverter x:Key="invBoolToVisibility" False="Visible" True="Collapsed" />
+        <local:DragBorderHeightConverter x:Key="DragBorderHeight" />
+        <local:DragTopBorderOffsetConverter x:Key="DragBorderTop" />
+        <local:DragBottomBorderOffsetConverter x:Key="DragBorderBottom" />
 
         <Style x:Key="BaseIcon" TargetType="{x:Type Path}">
             <Setter Property="Width" Value="512" />
@@ -519,7 +524,76 @@
                                     <Button Height="16" Margin="5" Style="{StaticResource MinusButton}" Click="RemChannel" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
                                 </StackPanel>
                             </Grid>
-                            <ListBox Name="ChannelList" ScrollViewer.CanContentScroll="False" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Channels}">
+                            <ListBox Name="ChannelList" ScrollViewer.CanContentScroll="False" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding Channels}" MouseMove="HandleMouseMove">
+                                <ListBox.Style>
+                                    <Style TargetType="ListBox" BasedOn="{StaticResource StandardListBox}">
+                                        <Setter Property="DataContext" Value="{Binding}" />
+                                        <Setter Property="ScrollViewer.CanContentScroll" Value="True" />
+                                        <Setter Property="SelectionMode" Value="Extended" />
+                                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                                        <Setter Property="ItemContainerStyle">
+                                            <Setter.Value>
+                                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource StandardListBoxItem}">
+                                                    <Setter Property="Foreground" Value="{StaticResource Foreground}" />
+                                                    <Setter Property="Background" Value="{StaticResource BackgroundNormal}" />
+                                                    <Setter Property="BorderBrush" Value="{StaticResource BorderBrushNormal}" />
+                                                    <Setter Property="Height" Value="36"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                                <Grid Margin="2">
+                                                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" SnapsToDevicePixels="True" Margin="0" CornerRadius="{StaticResource CompactRadius}">
+                                                                        <ContentPresenter Margin="8 5"/>
+                                                                    </Border>
+                                                                    <Border VerticalAlignment="Top" Height="{TemplateBinding ActualHeight, Converter={StaticResource DragBorderHeight}, ConverterParameter=4}" Margin="{TemplateBinding ActualHeight, Converter={StaticResource DragBorderTop}, ConverterParameter=4}" Background="Transparent" DragEnter="Border_DragEnter" DragLeave="Border_DragLeave" Opacity="0" Visibility="{Binding ElementName=ConfigWindow, Path=Drag, Converter={StaticResource boolToVisibility}}" AllowDrop="True" Drop="TopDropBorder_Drop">
+                                                                        <Border x:Name="TopDropBorder" Height="4" IsEnabled="False" HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSelected}"/>
+                                                                    </Border>
+                                                                    <Border VerticalAlignment="Bottom" Height="{TemplateBinding ActualHeight, Converter={StaticResource DragBorderHeight}, ConverterParameter=4}" Margin="{TemplateBinding ActualHeight, Converter={StaticResource DragBorderBottom}, ConverterParameter=4}" Background="Transparent" DragEnter="Border_DragEnter" DragLeave="Border_DragLeave" Opacity="0" Visibility="{Binding ElementName=ConfigWindow, Path=Drag, Converter={StaticResource boolToVisibility}}" AllowDrop="True" Drop="BotDropBorder_Drop">
+                                                                        <Border x:Name="BotDropBorder" Height="4" IsEnabled="False" HorizontalAlignment="Stretch" Background="{StaticResource BackgroundSelected}"/>
+                                                                    </Border>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <!-- Normal -->
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="False" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Background" Value="{StaticResource BackgroundNormal}" />
+                                                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                                                    </MultiDataTrigger>
+                                                                    <!-- Highlighted -->
+                                                                    <MultiDataTrigger>
+                                                                        <MultiDataTrigger.Conditions>
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" Value="True" />
+                                                                            <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="False" />
+                                                                        </MultiDataTrigger.Conditions>
+                                                                        <Setter Property="Background" Value="{StaticResource BackgroundHighlighted}" />
+                                                                        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushHighlighted}" />
+                                                                    </MultiDataTrigger>
+                                                                    <!-- Selected -->
+                                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True">
+                                                                        <Setter Property="Background" Value="{StaticResource BackgroundSelected}" />
+                                                                        <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSelected}" />
+                                                                    </DataTrigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown" />
+                                                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListBoxItem_PreviewMouseLeftButtonUp" />
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="ItemsPanel">
+                                            <Setter.Value>
+                                                <ItemsPanelTemplate>
+                                                    <VirtualizingStackPanel Grid.IsSharedSizeScope="True" ></VirtualizingStackPanel>
+                                                </ItemsPanelTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.Style>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock VerticalAlignment="Center">
@@ -528,6 +602,7 @@
                                                     <Binding Source="{x:Static l:Resources.ConfigWindowChannelsChannelListItemDisplay}" />
                                                     <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}" />
                                                     <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}" />
+                                                    <Binding ElementName="ConfigWindow" Path="ChannelsUpdated"/>
                                                 </MultiBinding>
                                             </TextBlock.Text>
                                         </TextBlock>

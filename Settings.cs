@@ -164,6 +164,14 @@ namespace CasparLauncher
             S.Default.Upgrade();
         }
 
+        public static int DragThreshold
+        {
+            get
+            {
+                return 10;
+            }
+        }
+
         private int _bufferLines = 1000;
         public int BufferLines
         {
