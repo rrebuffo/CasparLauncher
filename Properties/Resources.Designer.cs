@@ -909,6 +909,33 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ocurrió un error desconocido.
+        /// </summary>
+        public static string ConfigWindowStatusMessageSaveError {
+            get {
+                return ResourceManager.GetString("ConfigWindowStatusMessageSaveError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error al escribir el archivo.
+        /// </summary>
+        public static string ConfigWindowStatusMessageSaveIOError {
+            get {
+                return ResourceManager.GetString("ConfigWindowStatusMessageSaveIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to El archivo se guardó correctamente.
+        /// </summary>
+        public static string ConfigWindowStatusMessageSaveSuccess {
+            get {
+                return ResourceManager.GetString("ConfigWindowStatusMessageSaveSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Editar configuración del servidor.
         /// </summary>
         public static string ConfigWindowTitle {

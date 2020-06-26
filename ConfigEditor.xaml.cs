@@ -13,6 +13,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using System.Windows.Media.Animation;
+using System.Windows.Threading;
+using System.IO;
+using l = CasparLauncher.Properties.Resources;
 
 namespace CasparLauncher
 {
@@ -96,6 +100,63 @@ namespace CasparLauncher
             }
         }
 
+        #region Status Message
+
+        DispatcherTimer ShowStatusTimer = new DispatcherTimer();
+        DoubleAnimation fade = new DoubleAnimation();
+        Storyboard status = new Storyboard();
+
+        private void fadeInStatus()
+        {
+            //FadeIn
+            fade.From = 0.0;
+            fade.To = 1.0;
+            fade.Duration = TimeSpan.FromMilliseconds(500);
+            fade.AutoReverse = false;
+            status.Children.Add(fade);
+            Storyboard.SetTargetName(fade, StatusText.Name);
+            Storyboard.SetTargetProperty(fade, new PropertyPath(TextBlock.OpacityProperty));
+            status.Begin(this);
+        }
+
+        private void fadeOutStatus()
+        {
+            //FadeIn
+            fade.From = 1.0;
+            fade.To = 0.0;
+            fade.Duration = TimeSpan.FromMilliseconds(500);
+            fade.AutoReverse = false;
+            status.Children.Add(fade);
+            status.Completed += StatusFaded;
+            Storyboard.SetTargetName(fade, StatusText.Name);
+            Storyboard.SetTargetProperty(fade, new PropertyPath(TextBlock.OpacityProperty));
+            status.Begin(this);
+        }
+
+        private void StatusFaded(object sender, EventArgs e)
+        {
+            status.Completed -= StatusFaded;
+            StatusText.Text = "";
+        }
+
+        private void ShowStatusMessage(string message)
+        {
+            StatusText.Text = message;
+            fadeInStatus();
+            ShowStatusTimer.Interval = TimeSpan.FromMilliseconds(5000);
+            ShowStatusTimer.Tick += RemoveStatusMessage;
+            ShowStatusTimer.Start();
+        }
+
+        private void RemoveStatusMessage(object sender, EventArgs e)
+        {
+            ShowStatusTimer.Stop();
+            fadeOutStatus();
+        }
+
+        #endregion
+
+
         private void SaveFile(object sender, RoutedEventArgs e)
         {
             ConfigFile file = DataContext as ConfigFile;
@@ -106,10 +167,23 @@ namespace CasparLauncher
                 if (filename != null) file.File = filename;
                 else return;
             }
-            else
+
+            try
             {
                 file.SaveConfigFile(file.File);
             }
+            catch(IOException)
+            {
+                ShowStatusMessage(l.ConfigWindowStatusMessageSaveIOError); // IO error
+                return;
+            }
+            catch(Exception ex)
+            {
+                ShowStatusMessage($"{l.ConfigWindowStatusMessageSaveError} ({ex.GetType()})"); // Unknown error
+                return;
+            }
+
+            ShowStatusMessage(l.ConfigWindowStatusMessageSaveSuccess); // Success
         }
 
         private string ShowSaveDialog()
@@ -119,7 +193,6 @@ namespace CasparLauncher
             saveFileDialog.Filter = "Archivo de configuración |*.config";
             if (saveFileDialog.ShowDialog() == true)
             {
-                file.SaveConfigFile(saveFileDialog.FileName);
                 return saveFileDialog.FileName;
             }
             return null;

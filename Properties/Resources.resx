@@ -536,4 +536,13 @@ Más información en:</value>
   <data name="ConfigWindowChannelsBfUhdMode" xml:space="preserve">
     <value>Modo UHD</value>
   </data>
+  <data name="ConfigWindowStatusMessageSaveError" xml:space="preserve">
+    <value>Ocurrió un error desconocido</value>
+  </data>
+  <data name="ConfigWindowStatusMessageSaveIOError" xml:space="preserve">
+    <value>Error al escribir el archivo</value>
+  </data>
+  <data name="ConfigWindowStatusMessageSaveSuccess" xml:space="preserve">
+    <value>El archivo se guardó correctamente</value>
+  </data>
 </root>

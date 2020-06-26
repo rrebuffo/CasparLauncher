@@ -1145,6 +1145,7 @@
             <TextBlock Text="{Binding Path=FileName}" VerticalAlignment="Center" />
         </StackPanel>
         <StackPanel HorizontalAlignment="Right" Margin="5 0 5 5" Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Name="StatusText" Text="" Margin="0 0 10 0"/>
             <Button Content="{x:Static l:Resources.ConfigWindowSaveButton}" Padding="10 5" Click="SaveFile" />
         </StackPanel>
     </Grid>
