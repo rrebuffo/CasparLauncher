@@ -639,6 +639,33 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Desentrelazado.
+        /// </summary>
+        public static string ConfigWindowOptionsTabFfmpegDeinterlace {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabFfmpegDeinterlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FFmpeg.
+        /// </summary>
+        public static string ConfigWindowOptionsTabFfmpegGb {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabFfmpegGb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hilos de CPU.
+        /// </summary>
+        public static string ConfigWindowOptionsTabFfmpegThreads {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabFfmpegThreads", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tamaño del buffer.
         /// </summary>
         public static string ConfigWindowOptionsTabFlashBuffer {

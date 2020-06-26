@@ -143,6 +143,41 @@ namespace CasparLauncher
             }
         }
 
+        private int _ffmpegThreads = 4;
+        public int FfmpegThreads
+        {
+            get
+            {
+                return _ffmpegThreads;
+            }
+            set
+            {
+                if (_ffmpegThreads != value)
+                {
+                    _ffmpegThreads = value;
+                    OnPropertyChanged("FfmpegThreads");
+                }
+            }
+        }
+
+
+        private FfmpegDeinterlace _ffmpegDeinterlace = FfmpegDeinterlace._interlaced;
+        public FfmpegDeinterlace FfmpegDeinterlace
+        {
+            get
+            {
+                return _ffmpegDeinterlace;
+            }
+            set
+            {
+                if (_ffmpegDeinterlace != value)
+                {
+                    _ffmpegDeinterlace = value;
+                    OnPropertyChanged("FfmpegDeinterlace");
+                }
+            }
+        }
+
         private string _mediaPath = "media/";
         public string MediaPath
         {
@@ -524,6 +559,13 @@ namespace CasparLauncher
             XH.NewTextNode(x, "enable-gpu", B(HtmlEnableGpu), n_html);
             #endregion
 
+            #region FFmpeg
+            XmlNode n_ffmpeg = XH.NewNode(x, "ffmpeg", configuration);
+            XmlNode n_ffmpeg_producer = XH.NewNode(x, "producer", n_ffmpeg);
+            XH.NewTextNode(x, "auto-deinterlace", E(FfmpegDeinterlace), n_ffmpeg_producer);
+            XH.NewTextNode(x, "threads", I(FfmpegThreads), n_ffmpeg_producer);
+            #endregion
+
             #region NDI
             XmlNode n_ndi = XH.NewNode(x, "ndi", configuration);
             XH.NewTextNode(x, "auto-load", B(NdiAutoLoad), n_ndi);
@@ -626,6 +668,24 @@ namespace CasparLauncher
                         }
                         break;
 
+                    case "ffmpeg":
+                        if (element.Descendants("producer").Any())
+                        {
+                            foreach (XElement sub_element in element.Descendants("producer").Descendants())
+                            {
+                                switch (sub_element.Name.LocalName)
+                                {
+                                    case "auto-deinterlace":
+                                        FfmpegDeinterlace = (FfmpegDeinterlace)CheckForEnumValue(FfmpegDeinterlace.GetType(), sub_element.Value);
+                                        break;
+                                    case "threads":
+                                        FfmpegThreads = Convert.ToInt32(sub_element.Value);
+                                        break;
+                                }
+                            }
+                        }
+                        break;
+                    
                     case "controllers":
                         if (element.Descendants("tcp").Any())
                         {
@@ -1679,6 +1739,18 @@ namespace CasparLauncher
 
         [Description("Fatal")]
         _fatal
+    }
+
+    public enum FfmpegDeinterlace
+    {
+        [Description("None")]
+        _none,
+
+        [Description("Interlaced")]
+        _interlaced,
+
+        [Description("All")]
+        _all
     }
 
     public enum VideoMode

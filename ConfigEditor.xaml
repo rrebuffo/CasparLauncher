@@ -324,7 +324,7 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
-                        <GroupBox Header="{x:Static l:Resources.ConfigWindowOptionsTabFlashGb}">
+                    <GroupBox Header="{x:Static l:Resources.ConfigWindowOptionsTabFlashGb}">
                         <StackPanel>
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -335,16 +335,51 @@
                                 <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFlashBuffer}" Grid.Column="0" Margin="5,7" />
                                 <TextBox Grid.Column="1" Text="{Binding Path=FlashBuffer}" VerticalContentAlignment="Center" />
                             </Grid>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="{StaticResource DescColWidth}" />
-                                        <ColumnDefinition MinWidth="50" Width="{StaticResource IntValueWidth}" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFlashEnableProducer}" Grid.Column="0" Margin="5,7" />
-                                    <CheckBox Grid.Column="1" IsChecked="{Binding Path=FlashEnableProducer}" />
-                                </Grid>
-                            </StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                    <ColumnDefinition MinWidth="50" Width="{StaticResource IntValueWidth}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFlashEnableProducer}" Grid.Column="0" Margin="5,7" />
+                                <CheckBox Grid.Column="1" IsChecked="{Binding Path=FlashEnableProducer}" />
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static l:Resources.ConfigWindowOptionsTabFfmpegGb}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.Resources>
+                                    <ObjectDataProvider x:Key="FfmpegDeinterlaceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                        <ObjectDataProvider.MethodParameters>
+                                            <x:Type TypeName="local:FfmpegDeinterlace" />
+                                        </ObjectDataProvider.MethodParameters>
+                                    </ObjectDataProvider>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                    <ColumnDefinition MinWidth="50" Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFfmpegDeinterlace}" Grid.Column="0" Margin="5,7" />
+                                <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource FfmpegDeinterlaceList}}" SelectedValue="{Binding Path=FfmpegDeinterlace}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate DataType="{x:Type local:FfmpegDeinterlace}">
+                                            <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                    <ColumnDefinition MinWidth="50" Width="{StaticResource IntValueWidth}" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{x:Static l:Resources.ConfigWindowOptionsTabFfmpegThreads}" Grid.Column="0" Margin="5,7" />
+                                <TextBox Grid.Column="1" Text="{Binding Path=FfmpegThreads}" VerticalContentAlignment="Center" />
+                            </Grid>
+                        </StackPanel>
                     </GroupBox>
                     <GroupBox Header="{x:Static l:Resources.ConfigWindowOptionsTabHtmlGb}">
                         <StackPanel>

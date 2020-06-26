@@ -521,6 +521,15 @@ More info at:</value>
   <data name="ExecutableStoppedMessage" xml:space="preserve">
     <value>The process has stopped</value>
   </data>
+  <data name="ConfigWindowOptionsTabFfmpegDeinterlace" xml:space="preserve">
+    <value>Deinterlace</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegGb" xml:space="preserve">
+    <value>FFmpeg</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegThreads" xml:space="preserve">
+    <value>CPU threads</value>
+  </data>
   <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
     <value>Enable Producer</value>
   </data>

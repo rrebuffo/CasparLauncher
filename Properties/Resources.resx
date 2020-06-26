@@ -521,6 +521,15 @@ Más información en:</value>
   <data name="ExecutableStoppedMessage" xml:space="preserve">
     <value>El proceso se ha detenido</value>
   </data>
+  <data name="ConfigWindowOptionsTabFfmpegDeinterlace" xml:space="preserve">
+    <value>Desentrelazado</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegGb" xml:space="preserve">
+    <value>FFmpeg</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegThreads" xml:space="preserve">
+    <value>Hilos de CPU</value>
+  </data>
   <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
     <value>Habilitar</value>
   </data>
