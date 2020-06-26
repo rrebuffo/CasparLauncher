@@ -365,6 +365,81 @@ namespace CasparLauncher
             ((Border)sender).Opacity = 0;
         }
 
+        private ListBoxItem DraggedConsumer;
+
+        private bool move = false;
+        public bool Move
+        {
+            get
+            {
+                return move;
+            }
+            set
+            {
+                if (move != value)
+                {
+                    move = value;
+                    OnPropertyChanged("Move");
+                }
+            }
+        }
+
+
+        private void ConsumerItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is ListBoxItem)
+            {
+                DraggedConsumer = sender as ListBoxItem;
+                this.MouseMove += HandleMove;
+                StartPoint = e.GetPosition(this);
+            }
+        }
+
+        private void ConsumerItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            DraggedConsumer = null;
+            MouseMove -= HandleMove;
+            Move = false;
+        }
+
+        private void HandleMove(object sender, MouseEventArgs e)
+        {
+            if (DraggedConsumer is null)
+            {
+                Move = false;
+                MouseMove -= HandleMove;
+                return;
+            }
+            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Settings.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Settings.DragThreshold)
+            {
+                Move = true;
+                DragDrop.DoDragDrop(DraggedConsumer, DraggedConsumer.DataContext, DragDropEffects.Move);
+                MouseMove -= HandleMove;
+            }
+        }
+
+        private void ConsumerItem_Drop(object sender, DragEventArgs e)
+        {
+            e.Handled = true;
+            if (DraggedConsumer is null) return;
+            var consumer = DraggedConsumer.DataContext;
+            var target = ((ListBoxItem)sender).DataContext as Channel;
+            Move = false;
+            Channel origin = GetConsumerChannel(consumer);
+            if (origin == target) return;
+            ConfigFile file = DataContext as ConfigFile;
+            origin.Consumers.Remove(consumer);
+            target.Consumers.Add(consumer);
+            DraggedConsumer = null;
+        }
+
+        private Channel GetConsumerChannel(object consumer)
+        {
+            ConfigFile file = DataContext as ConfigFile;
+            foreach (Channel channel in file.Channels) if (channel.Consumers.Contains(consumer)) return channel;
+            return null;
+        }
+
         #endregion
 
     }

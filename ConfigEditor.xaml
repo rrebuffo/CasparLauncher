@@ -538,6 +538,7 @@
                                                     <Setter Property="Background" Value="{StaticResource BackgroundNormal}" />
                                                     <Setter Property="BorderBrush" Value="{StaticResource BorderBrushNormal}" />
                                                     <Setter Property="Height" Value="36"/>
+                                                    <Setter Property="AllowDrop" Value="True"/>
                                                     <Setter Property="Template">
                                                         <Setter.Value>
                                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -582,6 +583,7 @@
                                                     </Setter>
                                                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBoxItem_PreviewMouseLeftButtonDown" />
                                                     <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ListBoxItem_PreviewMouseLeftButtonUp" />
+                                                    <EventSetter Event="Drop" Handler="ConsumerItem_Drop" />
                                                 </Style>
                                             </Setter.Value>
                                         </Setter>
@@ -644,7 +646,7 @@
                                     <Button Height="16" Margin="5" Style="{StaticResource MinusButton}" Click="RemConsumer" IsEnabled="{Binding ElementName=ConsumerList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
                                 </StackPanel>
                             </Grid>
-                            <ListBox Name="ConsumerList" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding ElementName=ChannelList, Path=SelectedItem.Consumers}" SelectedIndex="{Binding ElementName=ChannelList, Path=SelectedItem.SelectedConsumer, Mode=TwoWay}">
+                            <ListBox Name="ConsumerList" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" ItemsSource="{Binding ElementName=ChannelList, Path=SelectedItem.Consumers}" SelectedIndex="{Binding ElementName=ChannelList, Path=SelectedItem.SelectedConsumer, Mode=TwoWay}" MouseMove="HandleMouseMove">
                                 <ListBox.Resources>
                                     <DataTemplate DataType="{x:Type local:DecklinkConsumer}">
                                         <TextBlock Text="{x:Static l:Resources.DecklinkConsumer}" TextTrimming="CharacterEllipsis" />
@@ -668,6 +670,18 @@
                                         <TextBlock Text="{x:Static l:Resources.FFConsumer}" TextTrimming="CharacterEllipsis" />
                                     </DataTemplate>
                                 </ListBox.Resources>
+                                <ListBox.Style>
+                                    <Style TargetType="ListBox" BasedOn="{StaticResource StandardListBox}">
+                                        <Setter Property="ItemContainerStyle">
+                                            <Setter.Value>
+                                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource StandardListBoxItem}">
+                                                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ConsumerItem_PreviewMouseLeftButtonDown" />
+                                                    <EventSetter Event="PreviewMouseLeftButtonUp" Handler="ConsumerItem_PreviewMouseLeftButtonUp" />
+                                                </Style>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.Style>
                             </ListBox>
                         </Grid>
                     </Grid>
