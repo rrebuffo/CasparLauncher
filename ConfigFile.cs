@@ -495,6 +495,7 @@ namespace CasparLauncher
                         }
 
                         XmlNode sc = XH.NewNode(x, "screen", n_ch_c);
+                        if (!string.IsNullOrEmpty(c.Name)) XH.NewTextNode(x, "name", c.Name, sc);
                         XH.NewTextNode(x, "device", I(c.Device), sc);
                         XH.NewTextNode(x, "aspect-ratio", ar, sc);
                         XH.NewTextNode(x, "stretch", E(c.Stretch), sc);
@@ -869,6 +870,9 @@ namespace CasparLauncher
                                                     {
                                                         switch (consumer_sub.Name.LocalName)
                                                         {
+                                                            case "name":
+                                                                n_sc.Name = consumer_sub.Value;
+                                                                break;
                                                             case "device":
                                                                 n_sc.Device = Convert.ToInt32(consumer_sub.Value);
                                                                 break;
@@ -1309,6 +1313,23 @@ namespace CasparLauncher
 
     public class ScreenConsumer : INotifyPropertyChanged
     {
+        private string _name = "";
+        public string Name
+        {
+            get
+            {
+                return _name;
+            }
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    OnPropertyChanged("Name");
+                }
+            }
+        }
+
         private int _device = 1;
         public int Device
         {

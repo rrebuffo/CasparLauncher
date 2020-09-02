@@ -936,6 +936,16 @@
                                 </DataTemplate>
                                 <DataTemplate DataType="{x:Type local:ScreenConsumer}">
                                     <StackPanel>
+                                        <!--    NAME      -->
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="{StaticResource DescColWidth}" />
+                                                <ColumnDefinition MinWidth="50" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Static l:Resources.ConfigWindowChannelsScName}" Grid.Column="0" Margin="5,7" Style="{StaticResource PropertyNameTextBlock}" />
+                                            <TextBox Grid.Column="1" Text="{Binding Path=Name}" VerticalContentAlignment="Center" />
+                                        </Grid>
                                         <!--    DEVICE      -->
                                         <Grid>
                                             <Grid.ColumnDefinitions>

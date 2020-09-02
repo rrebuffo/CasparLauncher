@@ -554,4 +554,7 @@ More info at:</value>
   <data name="OpenConfigEditorFileError" xml:space="preserve">
     <value>The configuration file is malformed</value>
   </data>
+  <data name="ConfigWindowChannelsScName" xml:space="preserve">
+    <value>Name</value>
+  </data>
 </root>

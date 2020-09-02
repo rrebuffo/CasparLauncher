@@ -549,6 +549,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nombre.
+        /// </summary>
+        public static string ConfigWindowChannelsScName {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsScName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Alfa lado a lado.
         /// </summary>
         public static string ConfigWindowChannelsScSbsKey {

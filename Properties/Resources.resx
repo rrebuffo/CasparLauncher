@@ -554,4 +554,7 @@ Más información en:</value>
   <data name="OpenConfigEditorFileError" xml:space="preserve">
     <value>El archivo de configuración contiene errores</value>
   </data>
+  <data name="ConfigWindowChannelsScName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
 </root>
