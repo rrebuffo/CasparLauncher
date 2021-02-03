@@ -65,7 +65,12 @@
                 </MenuItem.Icon>
             </MenuItem>
         </CompositeCollection>
-        
+        <Viewbox x:Key="ExecutableNotFoundIcon" x:Shared="False" Width="16" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
+            <Grid>
+                <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
+                <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
+            </Grid>
+        </Viewbox>
         <Image Width="16" Height="16" x:Key="ExecutableIconImage" x:Shared="False" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}}"/>
         <Style x:Key="ExecutableItemStyle" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource StandardMenuItem}">
             <Setter Property="Icon" Value="{StaticResource ExecutableIconImage}"/>
@@ -73,16 +78,7 @@
             <Setter Property="ItemsSource" Value="{StaticResource ExecutableMenuItems}"/>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Exists}" Value="False">
-                    <Setter Property="Icon">
-                        <Setter.Value>
-                            <Viewbox Width="16" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
-                                <Grid>
-                                    <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
-                                    <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
-                                </Grid>
-                            </Viewbox>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Icon" Value="{StaticResource ExecutableNotFoundIcon}"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
