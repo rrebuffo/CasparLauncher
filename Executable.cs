@@ -12,6 +12,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Xml.Linq;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace CasparLauncher
 {
@@ -341,22 +343,7 @@ namespace CasparLauncher
             }
         }
 
-        private string _output = "";
-        public string Output
-        {
-            get
-            {
-                return _output;
-            }
-            set
-            {
-                if (_output != value)
-                {
-                    _output = value;
-                    OnPropertyChanged("Output");
-                }
-            }
-        }
+        public ObservableCollection<LogLine> Output { get; set; } = new ObservableCollection<LogLine>();
 
         private Process _process = null;
         public Process Process
@@ -543,10 +530,12 @@ namespace CasparLauncher
 
         private void Process_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            LinkedList<string> buffer = new LinkedList<string>(Output.Split('\n'));
-            if (buffer.Count > Settings.BufferLines) buffer.RemoveFirst();
-            buffer.AddLast(e.Data);
-            Output = string.Join("\n", buffer);
+            if (Application.Current is null) return;
+            Application.Current.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                if (Output.Count == Settings.BufferLines) Output.RemoveAt(0);
+                Output.Add(new LogLine(e.Data, IsServer));
+            }));
         }
 
         private void Process_Exited(object sender, EventArgs e)
@@ -632,6 +621,53 @@ namespace CasparLauncher
         protected virtual void OnModified() { Modified?.Invoke(this, new EventArgs()); }
 
         #endregion
+    }
+
+    public class LogLine
+    {
+        public string Data { get; private set; } = "";
+        public string Message { get; private set; } = "";
+        public LogLevel Level { get; private set; } = LogLevel._info;
+        public string Timestamp { get; private set; } = "";
+        public bool DirectOutput { get; private set; } = true;
+
+        public LogLine(string data, bool serverFormat)
+        {
+            Data = data;
+            if (string.IsNullOrEmpty(data) || !serverFormat) return;
+            bool has_content = data.Length > 36;
+
+            Regex find = new Regex(@"^\[([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+)\]\s\[(.+?)\]\s*(.*)");
+            string to_match = has_content ? data.Substring(0, 36) : data;
+            Match linedata = find.Match(to_match);
+            if(linedata.Groups.Count>1)
+            {
+                Timestamp = linedata.Groups[1].Value;
+                switch(linedata.Groups[2].Value)
+                {
+                    case "fatal":
+                        Level = LogLevel._fatal;
+                        break;
+                    case "error":
+                        Level = LogLevel._error;
+                        break;
+                    case "warning":
+                        Level = LogLevel._warning;
+                        break;
+                    case "info":
+                        Level = LogLevel._info;
+                        break;
+                    case "debug":
+                        Level = LogLevel._debug;
+                        break;
+                    case "trace":
+                        Level = LogLevel._trace;
+                        break;
+                }
+                Message = has_content ? data.Substring(36) : "";
+                DirectOutput = false;
+            }
+        }
     }
 
     class ExecutableEventArgs : EventArgs

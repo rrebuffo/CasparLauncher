@@ -19,8 +19,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 
 using WF = System.Windows.Forms;
 using l = CasparLauncher.Properties.Resources;
@@ -44,7 +42,7 @@ namespace CasparLauncher
         private WF.NotifyIcon TrayIcon = new WF.NotifyIcon();
         private WindowState PreviousState = WindowState.Normal;
         private bool InTray = false;
-        
+
         public bool IsShiftDown
         {
             get
@@ -344,12 +342,6 @@ namespace CasparLauncher
             else ConfigTab.IsSelected = true;
         }
 
-        // Executables TabItem UI Handlers
-        private void ScrollToEnd(object target)
-        {
-            ((TextBox)target).ScrollToEnd();
-        }
-
         private void StartButton_Click(object sender, RoutedEventArgs e)
         {
             Executable ex = GetItemExecutable(sender);
@@ -378,14 +370,15 @@ namespace CasparLauncher
             OpenDiag(ex);
         }
 
-        private void ConsoleOutputTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void ConsoleOutputDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
         {
-            ScrollToEnd(sender);
-        }
-
-        private void ConsoleOutputTextBox_Loaded(object sender, RoutedEventArgs e)
-        {
-            ScrollToEnd(sender);
+            if (e.ExtentHeightChange > 0 && e.OriginalSource is ScrollViewer view)
+            {
+                if (view.ScrollableHeight <= view.VerticalOffset + e.ExtentHeightChange + 20)
+                {
+                    view.ScrollToVerticalOffset(view.ScrollableHeight);
+                }
+            }
         }
 
 
@@ -393,22 +386,6 @@ namespace CasparLauncher
 
         private void AddExecutableButton_Click(object sender, RoutedEventArgs e)
         {
-            /*
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-            {
-                Multiselect = false,
-                Filter = l.Resources.FileDialogFilterDescription + " (*.EXE)|*.exe"
-            };
-            Executable ex;
-            if (openFileDialog.ShowDialog() == true)
-            {
-                ex = Settings.AddExecutable(openFileDialog.FileName);
-            }
-            else
-            {
-                ex = Settings.AddExecutable();
-            }
-            */
             OpenExecutableConfig(Settings.AddExecutable());
         }
 
