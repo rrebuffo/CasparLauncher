@@ -76,7 +76,7 @@ namespace CasparLauncher
             }
             catch(Exception)
             {
-                CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("es-ES");
+                CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("en-US");
             }
         }
 

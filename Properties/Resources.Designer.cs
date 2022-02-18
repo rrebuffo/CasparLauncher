@@ -61,7 +61,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Estado del servidor.
+        ///   Looks up a localized string similar to Server Launcher.
         /// </summary>
         public static string AppTitle {
             get {
@@ -70,7 +70,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida Bluefish.
+        ///   Looks up a localized string similar to Bluefish consumer.
         /// </summary>
         public static string BluefishConsumer {
             get {
@@ -79,7 +79,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Examinar....
+        ///   Looks up a localized string similar to Browse....
         /// </summary>
         public static string BrowseForFileButton {
             get {
@@ -88,7 +88,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Elegir carpeta....
+        ///   Looks up a localized string similar to Pick folder....
         /// </summary>
         public static string BrowseForPathButton {
             get {
@@ -97,7 +97,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cerrar aplicación.
+        ///   Looks up a localized string similar to Close application.
         /// </summary>
         public static string ClosePromptCaption {
             get {
@@ -106,8 +106,8 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esta aplicación controla el correcto funcionamiento de los componentes del servidor. Al cerrarla se detendrán todos los servicios.
-        ///¿Desea continuar?.
+        ///   Looks up a localized string similar to This app keeps all the server components running. Closing it will end all server services.
+        ///Do you want to continue?.
         /// </summary>
         public static string ClosePromptMessage {
             get {
@@ -116,7 +116,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Líneas de consola.
+        ///   Looks up a localized string similar to Console buffer.
         /// </summary>
         public static string ConfigBufferLines {
             get {
@@ -125,7 +125,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archivos de configuración.
+        ///   Looks up a localized string similar to Configuration files.
         /// </summary>
         public static string ConfigFileDialogFilterDescription {
             get {
@@ -134,7 +134,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archivo de configuración.
+        ///   Looks up a localized string similar to Configuration file.
         /// </summary>
         public static string ConfigFileText {
             get {
@@ -143,7 +143,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abrir al inicio.
+        ///   Looks up a localized string similar to Open at login.
         /// </summary>
         public static string ConfigOpenAtLogin {
             get {
@@ -152,7 +152,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Acerca de.
+        ///   Looks up a localized string similar to About.
         /// </summary>
         public static string ConfigTabAboutGb {
             get {
@@ -161,8 +161,8 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CasparCG Server es un software para Windows y Linux utilizado para la reproducción profesional de gráficos, audio y video a múltiples salidas, como un compositor en tiempo real basado en capas. Ha estado en uso ininterrumpido en transmisiones desde el 2006 y lo mejor, es libre. Usado por la mayoría de los canales de Europa.
-        ///Más información en:.
+        ///   Looks up a localized string similar to CasparCG Server is a Windows and Linux software used to play out professional graphics, audio and video to multiple outputs as a layerbased real-time compositor. It has been in 24/7 broadcast production since 2006. And the best, it&apos;s free. Used by most broadcasters in Europe.
+        ///More info at:.
         /// </summary>
         public static string ConfigTabAboutProjectDescription {
             get {
@@ -171,7 +171,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Proyecto CasparCG.
+        ///   Looks up a localized string similar to CasparCG project.
         /// </summary>
         public static string ConfigTabAboutProjectName {
             get {
@@ -180,7 +180,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Para editar un archivo de configuración diferente a &apos;casparcg.config&apos; mantenga presionada la tecla Mayús mientras presiona el botón &apos;Editar archivo&apos;.
+        ///   Looks up a localized string similar to To edit a different file than &apos;casparcg.config&apos;, hold the Shift key while clicking the &apos;Edit file&apos; button.
         /// </summary>
         public static string ConfigTabEditConfigFilesDesc {
             get {
@@ -189,7 +189,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ejecutables.
+        ///   Looks up a localized string similar to Executables.
         /// </summary>
         public static string ConfigTabExecGbHeader {
             get {
@@ -198,7 +198,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forzar idioma.
+        ///   Looks up a localized string similar to Force language.
         /// </summary>
         public static string ConfigTabLangValue {
             get {
@@ -207,7 +207,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opciones.
+        ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string ConfigTabOptionsCbHead {
             get {
@@ -216,7 +216,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuración del servidor.
+        ///   Looks up a localized string similar to Server configuration.
         /// </summary>
         public static string ConfigTabServerConfigHeader {
             get {
@@ -225,7 +225,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dispositivo.
+        ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string ConfigWindowChannelsBfDevice {
             get {
@@ -234,7 +234,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Embeber audio.
+        ///   Looks up a localized string similar to Embedded audio.
         /// </summary>
         public static string ConfigWindowChannelsBfEmbedAudio {
             get {
@@ -252,7 +252,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Audio de keyer interno.
+        ///   Looks up a localized string similar to Internal keyer audio source.
         /// </summary>
         public static string ConfigWindowChannelsBfKeyerAudio {
             get {
@@ -261,7 +261,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Flujo SDI.
+        ///   Looks up a localized string similar to SDI stream.
         /// </summary>
         public static string ConfigWindowChannelsBfSdiStream {
             get {
@@ -270,7 +270,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modo UHD.
+        ///   Looks up a localized string similar to UHD mode.
         /// </summary>
         public static string ConfigWindowChannelsBfUhdMode {
             get {
@@ -288,7 +288,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuración del canal.
+        ///   Looks up a localized string similar to Channel settings.
         /// </summary>
         public static string ConfigWindowChannelsChannelConfigGbHeader {
             get {
@@ -297,7 +297,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Canal {0}.
+        ///   Looks up a localized string similar to Channel {0}.
         /// </summary>
         public static string ConfigWindowChannelsChannelListItemDisplay {
             get {
@@ -306,7 +306,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Canales.
+        ///   Looks up a localized string similar to Channels.
         /// </summary>
         public static string ConfigWindowChannelsChannels {
             get {
@@ -315,7 +315,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Formato de video.
+        ///   Looks up a localized string similar to Video mode.
         /// </summary>
         public static string ConfigWindowChannelsChannelVideoMode {
             get {
@@ -324,7 +324,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuración de la salida.
+        ///   Looks up a localized string similar to Consumer settings.
         /// </summary>
         public static string ConfigWindowChannelsConsumerConfigGbHeader {
             get {
@@ -333,7 +333,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salidas.
+        ///   Looks up a localized string similar to Consumers.
         /// </summary>
         public static string ConfigWindowChannelsConsumers {
             get {
@@ -342,7 +342,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tamaño del buffer.
+        ///   Looks up a localized string similar to Buffer depth.
         /// </summary>
         public static string ConfigWindowChannelsDlBuffer {
             get {
@@ -351,7 +351,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dispositivo.
+        ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string ConfigWindowChannelsDlDevice {
             get {
@@ -360,7 +360,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Embeber audio.
+        ///   Looks up a localized string similar to Embeded audio.
         /// </summary>
         public static string ConfigWindowChannelsDlEmbedAudio {
             get {
@@ -369,7 +369,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dispositivo de alfa.
+        ///   Looks up a localized string similar to Key device.
         /// </summary>
         public static string ConfigWindowChannelsDlKeyDevice {
             get {
@@ -387,7 +387,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solo alfa.
+        ///   Looks up a localized string similar to Key only.
         /// </summary>
         public static string ConfigWindowChannelsDlKeyOnly {
             get {
@@ -396,7 +396,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Latencia.
+        ///   Looks up a localized string similar to Latency.
         /// </summary>
         public static string ConfigWindowChannelsDlLatency {
             get {
@@ -405,7 +405,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argumentos.
+        ///   Looks up a localized string similar to Arguments.
         /// </summary>
         public static string ConfigWindowChannelsFfArgs {
             get {
@@ -414,7 +414,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta.
+        ///   Looks up a localized string similar to Path.
         /// </summary>
         public static string ConfigWindowChannelsFfPath {
             get {
@@ -423,7 +423,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Canales.
+        ///   Looks up a localized string similar to Channels.
         /// </summary>
         public static string ConfigWindowChannelsHeader {
             get {
@@ -432,7 +432,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Esta salida no tiene opciones configurables.
+        ///   Looks up a localized string similar to This consumer has no settings.
         /// </summary>
         public static string ConfigWindowChannelsNiNoOptions {
             get {
@@ -441,7 +441,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Habilitar campos.
+        ///   Looks up a localized string similar to Allow fields.
         /// </summary>
         public static string ConfigWindowChannelsNnAllowFields {
             get {
@@ -450,7 +450,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ConfigWindowChannelsNnName {
             get {
@@ -459,7 +459,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Canales.
+        ///   Looks up a localized string similar to Channel layout.
         /// </summary>
         public static string ConfigWindowChannelsSaChannelLayout {
             get {
@@ -468,7 +468,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Latencia.
+        ///   Looks up a localized string similar to Latency.
         /// </summary>
         public static string ConfigWindowChannelsSaLatency {
             get {
@@ -477,7 +477,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Siempre encima.
+        ///   Looks up a localized string similar to Always on top.
         /// </summary>
         public static string ConfigWindowChannelsScAlwaysOn {
             get {
@@ -486,7 +486,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Relación de aspecto.
+        ///   Looks up a localized string similar to Aspect ratio.
         /// </summary>
         public static string ConfigWindowChannelsScAspect {
             get {
@@ -495,7 +495,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sin bordes.
+        ///   Looks up a localized string similar to Borderless.
         /// </summary>
         public static string ConfigWindowChannelsScBorderless {
             get {
@@ -504,7 +504,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Espacio de color.
+        ///   Looks up a localized string similar to Colour space.
         /// </summary>
         public static string ConfigWindowChannelsScColourSpace {
             get {
@@ -513,7 +513,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dispositivo.
+        ///   Looks up a localized string similar to Device.
         /// </summary>
         public static string ConfigWindowChannelsScDevice {
             get {
@@ -522,7 +522,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alto.
+        ///   Looks up a localized string similar to Height.
         /// </summary>
         public static string ConfigWindowChannelsScHeight {
             get {
@@ -531,7 +531,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interactiva.
+        ///   Looks up a localized string similar to Interactive.
         /// </summary>
         public static string ConfigWindowChannelsScInteractive {
             get {
@@ -540,7 +540,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solo alfa.
+        ///   Looks up a localized string similar to Key Only.
         /// </summary>
         public static string ConfigWindowChannelsScKeyOnly {
             get {
@@ -549,7 +549,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ConfigWindowChannelsScName {
             get {
@@ -558,7 +558,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Alfa lado a lado.
+        ///   Looks up a localized string similar to Side by side key.
         /// </summary>
         public static string ConfigWindowChannelsScSbsKey {
             get {
@@ -567,7 +567,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Estirar.
+        ///   Looks up a localized string similar to Stretch.
         /// </summary>
         public static string ConfigWindowChannelsScStretch {
             get {
@@ -585,7 +585,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ancho.
+        ///   Looks up a localized string similar to Width.
         /// </summary>
         public static string ConfigWindowChannelsScWidth {
             get {
@@ -594,7 +594,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Modo ventana.
+        ///   Looks up a localized string similar to Windowed.
         /// </summary>
         public static string ConfigWindowChannelsScWindowed {
             get {
@@ -603,7 +603,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posición X.
+        ///   Looks up a localized string similar to X position.
         /// </summary>
         public static string ConfigWindowChannelsScX {
             get {
@@ -612,7 +612,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Posición Y.
+        ///   Looks up a localized string similar to Y position.
         /// </summary>
         public static string ConfigWindowChannelsScY {
             get {
@@ -630,7 +630,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dirección escáner de medios.
+        ///   Looks up a localized string similar to Media scanner host.
         /// </summary>
         public static string ConfigWindowOptionsTabAmcpMediaHost {
             get {
@@ -639,7 +639,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Puerto escáner de medios.
+        ///   Looks up a localized string similar to Media scanner port.
         /// </summary>
         public static string ConfigWindowOptionsTabAmcpMediaPort {
             get {
@@ -648,7 +648,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Puerto.
+        ///   Looks up a localized string similar to Port.
         /// </summary>
         public static string ConfigWindowOptionsTabAmcpPort {
             get {
@@ -657,7 +657,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Desentrelazado.
+        ///   Looks up a localized string similar to Deinterlace.
         /// </summary>
         public static string ConfigWindowOptionsTabFfmpegDeinterlace {
             get {
@@ -675,7 +675,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hilos de CPU.
+        ///   Looks up a localized string similar to CPU threads.
         /// </summary>
         public static string ConfigWindowOptionsTabFfmpegThreads {
             get {
@@ -684,7 +684,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tamaño del buffer.
+        ///   Looks up a localized string similar to Buffer depth.
         /// </summary>
         public static string ConfigWindowOptionsTabFlashBuffer {
             get {
@@ -693,7 +693,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Habilitar.
+        ///   Looks up a localized string similar to Enable Producer.
         /// </summary>
         public static string ConfigWindowOptionsTabFlashEnableProducer {
             get {
@@ -711,7 +711,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opciones del servidor.
+        ///   Looks up a localized string similar to Server options.
         /// </summary>
         public static string ConfigWindowOptionsTabHeader {
             get {
@@ -720,7 +720,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Puerto de depuración.
+        ///   Looks up a localized string similar to Debugging port.
         /// </summary>
         public static string ConfigWindowOptionsTabHtmlDebugPort {
             get {
@@ -729,7 +729,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Habilitar GPU.
+        ///   Looks up a localized string similar to Enable GPU.
         /// </summary>
         public static string ConfigWindowOptionsTabHtmlEnableGpu {
             get {
@@ -747,7 +747,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registro.
+        ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string ConfigWindowOptionsTabLogGb {
             get {
@@ -756,7 +756,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nivel.
+        ///   Looks up a localized string similar to Level.
         /// </summary>
         public static string ConfigWindowOptionsTabLogLogLevel {
             get {
@@ -765,7 +765,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Carga automática.
+        ///   Looks up a localized string similar to Autoload.
         /// </summary>
         public static string ConfigWindowOptionsTabNdiAutoload {
             get {
@@ -783,7 +783,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deshabilitar clientes AMCP.
+        ///   Looks up a localized string similar to Disable send to AMCP clients.
         /// </summary>
         public static string ConfigWindowOptionsTabOscAmcpDisable {
             get {
@@ -792,7 +792,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Puerto por defecto.
+        ///   Looks up a localized string similar to Default port.
         /// </summary>
         public static string ConfigWindowOptionsTabOscDefaultPort {
             get {
@@ -810,7 +810,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dirección.
+        ///   Looks up a localized string similar to Address.
         /// </summary>
         public static string ConfigWindowOptionsTabOscPredClientAddress {
             get {
@@ -819,7 +819,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Puerto.
+        ///   Looks up a localized string similar to Port.
         /// </summary>
         public static string ConfigWindowOptionsTabOscPredClientPort {
             get {
@@ -828,7 +828,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clientes predefinidos.
+        ///   Looks up a localized string similar to Predefined clients.
         /// </summary>
         public static string ConfigWindowOptionsTabOscPredefinedClients {
             get {
@@ -837,7 +837,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clave de seguridad.
+        ///   Looks up a localized string similar to Clear passphrase.
         /// </summary>
         public static string ConfigWindowOptionsTabPassGb {
             get {
@@ -846,7 +846,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valor.
+        ///   Looks up a localized string similar to Value.
         /// </summary>
         public static string ConfigWindowOptionsTabPassValue {
             get {
@@ -855,7 +855,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta de datos.
+        ///   Looks up a localized string similar to Data path.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsDataPath {
             get {
@@ -864,7 +864,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta de fuentes.
+        ///   Looks up a localized string similar to Font path.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsFontPath {
             get {
@@ -873,7 +873,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rutas.
+        ///   Looks up a localized string similar to Paths.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsGb {
             get {
@@ -882,7 +882,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta de registro.
+        ///   Looks up a localized string similar to Log path.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsLogPath {
             get {
@@ -891,7 +891,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta de medios.
+        ///   Looks up a localized string similar to Media path.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsMediaPath {
             get {
@@ -900,7 +900,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta de plantillas.
+        ///   Looks up a localized string similar to Template path.
         /// </summary>
         public static string ConfigWindowOptionsTabPathsTemplatePath {
             get {
@@ -909,7 +909,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Guardar.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string ConfigWindowSaveButton {
             get {
@@ -918,7 +918,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ocurrió un error desconocido.
+        ///   Looks up a localized string similar to An unknown error has ocurred.
         /// </summary>
         public static string ConfigWindowStatusMessageSaveError {
             get {
@@ -927,7 +927,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al escribir el archivo.
+        ///   Looks up a localized string similar to Error writing to the file.
         /// </summary>
         public static string ConfigWindowStatusMessageSaveIOError {
             get {
@@ -936,7 +936,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El archivo se guardó correctamente.
+        ///   Looks up a localized string similar to The file has been saved successfully.
         /// </summary>
         public static string ConfigWindowStatusMessageSaveSuccess {
             get {
@@ -945,7 +945,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Editar configuración del servidor.
+        ///   Looks up a localized string similar to Edit server configuration.
         /// </summary>
         public static string ConfigWindowTitle {
             get {
@@ -954,7 +954,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuración.
+        ///   Looks up a localized string similar to Configuration.
         /// </summary>
         public static string ContextMenuExecConfigItemHeader {
             get {
@@ -963,7 +963,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Abrir ventana de diagnóstico.
+        ///   Looks up a localized string similar to Open diagnostics window.
         /// </summary>
         public static string ContextMenuExecDiagItemHeader {
             get {
@@ -972,7 +972,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reiniciar.
+        ///   Looks up a localized string similar to Restart.
         /// </summary>
         public static string ContextMenuExecRestartItemHeader {
             get {
@@ -981,7 +981,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Iniciar.
+        ///   Looks up a localized string similar to Start.
         /// </summary>
         public static string ContextMenuExecStartItemHeader {
             get {
@@ -990,7 +990,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detener.
+        ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string ContextMenuExecStopItemHeader {
             get {
@@ -999,7 +999,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salir.
+        ///   Looks up a localized string similar to Exit.
         /// </summary>
         public static string ContextMenuExitItemHeader {
             get {
@@ -1008,7 +1008,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reconstruir medios.
+        ///   Looks up a localized string similar to Rebuild media database.
         /// </summary>
         public static string ContextMenuRebuildMediaDbItemHeader {
             get {
@@ -1017,7 +1017,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reiniciar todos.
+        ///   Looks up a localized string similar to Restart all.
         /// </summary>
         public static string ContextMenuRestartAllHeader {
             get {
@@ -1026,7 +1026,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Iniciar todos.
+        ///   Looks up a localized string similar to Start all.
         /// </summary>
         public static string ContextMenuStartAllHeader {
             get {
@@ -1035,7 +1035,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detener todos.
+        ///   Looks up a localized string similar to Stop all.
         /// </summary>
         public static string ContextMenuStopAllHeader {
             get {
@@ -1044,7 +1044,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida Decklink.
+        ///   Looks up a localized string similar to Decklink consumer.
         /// </summary>
         public static string DecklinkConsumer {
             get {
@@ -1053,7 +1053,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eliminar ejecutable.
+        ///   Looks up a localized string similar to Delete executable.
         /// </summary>
         public static string DeleteExecutablePromptCaption {
             get {
@@ -1062,7 +1062,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seguro desea eliminar el ejecutable? (no se puede deshacer).
+        ///   Looks up a localized string similar to Do you really want to delete the executable? (this can&apos;t be undone).
         /// </summary>
         public static string DeleteExecutablePromptMessage {
             get {
@@ -1071,7 +1071,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Argumentos.
+        ///   Looks up a localized string similar to Arguments.
         /// </summary>
         public static string ExecutableConfigWindowArgs {
             get {
@@ -1080,7 +1080,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Autoejecutar.
+        ///   Looks up a localized string similar to Autostart.
         /// </summary>
         public static string ExecutableConfigWindowAuto {
             get {
@@ -1089,7 +1089,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ejecutar automáticamente al iniciar la aplicación.
+        ///   Looks up a localized string similar to Launch automatically on startup.
         /// </summary>
         public static string ExecutableConfigWindowAutoDesc {
             get {
@@ -1098,7 +1098,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comandos de inicio.
+        ///   Looks up a localized string similar to Startup commands.
         /// </summary>
         public static string ExecutableConfigWindowCommands {
             get {
@@ -1107,7 +1107,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retardo entre comandos.
+        ///   Looks up a localized string similar to Delay between commands.
         /// </summary>
         public static string ExecutableConfigWindowCommandsDelay {
             get {
@@ -1116,7 +1116,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiempo de pausa entre cada comando de inicio (milisegundos).
+        ///   Looks up a localized string similar to Wait time between each startup command (milliseconds).
         /// </summary>
         public static string ExecutableConfigWindowCommandsDelayDesc {
             get {
@@ -1125,7 +1125,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Comando.
+        ///   Looks up a localized string similar to Command.
         /// </summary>
         public static string ExecutableConfigWindowCommandsDgHeader {
             get {
@@ -1134,7 +1134,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Habilitar comandos.
+        ///   Looks up a localized string similar to Enable commands.
         /// </summary>
         public static string ExecutableConfigWindowCommandsEnabled {
             get {
@@ -1143,7 +1143,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Habilita el envío de comandos al ejecutable en la consola.
+        ///   Looks up a localized string similar to Enables writing commands to the console.
         /// </summary>
         public static string ExecutableConfigWindowCommandsEnabledDesc {
             get {
@@ -1152,7 +1152,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Retardo de inicio.
+        ///   Looks up a localized string similar to Startup delay.
         /// </summary>
         public static string ExecutableConfigWindowDelay {
             get {
@@ -1161,7 +1161,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tiempo de espera antes de la ejecución (milisegundos).
+        ///   Looks up a localized string similar to Wait time before launch (milliseconds).
         /// </summary>
         public static string ExecutableConfigWindowDelayDesc {
             get {
@@ -1170,7 +1170,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Opciones del ejecutable.
+        ///   Looks up a localized string similar to Executable options.
         /// </summary>
         public static string ExecutableConfigWindowGbOptionsHeader {
             get {
@@ -1179,7 +1179,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Múltiples instancias.
+        ///   Looks up a localized string similar to Allow multiple instances.
         /// </summary>
         public static string ExecutableConfigWindowMultipleInstancesEnabled {
             get {
@@ -1188,7 +1188,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Permite la ejecución de múltiples procesos con el mismo nombre (CasparCG.exe permite diferentes archivos de configuración especificando la ruta en el campo argumentos).
+        ///   Looks up a localized string similar to Enables running multiple processes with the same name (CasparCG.exe allows different config files specifying its path in the arguments field).
         /// </summary>
         public static string ExecutableConfigWindowMultipleInstancesEnabledDesc {
             get {
@@ -1197,7 +1197,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nombre.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
         public static string ExecutableConfigWindowName {
             get {
@@ -1206,7 +1206,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ruta del ejecutable.
+        ///   Looks up a localized string similar to Executable path.
         /// </summary>
         public static string ExecutableConfigWindowPath {
             get {
@@ -1215,7 +1215,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Configuración del ejecutable.
+        ///   Looks up a localized string similar to Executable configuration.
         /// </summary>
         public static string ExecutableConfigWindowTitle {
             get {
@@ -1224,7 +1224,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al iniciar el proceso.
+        ///   Looks up a localized string similar to Error while starting the process.
         /// </summary>
         public static string ExecutableErrorMessage {
             get {
@@ -1233,7 +1233,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ubicación del ejecutable incorrecta.
+        ///   Looks up a localized string similar to Wrong path.
         /// </summary>
         public static string ExecutableNotFoundWarningCaption {
             get {
@@ -1242,7 +1242,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compruebe la ruta del ejecutable.
+        ///   Looks up a localized string similar to Check executable file path.
         /// </summary>
         public static string ExecutableNotFoundWarningMessage {
             get {
@@ -1251,7 +1251,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El proceso se ha detenido.
+        ///   Looks up a localized string similar to The process has stopped.
         /// </summary>
         public static string ExecutableStoppedMessage {
             get {
@@ -1260,7 +1260,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida FFmpeg.
+        ///   Looks up a localized string similar to FFmpeg consumer.
         /// </summary>
         public static string FFConsumer {
             get {
@@ -1269,7 +1269,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ejecutables.
+        ///   Looks up a localized string similar to Executables.
         /// </summary>
         public static string FileDialogFilterDescription {
             get {
@@ -1278,7 +1278,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida iVGA.
+        ///   Looks up a localized string similar to iVGA consumer.
         /// </summary>
         public static string IvgaConsumer {
             get {
@@ -1287,7 +1287,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida NDI.
+        ///   Looks up a localized string similar to NDI consumer.
         /// </summary>
         public static string NdiConsumer {
             get {
@@ -1296,7 +1296,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nuevo ejecutable.
+        ///   Looks up a localized string similar to New executable.
         /// </summary>
         public static string NewExecutableName {
             get {
@@ -1305,7 +1305,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Editar archivo.
+        ///   Looks up a localized string similar to Edit file.
         /// </summary>
         public static string OpenConfigEditorEditButtonText {
             get {
@@ -1323,7 +1323,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El archivo de configuración contiene errores.
+        ///   Looks up a localized string similar to The configuration file is malformed.
         /// </summary>
         public static string OpenConfigEditorFileError {
             get {
@@ -1332,7 +1332,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error al abrir el archivo de configuración.
+        ///   Looks up a localized string similar to Error opening the configuration file.
         /// </summary>
         public static string OpenConfigEditorIOError {
             get {
@@ -1341,7 +1341,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nuevo archivo.
+        ///   Looks up a localized string similar to New file.
         /// </summary>
         public static string OpenConfigEditorNewButtonText {
             get {
@@ -1350,7 +1350,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida a Pantalla.
+        ///   Looks up a localized string similar to Screen consumer.
         /// </summary>
         public static string ScreenConsumer {
             get {
@@ -1359,7 +1359,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Estado.
+        ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string StatusTabHeader {
             get {
@@ -1368,7 +1368,7 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salida a Audio de Sistema.
+        ///   Looks up a localized string similar to System Audio consumer.
         /// </summary>
         public static string SystemAudioConsumer {
             get {
