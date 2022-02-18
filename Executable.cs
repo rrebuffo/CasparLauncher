@@ -19,6 +19,8 @@ namespace CasparLauncher
 {
     class Executable : INotifyPropertyChanged
     {
+        const string LOG_LEVEL_START = "Logging [";
+        const string LOG_LEVEL_END = "] or higher severity to log";
 
         public Settings Settings { get; set; }
         private DispatcherTimer StartupTimer = new DispatcherTimer();
@@ -278,6 +280,27 @@ namespace CasparLauncher
             }
         }
 
+        private LogLevel _currentLogLevel = LogLevel._warning;
+        public LogLevel CurrentLogLevel
+        {
+            get
+            {
+                return _currentLogLevel;
+            }
+            set
+            {
+                if (_currentLogLevel != value)
+                {
+                    _currentLogLevel = value;
+                    OnPropertyChanged(nameof(CurrentLogLevel));
+                    if(_logLevelIsSet) ChangeCasparLogLevel(value);
+                    _logLevelIsSet = true;
+                }
+            }
+        }
+
+        private bool _logLevelIsSet = false;
+
         private bool _allowMultipleInstances = false;
         public bool AllowMultipleInstances
         {
@@ -534,7 +557,24 @@ namespace CasparLauncher
             Application.Current.Dispatcher.BeginInvoke((Action)(() =>
             {
                 if (Output.Count == Settings.BufferLines) Output.RemoveAt(0);
-                Output.Add(new LogLine(e.Data, IsServer));
+                var line = new LogLine(e.Data, IsServer);
+                try
+                {
+                    if (IsServer && line.Data is string data && line.DirectOutput && data.Length > LOG_LEVEL_START.Length + LOG_LEVEL_END.Length)
+                    {
+                        int start = LOG_LEVEL_START.Length;
+                        int end = data.IndexOf(LOG_LEVEL_END, start);
+
+                        if (data.IndexOf(LOG_LEVEL_START) == 0 && end > 0)
+                        {
+                            var level = LogLine.GetLevel(data.Substring(start, end - start));
+                            CurrentLogLevel = level;
+                        }
+                    }
+                }
+                catch (Exception) {}
+                
+                Output.Add(line);
             }));
         }
 
@@ -551,6 +591,11 @@ namespace CasparLauncher
             if (!Enabled) return;
             Thread.Sleep(100);
             StartProcess();
+        }
+
+        private void ChangeCasparLogLevel(LogLevel newLevel)
+        {
+            if(IsServer && Running) SendCommand($"LOG LEVEL {newLevel.ToString().Substring(1)}");
         }
 
         #endregion
@@ -643,30 +688,37 @@ namespace CasparLauncher
             if(linedata.Groups.Count>1)
             {
                 Timestamp = linedata.Groups[1].Value;
-                switch(linedata.Groups[2].Value)
-                {
-                    case "fatal":
-                        Level = LogLevel._fatal;
-                        break;
-                    case "error":
-                        Level = LogLevel._error;
-                        break;
-                    case "warning":
-                        Level = LogLevel._warning;
-                        break;
-                    case "info":
-                        Level = LogLevel._info;
-                        break;
-                    case "debug":
-                        Level = LogLevel._debug;
-                        break;
-                    case "trace":
-                        Level = LogLevel._trace;
-                        break;
-                }
+                Level = GetLevel(linedata.Groups[2].Value);
                 Message = has_content ? data.Substring(36) : "";
                 DirectOutput = false;
             }
+        }
+
+        public static LogLevel GetLevel(string value)
+        {
+            var level = LogLevel._info;
+            switch (value)
+            {
+                case "fatal":
+                    level = LogLevel._fatal;
+                    break;
+                case "error":
+                    level = LogLevel._error;
+                    break;
+                case "warning":
+                    level = LogLevel._warning;
+                    break;
+                case "info":
+                    level = LogLevel._info;
+                    break;
+                case "debug":
+                    level = LogLevel._debug;
+                    break;
+                case "trace":
+                    level = LogLevel._trace;
+                    break;
+            }
+            return level;
         }
     }
 
