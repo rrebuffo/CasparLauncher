@@ -109,21 +109,27 @@ namespace CasparLauncher
             }
         }
 
+        private bool? _isServer;
         public bool IsServer
         {
             get
             {
+                if(_isServer.HasValue) return _isServer.Value;
                 if (!Exists) return false;
-                return System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "casparcg";
+                _isServer = System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "casparcg";
+                return _isServer.Value;
             }
         }
 
+        private bool? _isScanner;
         public bool IsScanner
         {
             get
             {
+                if (_isScanner.HasValue) return _isScanner.Value;
                 if (!Exists) return false;
-                return System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "scanner";
+                _isScanner = System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "scanner";
+                return _isServer.Value;
             }
         }
 
@@ -675,6 +681,7 @@ namespace CasparLauncher
         public LogLevel Level { get; private set; } = LogLevel._info;
         public string Timestamp { get; private set; } = "";
         public bool DirectOutput { get; private set; } = true;
+        private static Regex find = new Regex(@"^\[([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+)\]\s\[(.+?)\]\s*(.*)");
 
         public LogLine(string data, bool serverFormat)
         {
@@ -682,7 +689,6 @@ namespace CasparLauncher
             if (string.IsNullOrEmpty(data) || !serverFormat) return;
             bool has_content = data.Length > 36;
 
-            Regex find = new Regex(@"^\[([0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]+)\]\s\[(.+?)\]\s*(.*)");
             string to_match = has_content ? data.Substring(0, 36) : data;
             Match linedata = find.Match(to_match);
             if(linedata.Groups.Count>1)
