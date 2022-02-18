@@ -395,7 +395,7 @@ namespace CasparLauncher
             {
                 return Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(file)).Any();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
