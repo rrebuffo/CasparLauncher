@@ -550,7 +550,7 @@
     <Style x:Key="StandardDataGridCell" TargetType="{x:Type DataGridCell}">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="MinHeight" Value="20" />
+        <Setter Property="MinHeight" Value="10" />
         <Setter Property="Foreground" Value="{StaticResource Foreground}" />
         <Setter Property="Padding" Value="3" />
         <Setter Property="Template">

@@ -74,7 +74,7 @@ namespace CasparLauncher
                         break;
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("es-ES");
             }
@@ -83,6 +83,13 @@ namespace CasparLauncher
         private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
         {
             Current.Dispatcher.BeginInvoke((Action)(() => ((Launcher)Current.MainWindow).Shutdown()));
+        }
+
+        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            var comException = e.Exception as System.Runtime.InteropServices.COMException;
+
+            if (comException != null && comException.ErrorCode == -2147221040) e.Handled = true;
         }
     }
 

@@ -82,7 +82,7 @@ namespace CasparLauncher
                     Executables.Add(new_executable);
                 }
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 LoadDefaults();
             }

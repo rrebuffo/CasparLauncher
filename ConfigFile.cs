@@ -392,7 +392,7 @@ namespace CasparLauncher
                 string val = string.Format("_{0}", value);
                 return Enum.Parse(prop, val);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }

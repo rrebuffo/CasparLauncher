@@ -9,7 +9,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="BufferLines" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1000</Value>
+      <Value Profile="(Default)">10000</Value>
     </Setting>
     <Setting Name="LauncherWindowPosX" Type="System.Double" Scope="User">
       <Value Profile="(Default)">0</Value>

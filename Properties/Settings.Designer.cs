@@ -49,7 +49,7 @@ namespace CasparLauncher.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10000")]
         public int BufferLines {
             get {
                 return ((int)(this["BufferLines"]));
