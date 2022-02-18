@@ -196,7 +196,7 @@
                                 <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                             <Grid Grid.Row="1">
-                                <DataGrid Name="ConsoleOutputDataGrid" ScrollViewer.ScrollChanged="ConsoleOutputDataGrid_ScrollChanged" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Output, Mode=OneWay}"  ClipboardCopyMode="ExcludeHeader" HeadersVisibility="None" EnableRowVirtualization="True" EnableColumnVirtualization="False" AutoGenerateColumns="False">
+                                <DataGrid Name="ConsoleOutputDataGrid" ScrollViewer.ScrollChanged="ConsoleOutputDataGrid_ScrollChanged" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Output, Mode=OneWay}"  ClipboardCopyMode="ExcludeHeader" HeadersVisibility="None" EnableRowVirtualization="True" EnableColumnVirtualization="False" AutoGenerateColumns="False"  CanUserResizeRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False">
                                     <DataGrid.CellStyle>
                                         <Style TargetType="DataGridCell" BasedOn="{StaticResource StandardDataGridCell}">
                                             <Setter Property="Padding" Value="3 0 3 1"/>
