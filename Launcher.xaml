@@ -193,8 +193,21 @@
                                         </Viewbox>
                                     </Button>
                                 </StackPanel>
-                                <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 2"/>
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0 0 -1 0">
+                                <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 2 1 2"/>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="9 0 -1 0">
+                                    <StackPanel.Style>
+                                        <Style TargetType="StackPanel">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsServer}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=IsScanner}" Value="True">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </StackPanel.Style>
                                     <Button Name="OpenGridButton" Click="OpenGrid_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" IsEnabled="{Binding Path=Running}">
                                         <Viewbox>
                                             <Path Style="{StaticResource GridIcon}" Margin="20" />
