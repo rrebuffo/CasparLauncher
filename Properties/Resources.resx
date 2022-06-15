@@ -557,4 +557,10 @@ More info at:</value>
   <data name="ConfigWindowChannelsScName" xml:space="preserve">
     <value>Name</value>
   </data>
+  <data name="UptimeDaysFormat" xml:space="preserve">
+    <value>{0:%d} days, </value>
+  </data>
+  <data name="UptimeTimeFormat" xml:space="preserve">
+    <value>{0:%h\:mm\:ss}</value>
+  </data>
 </root>

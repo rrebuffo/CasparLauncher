@@ -112,6 +112,7 @@
     <Compile Include="Command.cs" />
     <Compile Include="Converters\DragBorderConverters.cs" />
     <Compile Include="Converters\ItemsLayoutConverter.cs" />
+    <Compile Include="Converters\UptimeConverter.cs" />
     <Compile Include="ExecutableOptions.xaml.cs">
       <DependentUpon>ExecutableOptions.xaml</DependentUpon>
     </Compile>

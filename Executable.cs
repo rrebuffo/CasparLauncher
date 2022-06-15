@@ -25,12 +25,15 @@ namespace CasparLauncher
         public Settings Settings { get; set; }
         private DispatcherTimer StartupTimer = new DispatcherTimer();
         private DispatcherTimer CommandsTimer = new DispatcherTimer();
+        private DispatcherTimer UptimeTimer = new DispatcherTimer();
         private int CurrentCommandIndex = 0;
+        private DateTime StartupTime;
 
         public Executable()
         {
             History.Add("");
             StartupTimer.Tick += StartupTimer_Tick;
+            UptimeTimer.Tick += UptimeTimer_Tick;
             PropertyChanged += Executable_PropertyChanged;
             Commands.CollectionChanged += Commands_CollectionChanged;
         }
@@ -63,6 +66,11 @@ namespace CasparLauncher
             {
                 OnModified();
             }
+        }
+
+        private void UptimeTimer_Tick(object sender, EventArgs e)
+        {
+            OnPropertyChanged(nameof(Uptime));
         }
 
         public XElement Config
@@ -410,6 +418,8 @@ namespace CasparLauncher
             }
         }
 
+        public TimeSpan Uptime => DateTime.Now - StartupTime;
+
         public ObservableCollection<Command> Commands { get; set; } = new ObservableCollection<Command>();
 
         public ObservableCollection<string> History { get; set; } = new ObservableCollection<string>();
@@ -511,6 +521,10 @@ namespace CasparLauncher
             Process.Exited += Process_Exited;
             Process.EnableRaisingEvents = true;
             Process.BeginOutputReadLine();
+            StartupTime = DateTime.Now;
+            OnPropertyChanged(nameof(Uptime));
+            UptimeTimer.Interval = TimeSpan.FromSeconds(.1);
+            UptimeTimer.Start();
             Running = true;
 
             if(AllowCommands && Commands.Any()) SendStartupCommands();

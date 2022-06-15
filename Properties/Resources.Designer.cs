@@ -1375,5 +1375,23 @@ namespace CasparLauncher.Properties {
                 return ResourceManager.GetString("SystemAudioConsumer", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:%d} days, .
+        /// </summary>
+        public static string UptimeDaysFormat {
+            get {
+                return ResourceManager.GetString("UptimeDaysFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0:%h\:mm\:ss}.
+        /// </summary>
+        public static string UptimeTimeFormat {
+            get {
+                return ResourceManager.GetString("UptimeTimeFormat", resourceCulture);
+            }
+        }
     }
 }
