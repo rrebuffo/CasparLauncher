@@ -451,7 +451,17 @@ namespace CasparLauncher
         private void KillTreeOf(int id)
         {
             KillChildsOf((uint)id);
-            Process.GetProcessById(id).Kill();
+            try
+            {
+                if (Process.GetProcessById(id) is Process p)
+                {
+                    if (!p.HasExited)
+                    {
+                        Process.GetProcessById(id).Kill();
+                    }
+                }
+            }
+            catch (ArgumentException) { }
         }
 
         private void KillChildsOf(uint id)
@@ -494,6 +504,7 @@ namespace CasparLauncher
 
         private void StopProcess()
         {
+            if (!Enabled) return;
             Enabled = false;
             Process.Kill();
         }
