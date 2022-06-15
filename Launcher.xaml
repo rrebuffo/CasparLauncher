@@ -192,31 +192,32 @@
                                             <Path Style="{StaticResource RestartIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
-                                    <Button Name="OpenDiagButton" Click="OpenDiag_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" Margin="10 0 2 0">
-                                        <Viewbox>
-                                            <Path Style="{StaticResource DiagIcon}" Margin="20" />
-                                        </Viewbox>
-                                    </Button>
-                                    <Button Name="OpenGridButton" Click="OpenGrid_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" Margin="2 0 10 0">
+                                </StackPanel>
+                                <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 2"/>
+                                <StackPanel Grid.Column="2" Orientation="Horizontal" Margin="0 0 -1 0">
+                                    <Button Name="OpenGridButton" Click="OpenGrid_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" IsEnabled="{Binding Path=Running}">
                                         <Viewbox>
                                             <Path Style="{StaticResource GridIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
-
-                                    <Button Name="RebuildButton" Click="RebuildMedia_Click" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}" Margin="10 0 10 0">
+                                    <Button Name="OpenDiagButton" Click="OpenDiag_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" IsEnabled="{Binding Path=Running}">
                                         <Viewbox>
-                                            <Path Style="{StaticResource RefreshIcon}" Margin="20" />
+                                            <Path Style="{StaticResource DiagIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
-                                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" IsEnabled="{Binding Path=Running}" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" ItemsSource="{Binding Source={StaticResource LogLevelList}}" SelectedValue="{Binding Path=CurrentLogLevel, Mode=TwoWay}" Margin="0 2 10 2">
+                                    <ComboBox VerticalContentAlignment="Center" IsEnabled="{Binding Path=Running}" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" ItemsSource="{Binding Source={StaticResource LogLevelList}}" SelectedValue="{Binding Path=CurrentLogLevel, Mode=TwoWay}" Margin="2">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate DataType="{x:Type local:LogLevel}">
                                                 <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>
+                                    <Button Name="RebuildButton" Click="RebuildMedia_Click" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}">
+                                        <Viewbox>
+                                            <Path Style="{StaticResource RefreshIcon}" Margin="20" />
+                                        </Viewbox>
+                                    </Button>
                                 </StackPanel>
-                                <TextBox Visibility="{Binding AllowCommands, Converter={StaticResource boolToVisibility}}" Name="ConsoleCommandTextBox" Grid.Column="1" FontFamily="Consolas" FontSize="14" VerticalContentAlignment="Center" Text="{Binding Path=CurrentCommand, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </Grid>
                             <Grid Grid.Row="1">
                                 <DataGrid Name="ConsoleOutputDataGrid" ScrollViewer.ScrollChanged="ConsoleOutputDataGrid_ScrollChanged" HorizontalContentAlignment="Stretch" ItemsSource="{Binding Path=Output, Mode=OneWay}"  ClipboardCopyMode="ExcludeHeader" HeadersVisibility="None" EnableRowVirtualization="True" EnableColumnVirtualization="False" AutoGenerateColumns="False"  CanUserResizeRows="False" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserSortColumns="False" CanUserAddRows="False">
