@@ -356,6 +356,13 @@ namespace CasparLauncher
             ex.Stop();
         }
 
+        private void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            if(ex.Running) ex.Process.Kill();
+        }
+
         private void RebuildMedia_Click(object sender, RoutedEventArgs e)
         {
             Executable ex = GetItemExecutable(sender);

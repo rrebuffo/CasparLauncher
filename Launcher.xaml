@@ -182,6 +182,11 @@
                                             <Path Style="{StaticResource StopIcon}" Margin="20" />
                                         </Viewbox>
                                     </Button>
+                                    <Button Name="RestartButton" Click="RestartButton_Click" IsEnabled="{Binding Path=Running}">
+                                        <Viewbox>
+                                            <Path Style="{StaticResource RestartIcon}" Margin="20" />
+                                        </Viewbox>
+                                    </Button>
                                     <Button Name="OpenDiagButton" Click="OpenDiag_Click" Visibility="{Binding Path=IsServer, Converter={StaticResource boolToVisibility}}" Margin="10 0 10 0">
                                         <Viewbox>
                                             <Path Style="{StaticResource DiagIcon}" Margin="20" />
@@ -413,7 +418,13 @@
                                         <GroupBox.Header>
                                             <Grid>
                                                 <TextBlock HorizontalAlignment="Left" Margin="0 5" Text="{x:Static l:Resources.ConfigTabExecGbHeader}" />
-                                                <Button Name="AddExecutableButton" Style="{StaticResource PlusButton}" Height="16" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10 0" Click="AddExecutableButton_Click" />
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                                    <Button Name="StartExecutableButton" Style="{StaticResource PlayButton}" Height="16" Margin="2 0 2 0" Click="StartAll" />
+                                                    <Button Name="StopExecutableButton" Style="{StaticResource StopButton}" Height="16" Margin="2 0" Click="StopAll" />
+                                                    <Button Name="RestartExecutableButton" Style="{StaticResource RestartButton}" Height="16" Margin="5 0" Click="RestartAll" />
+                                                    <Border Width="32" />
+                                                    <Button Name="AddExecutableButton" Style="{StaticResource PlusButton}" Height="16" Margin="10 0" Click="AddExecutableButton_Click" />
+                                                </StackPanel>
                                             </Grid>
                                         </GroupBox.Header>
                                         <ItemsControl ItemsSource="{Binding Path=Executables}" Focusable="False">
@@ -446,6 +457,7 @@
                                                         <StackPanel Grid.Column="3" Orientation="Horizontal">
                                                             <Button Name="ExecutableStart" Height="16" Padding="5 0" Click="StartButton_Click" Style="{StaticResource PlayButton}" IsEnabled="{Binding Path=Running, Converter={StaticResource invertBool}}" />
                                                             <Button Name="ExecutableStop" Height="16" Padding="5 0" Click="StopButton_Click" Style="{StaticResource StopButton}" IsEnabled="{Binding Path=Running}" />
+                                                            <Button Name="ExecutableRestart" Height="16" Margin="5 0" Click="RestartButton_Click" Style="{StaticResource RestartButton}" IsEnabled="{Binding Path=Running}" />
                                                             <Border Width="10" />
                                                             <Button Name="ExecutableConfig" Height="16" Padding="5 0" Style="{StaticResource ConfigButton}" Click="ExecutableConfig_Click" />
                                                             <Border Width="10" />
