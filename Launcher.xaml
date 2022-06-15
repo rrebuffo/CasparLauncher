@@ -298,6 +298,9 @@
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate DataType="{x:Type local:Executable}">
                                         <Grid Margin="10">
+                                            <Grid.ContextMenu>
+                                                <ContextMenu ItemsSource="{StaticResource ExecutableMenuItems}"/>
+                                            </Grid.ContextMenu>
                                             <Button Name="ExecutableButton" MinWidth="100" MaxWidth="375" MinHeight="80" MaxHeight="300" Click="ExecutableButton_Click">
                                                 <Button.Style>
                                                     <Style TargetType="Button" BasedOn="{StaticResource StandardButton}">
