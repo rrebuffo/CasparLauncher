@@ -108,6 +108,8 @@ namespace CasparLauncher
                 if (_path != value)
                 {
                     _path = value;
+                    _ = IsServer;
+                    _ = IsScanner;
                     OnPropertyChanged("Path");
                     OnPropertyChanged("Exists");
                     OnPropertyChanged("Icon");
@@ -484,7 +486,6 @@ namespace CasparLauncher
                 throw (new Exception("ExecutablePathNotFound"));
             }
             if (!AllowMultipleInstances && IsRunning(_path)) KillAllRunningInstances(_path);
-
             ProcessStartInfo info = new ProcessStartInfo();
             info.CreateNoWindow = true;
             info.UseShellExecute = false;

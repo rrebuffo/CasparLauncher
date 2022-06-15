@@ -563,4 +563,7 @@ Más información en:</value>
   <data name="UptimeTimeFormat" xml:space="preserve">
     <value>{0:%h\:mm\:ss}</value>
   </data>
+  <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
+    <value>Abrir ventana de grilla de canales</value>
+  </data>
 </root>

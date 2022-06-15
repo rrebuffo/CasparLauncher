@@ -250,6 +250,13 @@ namespace CasparLauncher
             OpenDiag(ex);
         }
 
+        private void Grid_item_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            OpenGrid(ex);
+        }
+
         private void TrayMenu_ExitItem_Click(object sender, RoutedEventArgs e)
         {
             Shutdown(true);
@@ -275,6 +282,12 @@ namespace CasparLauncher
         {
             if (ex is null || !ex.Running) return;
             ex.Write("DIAG");
+        }
+
+        private void OpenGrid(Executable ex)
+        {
+            if (ex is null || !ex.Running) return;
+            ex.Write("CHANNEL_GRID");
         }
 
         private void ClearScannerDatabases(Executable ex)
@@ -375,6 +388,13 @@ namespace CasparLauncher
             Executable ex = GetItemExecutable(sender);
             if (ex is null) return;
             OpenDiag(ex);
+        }
+
+        private void OpenGrid_Click(object sender, RoutedEventArgs e)
+        {
+            Executable ex = GetItemExecutable(sender);
+            if (ex is null) return;
+            OpenGrid(ex);
         }
 
         private void ConsoleOutputDataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
