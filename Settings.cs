@@ -42,6 +42,7 @@ namespace CasparLauncher
 
         private void LoadSettings()
         {
+            S.Default.Upgrade();
             _bufferLines = S.Default.BufferLines;
             _openAtLogin = S.Default.OpenAtLogin;
             PosX = S.Default.LauncherWindowPosX;
@@ -161,7 +162,6 @@ namespace CasparLauncher
             
             S.Default.Executables = config.ToString(SaveOptions.DisableFormatting);
             S.Default.Save();
-            S.Default.Upgrade();
         }
 
         public static int DragThreshold
