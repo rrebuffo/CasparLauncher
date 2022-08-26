@@ -14,6 +14,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using L = CasparLauncher.Properties.Resources;
+using System.IO;
+using System.Reflection;
 
 namespace CasparLauncher
 {
@@ -117,6 +119,73 @@ namespace CasparLauncher
                 foreach (string value in values) if (value != "") Executable.Commands.Add(new Command() { Value = value });
             }
             catch { }
+        }
+
+        private void ExportCommands_Click(object sender, RoutedEventArgs e)
+        {          
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
+                FileName = Environment.MachineName + "_CasparLauncher_Commands.txt",
+                Title = L.ExportCommandsDialogTitle
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                File.WriteAllLines(
+                    saveFileDialog.FileName, 
+                    Executable.Commands.Select(x => x.Value).ToArray()
+                );
+            }
+            else
+            {
+                return;
+            }
+
+        }
+        private void ImportCommands_Click(object sender, RoutedEventArgs e)
+        {
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Title = L.ImportCommandsDialogTitle;
+            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialog.FilterIndex = 2;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                
+                filePath = openFileDialog.FileName;
+
+                Executable.Commands.Clear();
+                foreach (string line in System.IO.File.ReadLines(filePath))
+                {
+                    Command newCommand = new Command();
+                    newCommand.Value = line;
+                    Executable.Commands.Add(newCommand);
+                }
+            }
+            else
+            {
+                return;
+            }
+            
+            //Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
+            //{
+            //    Multiselect = false,
+            //    Filter = L.FileDialogFilterDescription + " (*.EXE)|*.exe"
+            //};
+
+            //if (openFileDialog.ShowDialog() == true)
+            //{
+            //    Executable.Path = openFileDialog.FileName;
+            //}
+            //else
+            //{
+            //    return;
+            //}
         }
     }
 }

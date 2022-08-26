@@ -566,4 +566,16 @@ More info at:</value>
   <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
     <value>Open channel grid window</value>
   </data>
+  <data name="ExecutableConfigWindowCommandsExport" xml:space="preserve">
+    <value>Export...</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsImport" xml:space="preserve">
+    <value>Import...</value>
+  </data>
+  <data name="ExportCommandsDialogTitle" xml:space="preserve">
+    <value>Select Export Location</value>
+  </data>
+  <data name="ImportCommandsDialogTitle" xml:space="preserve">
+    <value>Select File With Commands</value>
+  </data>
 </root>
