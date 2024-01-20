@@ -192,21 +192,27 @@
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="{x:Static l:Resources.ExecutableConfigWindowCommands}" Visibility="{Binding Path=AllowCommands, Converter={StaticResource boolToVisibility}, FallbackValue=Collapsed}">
-                    <DataGrid Grid.Column="1" ItemsSource="{Binding Path=Commands, Mode=TwoWay}" VerticalContentAlignment="Center" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="True" CanUserAddRows="True" CanUserDeleteRows="True" Height="150">
-                        <DataGrid.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem Command="{x:Static ApplicationCommands.Copy}" />
-                                <MenuItem Command="{x:Static ApplicationCommands.Paste}" />
-                            </ContextMenu>
-                        </DataGrid.ContextMenu>
-                        <DataGrid.CommandBindings>
-                            <CommandBinding Command="{x:Static ApplicationCommands.Paste}" CanExecute="CanPaste" Executed="Paste"/>
-                            <CommandBinding Command="{x:Static ApplicationCommands.Copy}" CanExecute="CanCopy" Executed="Copy"/>
-                        </DataGrid.CommandBindings>
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Width="*" Header="{x:Static l:Resources.ExecutableConfigWindowCommandsDgHeader}" Binding="{Binding Path=Value, Mode=TwoWay}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="ExportCommands"  Content="{x:Static l:Resources.ExecutableConfigWindowCommandsExport}"  Click="ExportCommands_Click"/>
+                            <Button Name="ImportCommands"  Content="{x:Static l:Resources.ExecutableConfigWindowCommandsImport}"  Click="ImportCommands_Click"/>
+                        </StackPanel>
+                        <DataGrid Grid.Column="1" ItemsSource="{Binding Path=Commands, Mode=TwoWay}" VerticalContentAlignment="Center" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="True" CanUserAddRows="True" CanUserDeleteRows="True" Height="150">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Command="{x:Static ApplicationCommands.Copy}" />
+                                    <MenuItem Command="{x:Static ApplicationCommands.Paste}" />
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
+                            <DataGrid.CommandBindings>
+                                <CommandBinding Command="{x:Static ApplicationCommands.Paste}" CanExecute="CanPaste" Executed="Paste"/>
+                                <CommandBinding Command="{x:Static ApplicationCommands.Copy}" CanExecute="CanCopy" Executed="Copy"/>
+                            </DataGrid.CommandBindings>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Width="*" Header="{x:Static l:Resources.ExecutableConfigWindowCommandsDgHeader}" Binding="{Binding Path=Value, Mode=TwoWay}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
                 </GroupBox>
             </StackPanel>
         </ScrollViewer>

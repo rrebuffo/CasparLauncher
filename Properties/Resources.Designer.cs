@@ -1161,6 +1161,24 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export....
+        /// </summary>
+        public static string ExecutableConfigWindowCommandsExport {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowCommandsExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import....
+        /// </summary>
+        public static string ExecutableConfigWindowCommandsImport {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowCommandsImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Startup delay.
         /// </summary>
         public static string ExecutableConfigWindowDelay {
@@ -1269,6 +1287,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select Export Location.
+        /// </summary>
+        public static string ExportCommandsDialogTitle {
+            get {
+                return ResourceManager.GetString("ExportCommandsDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FFmpeg consumer.
         /// </summary>
         public static string FFConsumer {
@@ -1283,6 +1310,15 @@ namespace CasparLauncher.Properties {
         public static string FileDialogFilterDescription {
             get {
                 return ResourceManager.GetString("FileDialogFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select File With Commands.
+        /// </summary>
+        public static string ImportCommandsDialogTitle {
+            get {
+                return ResourceManager.GetString("ImportCommandsDialogTitle", resourceCulture);
             }
         }
         

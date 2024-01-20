@@ -566,4 +566,16 @@ Más información en:</value>
   <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
     <value>Abrir ventana de grilla de canales</value>
   </data>
+  <data name="ExecutableConfigWindowCommandsExport" xml:space="preserve">
+    <value>Exportar...</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsImport" xml:space="preserve">
+    <value>Importar...</value>
+  </data>
+  <data name="ExportCommandsDialogTitle" xml:space="preserve">
+    <value>Seleccionar ubicación de exportación</value>
+  </data>
+  <data name="ImportCommandsDialogTitle" xml:space="preserve">
+    <value>Seleccionar archivo con comandos</value>
+  </data>
 </root>
