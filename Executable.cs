@@ -530,9 +530,11 @@ namespace CasparLauncher
             Process.Start();
             Process.StandardInput.AutoFlush = true;
             Process.OutputDataReceived += Process_OutputDataReceived;
+            Process.ErrorDataReceived += Process_OutputDataReceived;
             Process.Exited += Process_Exited;
             Process.EnableRaisingEvents = true;
             Process.BeginOutputReadLine();
+            Process.BeginErrorReadLine();
             StartupTime = DateTime.Now;
             OnPropertyChanged(nameof(Uptime));
             UptimeTimer.Interval = TimeSpan.FromSeconds(.1);
