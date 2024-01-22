@@ -1,0 +1,803 @@
+﻿<ui:DialogWindow    x:Class="CasparLauncher.ConfigEditor"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:local="clr-namespace:CasparLauncher"
+                    xmlns:cg="clr-namespace:CasparLauncher.CasparCG"
+                    xmlns:config="clr-namespace:CasparLauncher.CasparCG.Configuration"
+                    xmlns:e="clr-namespace:CasparLauncher.CasparCG.Configuration.Enums"
+                    xmlns:consumers="clr-namespace:CasparLauncher.CasparCG.Configuration.Consumers"
+                    xmlns:ui="clr-namespace:BaseUISupport.Controls;assembly=BaseUISupport"
+                    xmlns:converters="clr-namespace:BaseUISupport.Converters;assembly=BaseUISupport"
+                    xmlns:helpers="clr-namespace:BaseUISupport.Helpers;assembly=BaseUISupport"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:l="clr-namespace:CasparLauncher.Properties"
+                    mc:Ignorable="d"
+                    Width="750"
+                    d:Height="2500"
+                    Height="728"
+                    MinWidth="500"
+                    MinHeight="500"
+                    WindowStartupLocation="CenterOwner"
+                    SizeToContent="Manual"
+                    ResizeMode="CanResize"
+                    Foreground="{DynamicResource Foreground}"
+                    x:Name="ConfigWindow"
+                    Title="{helpers:Localization ConfigWindowTitle}">
+    <Window.Resources>
+        <converters:InvertBooleanConverter x:Key="invertBool" />
+        <converters:IcoToImageSourceConverter x:Key="icoToSource" />
+        <converters:LocalizedEnumConverter x:Key="enumConverter" />
+        <converters:NameAndIndexConverter x:Key="nameIndexConverter" />
+        <converters:ListBoxSelectedConverter x:Key="lbSelected" />
+        <converters:BooleanToVisibilityConverter x:Key="boolToVisibility" False="Collapsed" True="Visible" />
+        <converters:BooleanToVisibilityConverter x:Key="invBoolToVisibility" False="Visible" True="Collapsed" />
+        <converters:DragBorderHeightConverter x:Key="DragBorderHeight" />
+        <converters:DragTopBorderOffsetConverter x:Key="DragBorderTop" />
+        <converters:DragBottomBorderOffsetConverter x:Key="DragBorderBottom" />
+
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropertyNameTextBlock}" />
+
+        <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ComboBox}">
+            <Setter Property="Margin" Value="1" />
+            <Setter Property="MinWidth" Value="150" />
+        </Style>
+
+        <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource CheckBox}">
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource TextBox}">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ui:TabbedPanel Padding="2" Margin="5" Style="{StaticResource TabbedToolBox}">
+            <ui:TabbedPanelItem Header="{helpers:Localization ConfigWindowOptionsTabHeader}" Style="{StaticResource TabbedToolBoxItem}">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Grid.IsSharedSizeScope="True">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type ComboBox}" BasedOn="{StaticResource ComboBox}">
+                                <Style.Resources>
+                                    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource TextBlock}">
+                                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                        <Setter Property="TextAlignment" Value="Left" />
+                                    </Style>
+                                </Style.Resources>
+                            </Style>
+                        </StackPanel.Resources>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabPathsGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPathsMediaPath}" Type="Text" Binding="{Binding Path=MediaPath}">
+                                    <ui:ConfigItem.Actions>
+                                        <Button Name="PickMediaPathButton" Padding="5 0" Grid.Column="2" Content="{helpers:Localization BrowseForPathButton}" Click="PickMediaPathButton_Click" />
+                                    </ui:ConfigItem.Actions>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPathsDataPath}" Type="Text" Binding="{Binding Path=DataPath}">
+                                    <ui:ConfigItem.Actions>
+                                        <Button Name="PickDataPathButton" Padding="5 0" Grid.Column="2" Content="{helpers:Localization BrowseForPathButton}" Click="PickDataPathButton_Click" />
+                                    </ui:ConfigItem.Actions>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPathsTemplatePath}" Type="Text" Binding="{Binding Path=TemplatePath}">
+                                    <ui:ConfigItem.Actions>
+                                        <Button Name="PickTemplatePathButton" Padding="5 0" Grid.Column="2" Content="{helpers:Localization BrowseForPathButton}" Click="PickTemplatePathButton_Click" />
+                                    </ui:ConfigItem.Actions>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPathsFontPath}" Type="Text" Binding="{Binding Path=FontPath}">
+                                    <ui:ConfigItem.Actions>
+                                        <Button Name="PickFontPathButton" Padding="5 0" Grid.Column="2" Content="{helpers:Localization BrowseForPathButton}" Click="PickFontPathButton_Click" />
+                                    </ui:ConfigItem.Actions>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPathsLogPath}" Type="Text" Binding="{Binding Path=LogPath}">
+                                    <ui:ConfigItem.Actions>
+                                        <Button Name="PickLogPathButton" Padding="5 0" Grid.Column="2" Content="{helpers:Localization BrowseForPathButton}" Click="PickLogPathButton_Click" />
+                                    </ui:ConfigItem.Actions>
+                                </ui:ConfigItem>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabLogGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabLogLogLevel}">
+                                    <ui:ConfigItem.Resources>
+                                        <ObjectDataProvider x:Key="LogLevelList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="e:LogLevel" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource LogLevelList}}" SelectedValue="{Binding Path=LogLevel}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type e:LogLevel}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </ui:ConfigItem>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabPassGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabPassValue}" Type="Text" Binding="{Binding Path=LockPass}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabFlashGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabFlashBuffer}" Type="Integer" Binding="{Binding Path=FlashBuffer}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabFlashEnableProducer}" Type="CheckBox" Binding="{Binding Path=FlashEnableProducer}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabFfmpegGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabFfmpegDeinterlace}">
+                                    <ui:ConfigItem.Resources>
+                                        <ObjectDataProvider x:Key="FfmpegDeinterlaceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="e:FfmpegDeinterlace" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource FfmpegDeinterlaceList}}" SelectedValue="{Binding Path=FfmpegDeinterlace}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type e:FfmpegDeinterlace}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabFfmpegThreads}" Type="Integer" Binding="{Binding Path=FfmpegThreads}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabHtmlGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabHtmlDebugPort}" Type="Integer" Binding="{Binding Path=HtmlRemoteDebugPort}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabHtmlEnableGpu}" Type="CheckBox" Binding="{Binding Path=HtmlEnableGpu}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabHtmlAngleBackend}">
+                                    <ui:ConfigItem.Resources>
+                                        <ObjectDataProvider x:Key="HtmlAngleGraphicsBackendList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="e:HtmlAngleGraphicsBackend" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource HtmlAngleGraphicsBackendList}}" SelectedValue="{Binding Path=HtmlAngleBackend}">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate DataType="{x:Type e:HtmlAngleGraphicsBackend}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </ui:ConfigItem>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabNdiGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabNdiAutoload}" Type="CheckBox" Binding="{Binding Path=NdiAutoLoad}"/>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabOscGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabOscAmcpDisable}" Type="CheckBox" Binding="{Binding Path=OscDisableAmcpClients}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabOscDefaultPort}" Type="Integer" Binding="{Binding Path=OscDefaultPort}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabOscPredefinedClients}">
+                                    <DataGrid Margin="1" ItemsSource="{Binding Path=OscPredefinedClients, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HeadersVisibility="Column" Height="140" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientAddress}" Width="150*" Binding="{Binding Address, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientPort}" Width="50*" Binding="{Binding Port, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </ui:ConfigItem>
+                            </StackPanel>
+                        </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabAmcpGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabAmcpPort}" Type="Integer" Binding="{Binding Path=AmcpPort}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabAmcpMediaHost}" Type="Text" Binding="{Binding Path=MediaHost}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabAmcpMediaPort}" Type="Integer" Binding="{Binding Path=MediaPort}"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </ui:TabbedPanelItem>
+            <ui:TabbedPanelItem Header="{helpers:Localization ConfigWindowVideoModesTab}" Style="{StaticResource TabbedToolBoxItem}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" MinWidth="150" MaxWidth="400" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Margin="3 0 0 3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{helpers:Localization ConfigWindowVideoModesCustomVideoModes}" Foreground="{DynamicResource Foreground}" HorizontalAlignment="Left"></TextBlock>
+                            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                <ui:IconButton Size="16" Margin="0" Icon="{StaticResource PlusIcon}" Click="AddVideoMode" />
+                                <ui:IconButton Size="16" Margin="0" Icon="{StaticResource MinusIcon}" Click="RemVideoMode" IsEnabled="{Binding ElementName=VideoModesList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
+                            </StackPanel>
+                        </Grid>
+                        <ListBox Name="VideoModesList" Grid.Row="1" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding VideoModes}" AllowDrop="True">
+                            <ListBox.Style>
+                                <Style TargetType="ListBox" BasedOn="{StaticResource ListBox}">
+                                    <Setter Property="DataContext" Value="{Binding}" />
+                                    <Setter Property="SelectionMode" Value="Single" />
+                                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                                </Style>
+                            </ListBox.Style>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListBoxItem}">
+                                    <Setter Property="Height" Value="36"/>
+                                    <Setter Property="Padding" Value="6"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Path=Id}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                    <GridSplitter ResizeBehavior="CurrentAndNext" Width="4" Margin="0 0 -2 0" Background="Transparent" />
+                    <Grid Grid.Column="1" Margin="0" Grid.IsSharedSizeScope="True">
+                        <GroupBox Header="{helpers:Localization ConfigWindowVideoModesCustomVideoModeGb}" DataContext="{Binding ElementName=VideoModesList, Path=SelectedItem}" IsEnabled="{Binding ElementName=VideoModesList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesId}" Type="Text" Binding="{Binding Path=Id}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesWidth}" Type="Integer" Binding="{Binding Path=Width}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesHeight}" Type="Integer" Binding="{Binding Path=Height}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesTimeScale}" Type="Integer" Binding="{Binding Path=TimeScale}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesDuration}" Type="Integer" Binding="{Binding Path=Duration}"/>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowVideoModesCadence}" Type="Integer" Binding="{Binding Path=Cadence}"/>
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </ui:TabbedPanelItem>
+            <ui:TabbedPanelItem Header="{helpers:Localization ConfigWindowChannelsHeader}" Style="{StaticResource TabbedToolBoxItem}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" MinWidth="150" MaxWidth="400" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0" Margin="3 0 0 3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+
+                        <!-- CHANNELS -->
+                        <Grid Grid.Row="0" Margin="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{helpers:Localization ConfigWindowChannelsChannels}" Foreground="{DynamicResource Foreground}" HorizontalAlignment="Left"></TextBlock>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <ui:IconButton Size="16" Margin="0" Icon="{DynamicResource PlusIcon}" Click="AddChannel" />
+                                    <ui:IconButton Size="16" Margin="0" Icon="{DynamicResource MinusIcon}" Click="RemChannel" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
+                                </StackPanel>
+                            </Grid>
+                            <ListBox x:Name="ChannelList" ItemsSource="{Binding Channels}" Grid.Row="1" SelectionMode="Extended" AllowDrop="True" Margin="0" Background="Transparent" ScrollViewer.CanContentScroll="False" VirtualizingPanel.IsVirtualizing="False">
+                                <ListBox.Resources>
+                                    <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollViewer}">
+                                        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                                    </Style>
+                                </ListBox.Resources>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListBoxItem}">
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="Padding" Value="6"/>
+                                        <Setter Property="AllowDrop" Value="True"/>
+                                        <EventSetter Event="Drop" Handler="ChannelItem_Drop" />
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock VerticalAlignment="Center">
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource nameIndexConverter}">
+                                                    <Binding Source="{x:Static l:Resources.ConfigWindowChannelsChannelListItemDisplay}" />
+                                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBox}}" />
+                                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ListBoxItem}}" />
+                                                    <Binding ElementName="ConfigWindow" Path="ChannelsUpdated"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+
+                        <!-- CONSUMERS -->
+                        <Grid Grid.Row="1" Margin="0 5 0 0" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{helpers:Localization ConfigWindowChannelsConsumers}" Foreground="{DynamicResource Foreground}" HorizontalAlignment="Left" VerticalAlignment="Center"></TextBlock>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Menu Grid.Column="1" Background="Transparent" Padding="0 0 0 0" Margin="0" MenuItem.Click="AddConsumer" VerticalAlignment="Center">
+                                        <MenuItem Padding="4 2">
+                                            <MenuItem.Header>
+                                                <Viewbox Margin="0 0 0 1" Width="16" Height="16" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                    <Path Style="{StaticResource PlusIcon}" />
+                                                </Viewbox>
+                                            </MenuItem.Header>
+                                            <MenuItem Name="AddDecklinkMenuItem" Header="{helpers:Localization DecklinkConsumer}" />
+                                            <MenuItem Name="AddBluefishMenuItem" Header="{helpers:Localization BluefishConsumer}" />
+                                            <MenuItem Name="AddScreenMenuItem" Header="{helpers:Localization ScreenConsumer}" />
+                                            <MenuItem Name="AddSystemAudioMenuItem" Header="{helpers:Localization SystemAudioConsumer}" />
+                                            <MenuItem Name="AddIvgaMenuItem" Header="{helpers:Localization IvgaConsumer}" />
+                                            <MenuItem Name="AddNdiMenuItem" Header="{helpers:Localization NdiConsumer}" />
+                                            <MenuItem Name="AddFfmpegMenuItem" Header="{helpers:Localization FFConsumer}" />
+                                            <MenuItem Name="AddArtnetMenuItem" Header="{helpers:Localization ArtnetConsumer}" />
+                                        </MenuItem>
+                                    </Menu>
+
+                                    <ui:IconButton Size="16" Margin="0" Icon="{StaticResource MinusIcon}" Click="RemConsumer" IsEnabled="{Binding ElementName=ConsumerList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
+                                </StackPanel>
+                            </Grid>
+                            <ListBox x:Name="ConsumerList" Grid.Row="1" ItemsSource="{Binding ElementName=ChannelList, Path=SelectedItem.Consumers}" SelectedIndex="{Binding ElementName=ChannelList, Path=SelectedItem.SelectedConsumer, Mode=TwoWay}" AllowDrop="False" SelectionMode="Extended" Background="Transparent" ScrollViewer.CanContentScroll="False" VirtualizingPanel.IsVirtualizing="False">
+                                <ListBox.Resources>
+                                    <DataTemplate DataType="{x:Type consumers:DecklinkConsumer}">
+                                        <TextBlock Text="{helpers:Localization DecklinkConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:BluefishConsumer}">
+                                        <TextBlock Text="{helpers:Localization BluefishConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:ScreenConsumer}">
+                                        <TextBlock Text="{helpers:Localization ScreenConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:SystemAudioConsumer}">
+                                        <TextBlock Text="{helpers:Localization SystemAudioConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:NewtekIvgaConsumer}">
+                                        <TextBlock Text="{helpers:Localization IvgaConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:NdiConsumer}">
+                                        <TextBlock Text="{helpers:Localization NdiConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:FfmpegConsumer}">
+                                        <TextBlock Text="{helpers:Localization FFConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <DataTemplate DataType="{x:Type consumers:ArtnetConsumer}">
+                                        <TextBlock Text="{helpers:Localization ArtnetConsumer}" TextTrimming="CharacterEllipsis" />
+                                    </DataTemplate>
+                                    <Style TargetType="ScrollViewer" BasedOn="{StaticResource ScrollViewer}">
+                                        <Setter Property="HorizontalScrollBarVisibility" Value="Disabled"/>
+                                    </Style>
+                                </ListBox.Resources>
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource ListBoxItem}">
+                                        <Setter Property="Height" Value="30"/>
+                                        <Setter Property="Padding" Value="6"/>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                            </ListBox>
+                        </Grid>
+                    </Grid>
+                    <GridSplitter ResizeBehavior="CurrentAndNext" Width="4" Margin="0 0 -2 0" Background="Transparent" />
+                    <Grid Grid.Column="1" Margin="0" Grid.IsSharedSizeScope="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!-- CHANNEL CONFIGURATION -->
+                        <GroupBox Header="{helpers:Localization ConfigWindowChannelsChannelConfigGbHeader}" DataContext="{Binding ElementName=ChannelList, Path=SelectedItem}" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerChannelVideoMode}">
+                                    <ui:ConfigItem.Resources>
+                                        <CollectionViewSource x:Key="DefaultModeList" Source="{Binding ElementName=ConfigWindow, Path=DataContext.DefaultVideoModes}" />
+                                        <CollectionViewSource x:Key="CustomModeList" Source="{Binding ElementName=ConfigWindow, Path=DataContext.VideoModes}" />
+                                        <CompositeCollection x:Key="AllVideoModes">
+                                            <CollectionContainer Collection="{Binding Source={StaticResource DefaultModeList}}"/>
+                                            <CollectionContainer Collection="{Binding Source={StaticResource CustomModeList}}"/>
+                                        </CompositeCollection>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource AllVideoModes}}" SelectedValue="{Binding Path=VideoMode}" DisplayMemberPath="Display">
+                                        <ComboBox.Resources>
+                                            <DataTemplate DataType="{x:Type config:VideoMode}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                            <DataTemplate DataType="{x:Type config:CustomVideoMode}">
+                                                <TextBlock Text="{Binding Path=Id}" />
+                                            </DataTemplate>
+                                        </ComboBox.Resources>
+                                    </ComboBox>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsChannelProducers}">
+                                    <DataGrid Grid.Column="1" Margin="0 1" ItemsSource="{Binding Path=Producers, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HeadersVisibility="Column" Height="100" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerLayer}" Width="40" Binding="{Binding Layer, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerMedia}" Width="*" Binding="{Binding Media, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </ui:ConfigItem>
+                            </StackPanel>
+                        </GroupBox>
+                        <!-- CONSUMER CONFIGURATION -->
+                        <GroupBox Grid.Row="1" Header="{helpers:Localization ConfigWindowChannelsConsumerConfigGbHeader}" VerticalAlignment="Stretch" IsEnabled="{Binding ElementName=ConsumerList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                            <GroupBox.Resources>
+                                <CompositeCollection x:Key="NullableVideoModes">
+                                    <config:VideoMode Display="{x:Static l:Resources.ConfigWindowChannelsConsumerChannelVideoMode}" Id=""/>
+                                    <CollectionContainer Collection="{Binding Source={x:Static config:ConfigFile.DefaultVideoModes}}"/>
+                                </CompositeCollection>
+                                <Grid x:Key="SubregionCopy" x:Shared="False" Margin="0 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionEnable}" Type="CheckBox" Binding="{Binding Path=SubregionEnable}"/>
+                                    <Border Grid.Row="1" Visibility="{Binding Path=SubregionEnable, Converter={StaticResource boolToVisibility}}" Background="{DynamicResource DialogBackground}" CornerRadius="{DynamicResource CompactRadius}" Margin="2" Padding="2">
+                                        <StackPanel>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionSrcX}" Type="Integer" Binding="{Binding Path=SourceX}"/>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionSrcY}" Type="Integer" Binding="{Binding Path=SourceY}"/>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionDestX}" Type="Integer" Binding="{Binding Path=DestinationX}"/>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionDestY}" Type="Integer" Binding="{Binding Path=DestinationY}"/>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionWidth}" Type="Integer" Binding="{Binding Path=SubregionWidth}"/>
+                                            <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionHeight}" Type="Integer" Binding="{Binding Path=SubregionHeight}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                                <DataTemplate DataType="{x:Type consumers:DecklinkConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlDevice}" Type="Integer" Binding="{Binding Path=Device}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlKeyDevice}" Type="Integer" Binding="{Binding Path=KeyDevice}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlEmbedAudio}" Type="CheckBox" Binding="{Binding Path=EmbeddedAudio}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlLatency}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="DecklinkLatencyList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:DecklinkLatency" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource DecklinkLatencyList}}" SelectedValue="{Binding Path=Latency}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:DecklinkLatency}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlKeyer}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="DecklinkKeyerList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:DecklinkKeyer" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource DecklinkKeyerList}}" SelectedValue="{Binding Path=Keyer}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:DecklinkKeyer}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlKeyOnly}" Type="CheckBox" Binding="{Binding Path=KeyOnly}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlBuffer}" Type="Integer" Binding="{Binding Path=BufferDepth}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlWaitForReference}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="DecklinkWaitForReferenceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:DecklinkWaitForReference" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource DecklinkWaitForReferenceList}}" SelectedValue="{Binding Path=WaitForReference}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:DecklinkWaitForReference}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlWaitForReferenceDuration}" Type="Integer" Binding="{Binding Path=WaitForReferenceDuration}" Description="{helpers:Localization ConfigWindowChannelsDlWaitForReferenceDurationDetail}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerVideoMode}" Type="ComboBox" ItemsSource="{Binding Source={StaticResource NullableVideoModes}}" Binding="{Binding Path=VideoMode}" SelectedValuePath="Id"  DisplayMemberPath="Display"/>
+                                        <ContentControl Content="{StaticResource SubregionCopy}" Focusable="False"></ContentControl>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlPorts}" Type="Custom">
+                                            <Button Grid.Column="1" Click="AddDecklinkPort" HorizontalAlignment="Left" Padding="4 0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Path Width="16" Height="16" Style="{DynamicResource PlusIcon}"/>
+                                                    <TextBlock Text="{helpers:Localization ConfigWindowChannelsDlAddPort}"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </ui:ConfigItem>
+                                        <ItemsControl ItemsSource="{Binding Ports}" Focusable="False">
+                                            <ItemsControl.Resources>
+                                                <DataTemplate DataType="{x:Type consumers:DecklinkPort}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Background="{DynamicResource DialogBackground}" CornerRadius="{DynamicResource CompactRadius}" Margin="2" Padding="2">
+                                                            <StackPanel>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlPortDevice}" Type="Integer" Binding="{Binding Path=Device}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlPortKeyOnly}" Type="CheckBox" Binding="{Binding Path=KeyOnly}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerVideoMode}" Type="ComboBox" ItemsSource="{Binding Source={StaticResource NullableVideoModes}}" Binding="{Binding Path=VideoMode}" SelectedValuePath="Id"  DisplayMemberPath="Display"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionEnable}" Type="CheckBox" Binding="{Binding Path=SubregionEnable}"/>
+                                                                <StackPanel Visibility="{Binding Path=SubregionEnable, Converter={StaticResource boolToVisibility}}">
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionSrcX}" Type="Integer" Binding="{Binding Path=SourceX}"/>
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionSrcY}" Type="Integer" Binding="{Binding Path=SourceY}"/>
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionDestX}" Type="Integer" Binding="{Binding Path=DestinationX}"/>
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionDestY}" Type="Integer" Binding="{Binding Path=DestinationY}"/>
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionWidth}" Type="Integer" Binding="{Binding Path=SubregionWidth}"/>
+                                                                    <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerSubregionHeight}" Type="Integer" Binding="{Binding Path=SubregionHeight}"/>
+                                                                </StackPanel>
+                                                            </StackPanel>
+                                                        </Border>
+                                                        <Button Grid.Column="1" Click="RemDecklinkPort" VerticalAlignment="Stretch" Padding="4 2">
+                                                            <Path Width="16" Height="16" Style="{DynamicResource TrashIcon}"/>
+                                                        </Button>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.Resources>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:BluefishConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfDevice}" Type="Integer" Binding="{Binding Path=Device}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfSdiStream}" Type="Integer" Binding="{Binding Path=SdiStream}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfEmbedAudio}" Type="CheckBox" Binding="{Binding Path=EmbeddedAudio}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfKeyer}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="BluefishKeyerList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:BluefishKeyer" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource BluefishKeyerList}}" SelectedValue="{Binding Path=Keyer}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:BluefishKeyer}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfKeyerAudio}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="BluefishKeyerAudioList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:BluefishKeyerAudio" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource BluefishKeyerAudioList}}" SelectedValue="{Binding Path=KeyerAudio}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:BluefishKeyerAudio}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfWatchdog}" Type="Integer" Binding="{Binding Path=Watchdog}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsBfUhdMode}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="BluefishUhdModeList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:BluefishUhdMode" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox Grid.Column="1" VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource BluefishUhdModeList}}" SelectedValue="{Binding Path=UhdMode}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:BluefishUhdMode}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:ScreenConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScName}" Type="Text" Binding="{Binding Path=Name}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScDevice}" Type="Integer" Binding="{Binding Path=Device}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScAspect}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="ScreenAspectRatioList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:ScreenAspectRatio" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource ScreenAspectRatioList}}" SelectedValue="{Binding Path=Aspect}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:ScreenAspectRatio}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScStretch}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="ScreenStretchList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:ScreenStretch" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource ScreenStretchList}}" SelectedValue="{Binding Path=Stretch}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:ScreenStretch}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScWindowed}" Type="CheckBox" Binding="{Binding Path=Windowed}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScBorderless}" Type="CheckBox" Binding="{Binding Path=Borderless}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScAlwaysOn}" Type="CheckBox" Binding="{Binding Path=AlwaysOn}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScInteractive}" Type="CheckBox" Binding="{Binding Path=Interactive}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScX}" Type="Integer" Binding="{Binding Path=X}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScY}" Type="Integer" Binding="{Binding Path=Y}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScWidth}" Type="Integer" Binding="{Binding Path=Width}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScHeight}" Type="Integer" Binding="{Binding Path=Height}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScVsync}" Type="CheckBox" Binding="{Binding Path=Vsync}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScKeyOnly}" Type="CheckBox" Binding="{Binding Path=KeyOnly}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScSbsKey}" Type="CheckBox" Binding="{Binding Path=SbsKey}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsScColourSpace}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="ScreenColourSpaceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:ScreenColourSpace" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource ScreenColourSpaceList}}" SelectedValue="{Binding Path=ColourSpace}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:ScreenColourSpace}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:SystemAudioConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsSaChannelLayout}">
+                                            <ui:ConfigItem.Resources>
+                                                <ObjectDataProvider x:Key="SystemAudioChannelLayoutList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                    <ObjectDataProvider.MethodParameters>
+                                                        <x:Type TypeName="e:SystemAudioChannelLayout" />
+                                                    </ObjectDataProvider.MethodParameters>
+                                                </ObjectDataProvider>
+                                            </ui:ConfigItem.Resources>
+                                            <ComboBox ItemsSource="{Binding Source={StaticResource SystemAudioChannelLayoutList}}" SelectedValue="{Binding Path=ChannelLayout}">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate DataType="{x:Type e:SystemAudioChannelLayout}">
+                                                        <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </ui:ConfigItem>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsSaLatency}" Type="Integer" Binding="{Binding Path=Latency}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:NewtekIvgaConsumer}">
+                                    <Grid>
+                                        <TextBlock Text="{helpers:Localization ConfigWindowChannelsNiNoOptions}"  VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:NdiConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsNnName}" Type="Text" Binding="{Binding Path=Name}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsNnAllowFields}" Type="CheckBox" Binding="{Binding Path=AllowFields}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:FfmpegConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsFfPath}" Type="Text" Binding="{Binding Path=Path}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsFfArgs}" Type="Text" Binding="{Binding Path=Arguments}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type consumers:ArtnetConsumer}">
+                                    <StackPanel>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnUniverse}" Type="Integer" Binding="{Binding Path=Universe}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnHost}" Type="Text" Binding="{Binding Path=Host}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnPort}" Type="Integer" Binding="{Binding Path=Port}"/>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnRate}" Type="Integer" Binding="{Binding Path=RefreshRate}"/>
+
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtures}" Type="Custom">
+                                            <Button Grid.Column="1" Click="AddArtnetFixture" HorizontalAlignment="Left" Padding="4 0">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Path Width="16" Height="16" Style="{DynamicResource PlusIcon}"/>
+                                                    <TextBlock Text="{helpers:Localization ConfigWindowChannelsAnAddFixture}"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </ui:ConfigItem>
+                                        <ItemsControl ItemsSource="{Binding Fixtures}" Focusable="False">
+                                            <ItemsControl.Resources>
+                                                <DataTemplate DataType="{x:Type consumers:ArtnetFixture}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="*"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Border Grid.Column="0" Background="{DynamicResource DialogBackground}" CornerRadius="{DynamicResource CompactRadius}" Margin="2" Padding="2">
+                                                            <StackPanel>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureType}">
+                                                                    <ui:ConfigItem.Resources>
+                                                                        <ObjectDataProvider x:Key="ArtnetFixtureTypeList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                                            <ObjectDataProvider.MethodParameters>
+                                                                                <x:Type TypeName="e:ArtnetFixtureType" />
+                                                                            </ObjectDataProvider.MethodParameters>
+                                                                        </ObjectDataProvider>
+                                                                    </ui:ConfigItem.Resources>
+                                                                    <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource ArtnetFixtureTypeList}}" SelectedValue="{Binding Path=Type}">
+                                                                        <ComboBox.ItemTemplate>
+                                                                            <DataTemplate DataType="{x:Type e:ArtnetFixtureType}">
+                                                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                                            </DataTemplate>
+                                                                        </ComboBox.ItemTemplate>
+                                                                    </ComboBox>
+                                                                </ui:ConfigItem>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureStart}" Type="Integer" Binding="{Binding Path=StartAddress}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureCount}" Type="Integer" Binding="{Binding Path=FixtureCount}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureChannels}" Type="Integer" Binding="{Binding Path=FixtureChannels}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureX}" Type="Integer" Binding="{Binding Path=X}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureY}" Type="Integer" Binding="{Binding Path=Y}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureWidth}" Type="Integer" Binding="{Binding Path=Width}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureHeight}" Type="Integer" Binding="{Binding Path=Height}"/>
+                                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsAnFixtureRotation}" Type="Integer" Binding="{Binding Path=Rotation}"/>
+                                                            </StackPanel>
+                                                        </Border>
+                                                        <Button Grid.Column="1" Click="RemArtnetFixture" VerticalAlignment="Stretch" Padding="4 2">
+                                                            <Path Width="16" Height="16" Style="{DynamicResource TrashIcon}"/>
+                                                        </Button>
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.Resources>
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </DataTemplate>
+                                <DataTemplate DataType="{x:Type x:NullExtension}">
+                                    <Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </GroupBox.Resources>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                                <ContentControl Name="Properties" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible" Content="{Binding ElementName=ConsumerList, Path=SelectedItem}"></ContentControl>
+                            </ScrollViewer>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+            </ui:TabbedPanelItem>
+        </ui:TabbedPanel>
+        <StackPanel HorizontalAlignment="Left" Margin="5 0 5 5" Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Text="{Binding Path=FileName}" VerticalAlignment="Center" />
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" Margin="5 0 5 5" Orientation="Horizontal" Grid.Row="1">
+            <TextBlock Name="StatusText" Text="" Margin="0 0 10 0"/>
+            <Button Content="{helpers:Localization ConfigWindowSaveButton}" Padding="10 5" Click="SaveFile" />
+        </StackPanel>
+    </Grid>
+</ui:DialogWindow>

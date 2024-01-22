@@ -1,0 +1,39 @@
+﻿<ui:DialogWindow    x:Class="CasparLauncher.AboutWindow" x:Name="AboutDialogWindow"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:ui="clr-namespace:BaseUISupport.Controls;assembly=BaseUISupport"
+                    xmlns:helpers="clr-namespace:BaseUISupport.Helpers;assembly=BaseUISupport"
+                    xmlns:converters="clr-namespace:BaseUISupport.Converters;assembly=BaseUISupport"
+                    xmlns:local="clr-namespace:CasparLauncher"
+                    mc:Ignorable="d" Topmost="True" SizeToContent="Height" WindowStartupLocation="CenterOwner"
+                    Title="{helpers:Localization AboutWindowTitle}" MinHeight="300" Width="700">
+    <ui:DialogWindow.Resources>
+        <converters:IcoToImageSourceConverter x:Key="IcoConverter" />
+        <BitmapImage x:Key="AppIcon" UriSource="/Resources/AppIcon.ico"/>
+    </ui:DialogWindow.Resources>
+    <Grid TextBlock.TextAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10">
+            <TextBlock Text="CasparLauncher" FontSize="32" FontWeight="Black" LineHeight="32" LineStackingStrategy="BlockLineHeight"/>
+            <TextBlock Text="{helpers:Localization AboutWindowTagline}" FontSize="16" FontWeight="Light"/>
+            <TextBlock Text="{Binding ElementName=AboutDialogWindow, Path=Version}" Margin="10" FontSize="10" FontWeight="Normal" Foreground="{DynamicResource HighlightAccent}"/>
+            <Image Width="216" Height="216" Margin="0 -25" Source="{Binding ElementName=AboutDialogWindow, Path=AppIcon}"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="10" VerticalAlignment="Top">
+            <TextBlock Margin="5" Text="Copyright © 2024 Mauro Rebuffo" FontSize="12" Foreground="{DynamicResource HighlightAccent}"/>
+            <TextBlock Margin="10 5">
+                <Hyperlink NavigateUri="https://rebuffo.ar/" RequestNavigate="Hyperlink_RequestNavigate">rebuffo.ar</Hyperlink>
+                <Run Text="·"/>
+                <Hyperlink NavigateUri="https://github.com/rrebuffo/CasparLauncher/" RequestNavigate="Hyperlink_RequestNavigate">GitHub</Hyperlink>
+                <Run Text="·"/>
+                <Hyperlink NavigateUri="https://casparcgforum.org/u/rrebuffo" RequestNavigate="Hyperlink_RequestNavigate">CasparCG Forum</Hyperlink>
+            </TextBlock>
+            <TextBlock Text="{helpers:Localization AboutWindowNotice}" FontSize="10" LineStackingStrategy="BlockLineHeight" LineHeight="12" Margin="10" TextWrapping="Wrap"/>
+        </StackPanel>
+    </Grid>
+</ui:DialogWindow>
