@@ -109,19 +109,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command.cs" />
+    <Compile Include="Launcher\Command.cs" />
     <Compile Include="Converters\DragBorderConverters.cs" />
     <Compile Include="Converters\ItemsLayoutConverter.cs" />
     <Compile Include="Converters\UptimeConverter.cs" />
-    <Compile Include="ExecutableOptions.xaml.cs">
+    <Compile Include="Windows\ExecutableOptions.xaml.cs">
       <DependentUpon>ExecutableOptions.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConfigEditor.xaml.cs">
+    <Compile Include="Windows\ConfigEditor.xaml.cs">
       <DependentUpon>ConfigEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ConfigFile.cs" />
+    <Compile Include="CasparCG\Configuration\ConfigurationFile.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
-    <Compile Include="Executable.cs" />
+    <Compile Include="Launcher\Executable.cs" />
     <Compile Include="Converters\ListBoxSelectedConverter.cs" />
     <Compile Include="Converters\NameAndIndexConverter.cs" />
     <Compile Include="Properties\Resources.es.Designer.cs">
@@ -135,19 +135,19 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ScrollViewerHelper.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Launcher\Launchpad.cs" />
     <Compile Include="StaticImageMethods.cs" />
-    <Compile Include="TrayMenuStyleSelector.cs" />
+    <Compile Include="Selectors\TrayMenuStyleSelector.cs" />
     <Compile Include="XmlHelper.cs" />
-    <Page Include="ExecutableOptions.xaml">
+    <Page Include="Windows\ExecutableOptions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ConfigEditor.xaml">
+    <Page Include="Windows\ConfigEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Launcher.xaml">
+    <Page Include="Windows\StatusWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -157,8 +157,8 @@
     </Compile>
     <Compile Include="Converters\BoolConverter.cs" />
     <Compile Include="Converters\IcoToImageSourceConverter.cs" />
-    <Compile Include="Launcher.xaml.cs">
-      <DependentUpon>Launcher.xaml</DependentUpon>
+    <Compile Include="Windows\StatusWindow.xaml.cs">
+      <DependentUpon>StatusWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Resources\Styles.xaml">

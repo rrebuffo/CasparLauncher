@@ -22,7 +22,7 @@ namespace CasparLauncher
         const string LOG_LEVEL_START = "Logging [";
         const string LOG_LEVEL_END = "] or higher severity to log";
 
-        public Settings Settings { get; set; }
+        public Launchpad Settings { get; set; }
         private DispatcherTimer StartupTimer = new DispatcherTimer();
         private DispatcherTimer CommandsTimer = new DispatcherTimer();
         private DispatcherTimer UptimeTimer = new DispatcherTimer();

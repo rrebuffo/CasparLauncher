@@ -15,7 +15,7 @@ using S = CasparLauncher.Properties.Settings;
 
 namespace CasparLauncher
 {
-    class Settings : INotifyPropertyChanged
+    class Launchpad : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
@@ -32,7 +32,7 @@ namespace CasparLauncher
         public ObservableCollection<Executable> Executables { get; set; } = new ObservableCollection<Executable>();
         DispatcherTimer SaveTimer = new DispatcherTimer();
 
-        public Settings()
+        public Launchpad()
         {
             LoadSettings();
             SaveTimer.Interval = TimeSpan.FromMilliseconds(100);

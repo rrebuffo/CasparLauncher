@@ -13,7 +13,7 @@ using XH = CasparLauncher.XmlHelper;
 
 namespace CasparLauncher
 {
-    public class ConfigFile : INotifyPropertyChanged
+    public class ConfigurationFile : INotifyPropertyChanged
     {
         private string _file;
         public string File

@@ -45,13 +45,13 @@ namespace CasparLauncher
 
         private void AddChannel(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             file.Channels.Add(new Channel());
         }
 
         private void RemChannel(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
 
             if (ChannelList.SelectedIndex>=0)
             {
@@ -96,7 +96,7 @@ namespace CasparLauncher
 
         private void RemConsumer(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
 
             if (ChannelList.SelectedIndex >=0 && ConsumerList.SelectedIndex >= 0)
             {
@@ -163,7 +163,7 @@ namespace CasparLauncher
 
         private void SaveFile(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
 
             if (file.File == null)
             {
@@ -192,7 +192,7 @@ namespace CasparLauncher
 
         private string ShowSaveDialog()
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Archivo de configuración |*.config";
             if (saveFileDialog.ShowDialog() == true)
@@ -222,35 +222,35 @@ namespace CasparLauncher
 
         private void PickMediaPathButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             string newFolder = SelectFolder(file.MediaPath, true);
             if (newFolder != null) file.MediaPath = newFolder;
         }
 
         private void PickDataPathButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             string newFolder = SelectFolder(file.DataPath, true);
             if (newFolder != null) file.DataPath = newFolder;
         }
 
         private void PickTemplatePathButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             string newFolder = SelectFolder(file.TemplatePath, true);
             if (newFolder != null) file.TemplatePath = newFolder;
         }
 
         private void PickFontPathButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             string newFolder = SelectFolder(file.FontPath, true);
             if (newFolder != null) file.FontPath = newFolder;
         }
 
         private void PickLogPathButton_Click(object sender, RoutedEventArgs e)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             string newFolder = SelectFolder(file.LogPath, true);
             if (newFolder != null) file.LogPath = newFolder;
         }
@@ -275,7 +275,7 @@ namespace CasparLauncher
         {
             Drag = false;
             if (origin == target) return;
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             file.Channels.Remove(origin);
             file.Channels.Insert(file.Channels.IndexOf(target) + (bottom?1:0), origin);
             ChannelsUpdated = true;
@@ -347,7 +347,7 @@ namespace CasparLauncher
                 MouseMove -= HandleDrag;
                 return;
             }
-            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Settings.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Settings.DragThreshold)
+            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Launchpad.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Launchpad.DragThreshold)
             {
                 Drag = true;
                 DragDrop.DoDragDrop(DraggedItem, DraggedItem.DataContext, DragDropEffects.Move);
@@ -410,7 +410,7 @@ namespace CasparLauncher
                 MouseMove -= HandleMove;
                 return;
             }
-            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Settings.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Settings.DragThreshold)
+            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Launchpad.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Launchpad.DragThreshold)
             {
                 Move = true;
                 DragDrop.DoDragDrop(DraggedConsumer, DraggedConsumer.DataContext, DragDropEffects.Move);
@@ -427,7 +427,7 @@ namespace CasparLauncher
             Move = false;
             Channel origin = GetConsumerChannel(consumer);
             if (origin == target) return;
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             origin.Consumers.Remove(consumer);
             target.Consumers.Add(consumer);
             DraggedConsumer = null;
@@ -435,7 +435,7 @@ namespace CasparLauncher
 
         private Channel GetConsumerChannel(object consumer)
         {
-            ConfigFile file = DataContext as ConfigFile;
+            ConfigurationFile file = DataContext as ConfigurationFile;
             foreach (Channel channel in file.Channels) if (channel.Consumers.Contains(consumer)) return channel;
             return null;
         }

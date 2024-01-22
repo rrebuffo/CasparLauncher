@@ -37,7 +37,7 @@ namespace CasparLauncher
             StartExecutables();
         }
 
-        private Settings Settings { get; set; }
+        private Launchpad Settings { get; set; }
         private Executable CasparExecutable;
         private WF.NotifyIcon TrayIcon = new WF.NotifyIcon();
         private WindowState PreviousState = WindowState.Normal;
@@ -73,7 +73,7 @@ namespace CasparLauncher
 
         private void LoadSettings()
         {
-            Settings = new Settings();
+            Settings = new Launchpad();
             if (Settings.Executables.Where(e => e.IsServer).Any()) CasparExecutable = Settings.Executables.Where(e => e.IsServer).First();
             DataContext = Settings;
             PreviousState = S.Default.LauncherWindowState;
@@ -576,7 +576,7 @@ namespace CasparLauncher
 
         private void EditConfig(string path = null)
         {
-            ConfigFile file = new ConfigFile();
+            ConfigurationFile file = new ConfigurationFile();
 
             if(path != null)
             {
