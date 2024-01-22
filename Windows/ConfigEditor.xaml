@@ -232,7 +232,7 @@
                                 <ui:IconButton Size="16" Margin="0" Icon="{StaticResource MinusIcon}" Click="RemVideoMode" IsEnabled="{Binding ElementName=VideoModesList, Path=SelectedIndex, Converter={StaticResource lbSelected}}" />
                             </StackPanel>
                         </Grid>
-                        <ListBox Name="VideoModesList" Grid.Row="1" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding VideoModes}" AllowDrop="True">
+                        <ListBox Name="VideoModesList" Grid.Row="1" SelectionMode="Single" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding VideoModes}" AllowDrop="True" Margin="0" Background="Transparent">
                             <ListBox.Style>
                                 <Style TargetType="ListBox" BasedOn="{StaticResource ListBox}">
                                     <Setter Property="DataContext" Value="{Binding}" />
