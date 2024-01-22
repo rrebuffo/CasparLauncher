@@ -193,8 +193,8 @@
                                 <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabOscPredefinedClients}">
                                     <DataGrid Margin="1" ItemsSource="{Binding Path=OscPredefinedClients, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HeadersVisibility="Column" Height="140" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientAddress}" Width="150*" Binding="{Binding Address, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
-                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientPort}" Width="50*" Binding="{Binding Port, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientAddress}" Width="150*" Binding="{Binding Address, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextBox}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowOptionsTabOscPredClientPort}" Width="50*" Binding="{Binding Port, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextBox}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </ui:ConfigItem>
@@ -435,8 +435,8 @@
                                 <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsChannelProducers}">
                                     <DataGrid Grid.Column="1" Margin="0 1" ItemsSource="{Binding Path=Producers, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HeadersVisibility="Column" Height="100" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerLayer}" Width="40" Binding="{Binding Layer, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
-                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerMedia}" Width="*" Binding="{Binding Media, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextColumnStyle}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerLayer}" Width="40" Binding="{Binding Layer, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextBox}" />
+                                            <DataGridTextColumn Header="{helpers:Localization ConfigWindowChannelsChannelProducerMedia}" Width="*" Binding="{Binding Media, UpdateSourceTrigger=PropertyChanged}" CanUserSort="False" EditingElementStyle="{StaticResource DataGridTextBox}" />
                                         </DataGrid.Columns>
                                     </DataGrid>
                                 </ui:ConfigItem>
