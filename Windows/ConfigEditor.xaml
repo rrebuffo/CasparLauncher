@@ -410,9 +410,9 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <!-- CHANNEL CONFIGURATION -->
-                        <GroupBox Header="{helpers:Localization ConfigWindowChannelsChannelConfigGbHeader}" DataContext="{Binding ElementName=ChannelList, Path=SelectedItem}" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                        <GroupBox Header="{helpers:Localization ConfigWindowChannelsChannelConfigGbHeader}" DataContext="{Binding ElementName=ChannelList, Path=SelectedItem}">
                             <StackPanel>
-                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerChannelVideoMode}">
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsConsumerChannelVideoMode}" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
                                     <ui:ConfigItem.Resources>
                                         <CollectionViewSource x:Key="DefaultModeList" Source="{Binding ElementName=ConfigWindow, Path=DataContext.DefaultVideoModes}" />
                                         <CollectionViewSource x:Key="CustomModeList" Source="{Binding ElementName=ConfigWindow, Path=DataContext.VideoModes}" />
