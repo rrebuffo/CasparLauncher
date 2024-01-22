@@ -120,7 +120,7 @@
                         <ui:ConfigItem Type="Integer" Label="{helpers:Localization ExecutableConfigWindowCommandsDelay}" Binding="{Binding Path=CommandsDelay, Mode=TwoWay}" Description="{helpers:Localization ExecutableConfigWindowCommandsDelayDesc}" Collapsed="{Binding Path=AllowCommands, Converter={StaticResource invertBool}, FallbackValue=True}"/>
                     </StackPanel>
                 </GroupBox>
-                <ui:TabbedPanel Margin="5" BorderBrush="{DynamicResource ControlBgIdle}">
+                <ui:TabbedPanel Margin="5" BorderBrush="{DynamicResource ControlBgIdle}" Visibility="{Binding Path=AllowCommands, Converter={StaticResource boolToVisibility}, FallbackValue=Collapsed}">
                     <ui:TabbedPanel.CommandIcons>
                         <x:Array Type="{x:Type Button}">
                             <Button Name="ImportCommands" Click="ImportCommands_Click">
@@ -131,7 +131,7 @@
                             </Button>
                         </x:Array>
                     </ui:TabbedPanel.CommandIcons>
-                    <ui:TabbedPanelItem Header="{helpers:Localization ExecutableConfigWindowCommands}" Background="{DynamicResource ControlBgIdle}" Style="{DynamicResource TabbedToolBoxItem}" Visibility="{Binding Path=AllowCommands, Converter={StaticResource boolToVisibility}, FallbackValue=Collapsed}">
+                    <ui:TabbedPanelItem Header="{helpers:Localization ExecutableConfigWindowCommands}" Background="{DynamicResource ControlBgIdle}" Style="{DynamicResource TabbedToolBoxItem}">
                         <DataGrid Grid.Column="1" ItemsSource="{Binding Path=Commands, Mode=TwoWay}" VerticalContentAlignment="Center" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="True" CanUserAddRows="True" CanUserDeleteRows="True" Height="150">
                             <DataGrid.ContextMenu>
                                 <ContextMenu>
