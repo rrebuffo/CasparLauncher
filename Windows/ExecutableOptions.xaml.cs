@@ -1,191 +1,378 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using WF = System.Windows.Forms;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using L = CasparLauncher.Properties.Resources;
-using System.IO;
-using System.Reflection;
+﻿using System.Text;
 
-namespace CasparLauncher
+namespace CasparLauncher;
+
+public partial class ExecutableOptions : DialogWindow
 {
-    /// <summary>
-    /// Lógica de interacción para ConfigEditor.xaml
-    /// </summary>
-    public partial class ExecutableOptions : Window
+    public ObservableCollection<string> ConfigFiles { get; set; } = [];
+
+    public string CustomPath
     {
-
-        public ExecutableOptions()
+        get
         {
-            InitializeComponent();
+            return Executable.ConfigFile ?? "";
         }
-
-        private Executable Executable
+        set
         {
-            get
+            if (!string.IsNullOrEmpty(value))
             {
-                return DataContext as Executable;
+                Executable.ConfigFile = value;
+                FindConfigFiles();
             }
         }
+    }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+    public ExecutableOptions()
+    {
+        InitializeComponent();
+        DataContextChanged += ExecutableOptions_DataContextChanged;
+        if (DataContext is Executable executable)
         {
-            base.OnClosing(e);
-            if (Owner != null)
-            {
-                Owner.Activate();
-            }
+            FindConfigFiles();
+            executable.PropertyChanged += PathChanged;
         }
+    }
 
-        private void AddCommand(object sender, RoutedEventArgs e)
+    private void PathChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(Executable.Path))
         {
-
+            FindConfigFiles();
         }
+    }
 
-        private void RemoveCommand(object sender, RoutedEventArgs e)
+    private void ExecutableOptions_DataContextChanged(object? sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.OldValue is Executable old)
         {
-
+            old.PropertyChanged -= PathChanged;
         }
-
-        private void ChangeLocation_Click(object sender, RoutedEventArgs e)
+        if (e.NewValue is Executable current)
         {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-            {
-                Multiselect = false,
-                Filter = L.FileDialogFilterDescription + " (*.EXE)|*.exe"
-            };
-
-            if (openFileDialog.ShowDialog() == true)
-            {
-                Executable.Path = openFileDialog.FileName;
-            }
-            else
-            {
-                return;
-            }
+            current.PropertyChanged += PathChanged;
         }
+        FindConfigFiles();
+    }
 
-        private void Copy(object sender, ExecutedRoutedEventArgs e)
+    private Executable Executable
+    {
+        get
         {
-            if (sender is DataGrid commands_dg)
+            return DataContext as Executable;
+        }
+    }
+
+    private void FindConfigFiles()
+    {
+        try
+        {
+            if (Executable is null) return;
+            ConfigFiles.Clear();
+            if (Path.GetDirectoryName(Executable.Path) is string folder)
             {
-                StringBuilder commandList = new StringBuilder();
-                var first = false;
-                foreach (Command c in commands_dg.SelectedItems)
+                IEnumerable<string> files = Directory.GetFiles(folder)
+                    .Select(f => Path.GetFileName(f).ToLower())
+                    .Where(c => c.EndsWith(".config"));
+                foreach (string file in files) ConfigFiles.Add(file);
+
+                if (DataContext is Executable executable && (executable.IsServer || executable.IsScanner))
                 {
-                    if (!first) first = true;
-                    else commandList.Append('\n');
-                    commandList.Append(c.Value);
+                    if (string.IsNullOrEmpty(executable.ConfigFile)
+                        && ConfigFiles.Contains("casparcg.config"))
+                    {
+                        executable.ConfigFile = "casparcg.config";
+                    }
+                    if (!ConfigFiles.Contains(executable.ConfigFile))
+                    {
+                        ConfigFiles.Add(executable.ConfigFile);
+                    }
                 }
-                Clipboard.SetData(DataFormats.UnicodeText, commandList.ToString());
             }
         }
+        catch { }
+    }
 
-        private void CanCopy(object sender, CanExecuteRoutedEventArgs e)
+    private string? ShowSaveDialog(string filter, string? folder = null)
+    {
+        SaveFileDialog saveFileDialog = new()
         {
-            e.CanExecute = true;
+            Filter = filter,
+            InitialDirectory = folder
+        };
+        return saveFileDialog.ShowDialog() == true ? saveFileDialog.FileName : null;
+    }
+
+    private string? ShowOpenDialog(string filter, string? folder = null)
+    {
+        OpenFileDialog openFileDialog = new()
+        {
+            Multiselect = false,
+            Filter = filter,
+            InitialDirectory = folder
+        };
+        return openFileDialog.ShowDialog() == true ? openFileDialog.FileName : null;
+    }
+
+    private void EditConfig(string path)
+    {
+        ConfigFile file = new();
+
+        if (!string.IsNullOrEmpty(path) && File.Exists(path)) file.File = path;
+        else file.File = ShowOpenDialog(L.ConfigFileDialogFilterDescription + "|*.config");
+        if (file.File is null) return;
+
+        try
+        {
+            file.LoadConfigFile();
+        }
+        catch (IOException)
+        {
+            MessageBox.Show(L.OpenConfigEditorIOError, L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        catch (Exception)
+        {
+            MessageBox.Show(L.OpenConfigEditorFileError, L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void CanPaste(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-            e.Handled = true;
-        }
+        ConfigEditor configWindow = new();
+        configWindow.Owner = this;
+        configWindow.DataContext = file;
+        configWindow.ShowDialog();
+    }
 
-        private void Paste(object sender, ExecutedRoutedEventArgs e)
+    private void NewConfig(bool clone = false)
+    {
+        if (DataContext is Executable executable)
+        {
+            string? folder = Path.GetDirectoryName(executable.Path);
+            if (folder is not null && ShowSaveDialog(L.ConfigFileDialogFilterDescription + "|*.config", folder) is string filename)
+            {
+                try
+                {
+                    ConfigFile file = new();
+                    if (clone)
+                    {
+                        try
+                        {
+                            file.File = Path.Combine(folder,executable.ConfigFile);
+                            file.LoadConfigFile();
+                            file.File = filename;
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show(L.OpenConfigEditorIOError, L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(L.OpenConfigEditorFileError, L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                    file.SaveConfigFile(filename);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show(L.CreateConfigFileIOError, L.CreateConfigFileErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                if (File.Exists(filename))
+                {
+                    EditConfig(filename);
+                    FindConfigFiles();
+                    executable.ConfigFile = Path.GetFileName(filename);
+                }
+            }
+        }
+    }
+
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        base.OnClosing(e);
+        if (Owner != null)
+        {
+            Owner.Activate();
+        }
+    }
+
+    private void ChangeLocation_Click(object? sender, RoutedEventArgs e)
+    {
+        if (Executable is null) return;
+        
+        if (ShowOpenDialog(L.FileDialogFilterDescription + " (*.EXE)|*.exe") is string path)
+        {
+            Executable.Path = path;
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void Copy(object? sender, ExecutedRoutedEventArgs e)
+    {
+        if (sender is DataGrid commands_dg)
+        {
+            StringBuilder commandList = new();
+            var first = false;
+            foreach (Command c in commands_dg.SelectedItems)
+            {
+                if (!first) first = true;
+                else commandList.Append('\n');
+                commandList.Append(c.Value);
+            }
+            Clipboard.SetData(DataFormats.UnicodeText, commandList.ToString());
+        }
+    }
+
+    private void CanCopy(object? sender, CanExecuteRoutedEventArgs e)
+    {
+        e.CanExecute = true;
+    }
+
+    private void CanPaste(object? sender, CanExecuteRoutedEventArgs e)
+    {
+        e.CanExecute = true;
+        e.Handled = true;
+    }
+
+    private void Paste(object? sender, ExecutedRoutedEventArgs e)
+    {
+        try
+        {
+            List<string> values = [];
+            var data = "";
+            if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue) || Clipboard.ContainsData(DataFormats.UnicodeText))
+            {
+                if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue)) data = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
+                else if (Clipboard.ContainsData(DataFormats.UnicodeText)) data = (string)Clipboard.GetData(DataFormats.UnicodeText);
+                else return;
+                data = data.Replace("\r\n", "\n");
+                values.AddRange(data.Split('\n'));
+            }
+            foreach (string value in values) if (value != "") Executable?.Commands.Add(new Command() { Value = value });
+        }
+        catch { }
+    }
+
+    private void ExportCommands_Click(object sender, RoutedEventArgs e)
+    {
+        SaveFileDialog saveFileDialog = new()
+        {
+            Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
+            FileName = Environment.MachineName + "_CasparLauncher_Commands.txt",
+            Title = L.ExportCommandsDialogTitle
+        };
+        if (saveFileDialog.ShowDialog() == true)
         {
             try
             {
-                List<string> values = new List<string>();
-                var data = "";
-                if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue) || Clipboard.ContainsData(DataFormats.UnicodeText))
-                {
-                    if (Clipboard.ContainsData(DataFormats.CommaSeparatedValue)) data = (string)Clipboard.GetData(DataFormats.CommaSeparatedValue);
-                    else if (Clipboard.ContainsData(DataFormats.UnicodeText)) data = (string)Clipboard.GetData(DataFormats.UnicodeText);
-                    else return;
-                    data = data.Replace("\r\n", "\n");
-                    values.AddRange(data.Split('\n'));
-                }
-                foreach (string value in values) if (value != "") Executable.Commands.Add(new Command() { Value = value });
-            }
-            catch { }
-        }
-
-        private void ExportCommands_Click(object sender, RoutedEventArgs e)
-        {          
-            var saveFileDialog = new SaveFileDialog
-            {
-                Filter = "Text Files (*.txt)|*.txt|All files (*.*)|*.*",
-                FileName = Environment.MachineName + "_CasparLauncher_Commands.txt",
-                Title = L.ExportCommandsDialogTitle
-            };
-            if (saveFileDialog.ShowDialog() == true)
-            {
                 File.WriteAllLines(
-                    saveFileDialog.FileName, 
+                    saveFileDialog.FileName,
                     Executable.Commands.Select(x => x.Value).ToArray()
                 );
             }
-            else
-            {
-                return;
-            }
-
+            catch { }
         }
-        private void ImportCommands_Click(object sender, RoutedEventArgs e)
+    }
+    private void ImportCommands_Click(object sender, RoutedEventArgs e)
+    {
+        OpenFileDialog openFileDialog = new()
         {
-            var fileContent = string.Empty;
-            var filePath = string.Empty;
+            Title = L.ImportCommandsDialogTitle,
+            Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*",
+            FilterIndex = 2,
+            RestoreDirectory = true
+        };
 
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.Title = L.ImportCommandsDialogTitle;
-            openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialog.FilterIndex = 2;
-            openFileDialog.RestoreDirectory = true;
-
-            if (openFileDialog.ShowDialog() == true)
+        if (openFileDialog.ShowDialog() == true)
+        {
+            string filePath = openFileDialog.FileName;
+            if (string.IsNullOrEmpty(filePath)) return;
+            IEnumerable<string> lines = [];
+            try
             {
-                
-                filePath = openFileDialog.FileName;
-
-                Executable.Commands.Clear();
-                foreach (string line in System.IO.File.ReadLines(filePath))
+                lines = File.ReadLines(filePath);
+            }
+            catch { return; }
+            Executable.Commands.Clear();
+            foreach (string line in lines)
+            {
+                Debug.WriteLine(line);
+                Executable.Commands.Add(new()
                 {
-                    Command newCommand = new Command();
-                    newCommand.Value = line;
-                    Executable.Commands.Add(newCommand);
+                    Value = line
+                });
+            }
+        }
+    }
+
+    private void EditConfigButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is Executable executable)
+        {
+            string? folder = Path.GetDirectoryName(executable.Path);
+            string? file = executable.ConfigFile;
+            if (folder is not null && file is not null)
+            {
+                string? path = Path.Combine(folder, file);
+                EditConfig(path);
+            }
+        }
+    }
+
+    private void RemoveConfigButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is Executable executable)
+        {
+            string? folder = Path.GetDirectoryName(executable.Path);
+            string? file = executable.ConfigFile;
+            if (folder is not null && file is not null)
+            {
+                string? path = Path.Combine(folder, file);
+                if (File.Exists(path))
+                {
+                    MessageBoxResult result = MessageBox.Show(string.Format(L.ExecutableConfigWindowDeleteFilePromptMessage,file), L.ExecutableConfigWindowDeleteFilePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        try
+                        {
+                            File.Delete(path);
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show(L.DeleteConfigFileIOError, L.DeleteConfigFileErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        catch (Exception)
+                        {
+                            MessageBox.Show(L.DeleteConfigFileError, L.DeleteConfigFileErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                        FindConfigFiles();
+                    }
                 }
             }
             else
             {
-                return;
+                FindConfigFiles();
             }
-            
-            //Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog
-            //{
-            //    Multiselect = false,
-            //    Filter = L.FileDialogFilterDescription + " (*.EXE)|*.exe"
-            //};
+        }
+    }
 
-            //if (openFileDialog.ShowDialog() == true)
-            //{
-            //    Executable.Path = openFileDialog.FileName;
-            //}
-            //else
-            //{
-            //    return;
-            //}
+    private void NewConfigButton_Click(object sender, RoutedEventArgs e)
+    {
+        NewConfig();
+    }
+
+    private void CloneConfigButton_Click(object sender, RoutedEventArgs e)
+    {
+        NewConfig(true);
+    }
+
+    private void RemoveExecutable_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is Executable ex)
+        {
+            bool deleted = App.Launchpad.RemoveExecutable(ex);
+            if (deleted) Close();
         }
     }
 }

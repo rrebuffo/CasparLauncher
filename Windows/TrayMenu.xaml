@@ -1,0 +1,126 @@
+﻿<Window x:Class="CasparLauncher.TrayMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CasparLauncher"
+             xmlns:converters="clr-namespace:BaseUISupport.Converters;assembly=BaseUISupport"
+             xmlns:ui="clr-namespace:BaseUISupport.Controls;assembly=BaseUISupport"
+             xmlns:helpers="clr-namespace:BaseUISupport.Helpers;assembly=BaseUISupport"
+             xmlns:l="clr-namespace:CasparLauncher.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+        Visibility="Hidden" ResizeMode="CanMinimize" WindowStyle="None" AllowsTransparency="True" Width="0" Height="0" ShowInTaskbar="False" Background="Transparent" IsHitTestVisible="False" Topmost="True" WindowStartupLocation="Manual" Top="-1" Left="-1">
+    <Window.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="boolToVisibility" False="Collapsed" True="Visible" />
+        <converters:BooleanToVisibilityConverter x:Key="invBoolToVisibility" False="Visible" True="Collapsed" />
+        <converters:InvertBooleanConverter x:Key="invertBool" />
+        <converters:IcoToImageSourceConverter x:Key="icoToSource" />
+        <converters:ListBoxSelectedConverter x:Key="lbSelected" />
+        <converters:EnumConverter x:Key="enumConverter" />
+        <converters:UptimeConverter x:Key="uptimeConverter"/>
+
+
+        <CompositeCollection x:Key="ExecutableMenuItems" x:Shared="False">
+            <MenuItem Visibility="{Binding Path=IsRunning, Converter={StaticResource boolToVisibility}}" IsEnabled="True" IsHitTestVisible="False">
+                <MenuItem.Header>
+                    <MultiBinding Converter="{StaticResource uptimeConverter}">
+                        <Binding Path="Uptime"/>
+                        <Binding Source="{x:Static l:Resources.UptimeDaysFormat}"/>
+                        <Binding Source="{x:Static l:Resources.UptimeTimeFormat}"/>
+                    </MultiBinding>
+                </MenuItem.Header>
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource TimeIcon}" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator Visibility="{Binding Path=IsRunning, Converter={StaticResource boolToVisibility}}" />
+            <MenuItem Header="{helpers:Localization ContextMenuExecStartItemHeader}" IsEnabled="{Binding Path=IsRunning, Converter={StaticResource invertBool}}" Click="Start_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" x:Name="IconPath" Style="{DynamicResource PlayIcon}" Stretch="Uniform" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{helpers:Localization ContextMenuExecStopItemHeader}" IsEnabled="{Binding Path=IsRunning}" Click="Stop_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource StopIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{helpers:Localization ContextMenuExecRestartItemHeader}" IsEnabled="{Binding Path=IsRunning}" Click="Restart_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource RestartIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <Separator Visibility="{Binding Path=IsServer,Converter={StaticResource boolToVisibility}}"/>
+            <MenuItem Header="{helpers:Localization ContextMenuExecDiagItemHeader}" Visibility="{Binding Path=IsServer,Converter={StaticResource boolToVisibility}}" Click="Diag_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource DiagIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="{helpers:Localization ContextMenuExecGridItemHeader}" Visibility="{Binding Path=IsServer,Converter={StaticResource boolToVisibility}}" Click="Grid_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource GridIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+
+            <Separator Visibility="{Binding Path=IsScanner,Converter={StaticResource boolToVisibility}}"/>
+            <MenuItem Header="{helpers:Localization ContextMenuRebuildMediaDbItemHeader}" Visibility="{Binding Path=IsScanner,Converter={StaticResource boolToVisibility}}" Click="Rebuild_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource RefreshIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+            <Separator />
+            <MenuItem Header="{helpers:Localization ContextMenuExecConfigItemHeader}" Click="Config_item_Click">
+                <MenuItem.Icon>
+                    <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource ConfigIcon}"/>
+                </MenuItem.Icon>
+            </MenuItem>
+        </CompositeCollection>
+        <Viewbox x:Key="ExecutableNotFoundIcon" x:Shared="False" Width="16" Visibility="{Binding Path=Exists, Converter={StaticResource invBoolToVisibility}}">
+            <Grid>
+                <Path Fill="Black" Width="512" Height="512" Data="M26,474.79a20,20,0,0,1-17.32-30l230-398.37a20,20,0,0,1,34.64,0l230,398.37a20,20,0,0,1-17.32,30Z"/>
+                <Path Fill="Yellow" Width="512" Height="512" Data="M256,56.42,26,454.79H486Zm-24.67,123A20,20,0,0,1,246,173h20a20,20,0,0,1,19.94,21.51l-10,132a20,20,0,0,1-39.88,0l-10-132A20,20,0,0,1,231.33,179.4ZM256,427a30,30,0,1,1,30-30A30,30,0,0,1,256,427Z"/>
+            </Grid>
+        </Viewbox>
+        <Image Width="16" Height="16" x:Key="ExecutableIconImage" x:Shared="False" Source="{Binding Path=Icon, Converter={StaticResource icoToSource}}"/>
+        <Style x:Key="ExecutableItemStyle" TargetType="{x:Type MenuItem}" BasedOn="{StaticResource MenuItem}">
+            <Setter Property="Icon" Value="{DynamicResource ExecutableIconImage}"/>
+            <Setter Property="Header" Value="{Binding Path=Name}"/>
+            <Setter Property="ItemsSource" Value="{DynamicResource ExecutableMenuItems}"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Exists}" Value="False">
+                    <Setter Property="Icon" Value="{DynamicResource ExecutableNotFoundIcon}"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <local:TrayMenuStyleSelector x:Key="trayMenuItemStyle" ExecutableItemStyle="{StaticResource ExecutableItemStyle}" MenuItemStyle="{StaticResource MenuItem}" SeparatorStyle="{StaticResource Separator}"/>
+        <CollectionViewSource x:Key="ExecutablesCollection" Source="{Binding Path=Executables}" />
+    </Window.Resources>
+    <Window.ContextMenu>
+        <ContextMenu Name="TrayContextMenu" StaysOpen="True" Placement="MousePoint" ItemContainerStyleSelector="{StaticResource trayMenuItemStyle}">
+            <ContextMenu.ItemsSource>
+                <CompositeCollection>
+                    <MenuItem Header="{helpers:Localization ContextMenuStartAllHeader}" Click="StartAll">
+                        <MenuItem.Icon>
+                            <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource PlayIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{helpers:Localization ContextMenuStopAllHeader}" Click="StopAll">
+                        <MenuItem.Icon>
+                            <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource StopIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="{helpers:Localization ContextMenuRestartAllHeader}" Click="RestartAll">
+                        <MenuItem.Icon>
+                            <Path Width="12" Height="12" Fill="{DynamicResource Foreground}" Style="{DynamicResource RestartIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <CollectionContainer Collection="{Binding Source={StaticResource ExecutablesCollection}}" />
+                    <Separator/>
+                    <MenuItem Header="{helpers:Localization ContextMenuExitItemHeader}" Click="TrayMenu_ExitItem_Click"/>
+                </CompositeCollection>
+            </ContextMenu.ItemsSource>
+        </ContextMenu>
+    </Window.ContextMenu>
+</Window>

@@ -61,6 +61,46 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+        ///
+        ///This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+        ///
+        ///You should have received a copy  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string AboutWindowNotice {
+            get {
+                return ResourceManager.GetString("AboutWindowNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frontend app for CasparCG server.
+        /// </summary>
+        public static string AboutWindowTagline {
+            get {
+                return ResourceManager.GetString("AboutWindowTagline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string AboutWindowTitle {
+            get {
+                return ResourceManager.GetString("AboutWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0}.
+        /// </summary>
+        public static string AboutWindowVersion {
+            get {
+                return ResourceManager.GetString("AboutWindowVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Server Launcher.
         /// </summary>
         public static string AppTitle {
@@ -70,11 +110,128 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ArtNet consumer.
+        /// </summary>
+        public static string ArtnetConsumer {
+            get {
+                return ResourceManager.GetString("ArtnetConsumer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dimmer.
+        /// </summary>
+        public static string ArtnetFixtureType_DIMMER {
+            get {
+                return ResourceManager.GetString("ArtnetFixtureType_DIMMER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RGB.
+        /// </summary>
+        public static string ArtnetFixtureType_RGB {
+            get {
+                return ResourceManager.GetString("ArtnetFixtureType_RGB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RGBW.
+        /// </summary>
+        public static string ArtnetFixtureType_RGBW {
+            get {
+                return ResourceManager.GetString("ArtnetFixtureType_RGBW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bluefish consumer.
         /// </summary>
         public static string BluefishConsumer {
             get {
                 return ResourceManager.GetString("BluefishConsumer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string BluefishKeyer_Disabled {
+            get {
+                return ResourceManager.GetString("BluefishKeyer_Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External.
+        /// </summary>
+        public static string BluefishKeyer_External {
+            get {
+                return ResourceManager.GetString("BluefishKeyer_External", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal.
+        /// </summary>
+        public static string BluefishKeyer_Internal {
+            get {
+                return ResourceManager.GetString("BluefishKeyer_Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SDI video input.
+        /// </summary>
+        public static string BluefishKeyerAudio_Input {
+            get {
+                return ResourceManager.GetString("BluefishKeyerAudio_Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video output channel.
+        /// </summary>
+        public static string BluefishKeyerAudio_Output {
+            get {
+                return ResourceManager.GetString("BluefishKeyerAudio_Output", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        public static string BluefishUhdMode_Auto {
+            get {
+                return ResourceManager.GetString("BluefishUhdMode_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable BVC-Multi_Link.
+        /// </summary>
+        public static string BluefishUhdMode_DisableBVC {
+            get {
+                return ResourceManager.GetString("BluefishUhdMode_DisableBVC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force 2SI output.
+        /// </summary>
+        public static string BluefishUhdMode_Force2SI {
+            get {
+                return ResourceManager.GetString("BluefishUhdMode_Force2SI", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Force SQ output.
+        /// </summary>
+        public static string BluefishUhdMode_ForceSQ {
+            get {
+                return ResourceManager.GetString("BluefishUhdMode_ForceSQ", resourceCulture);
             }
         }
         
@@ -97,6 +254,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick path for the &apos;{0}&apos; folder.
+        /// </summary>
+        public static string BrowseForPathDialogCaption {
+            get {
+                return ResourceManager.GetString("BrowseForPathDialogCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close application.
         /// </summary>
         public static string ClosePromptCaption {
@@ -106,7 +272,8 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This app keeps all the server components running. Closing it will end all server services.
+        ///   Looks up a localized string similar to This app keeps all the server components running.
+        ///Closing it will end all server services.
         ///Do you want to continue?.
         /// </summary>
         public static string ClosePromptMessage {
@@ -143,11 +310,11 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open at login.
+        ///   Looks up a localized string similar to Ignore console empty lines.
         /// </summary>
-        public static string ConfigOpenAtLogin {
+        public static string ConfigSupressEmptyLines {
             get {
-                return ResourceManager.GetString("ConfigOpenAtLogin", resourceCulture);
+                return ResourceManager.GetString("ConfigSupressEmptyLines", resourceCulture);
             }
         }
         
@@ -198,15 +365,6 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Force language.
-        /// </summary>
-        public static string ConfigTabLangValue {
-            get {
-                return ResourceManager.GetString("ConfigTabLangValue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Options.
         /// </summary>
         public static string ConfigTabOptionsCbHead {
@@ -221,6 +379,141 @@ namespace CasparLauncher.Properties {
         public static string ConfigTabServerConfigHeader {
             get {
                 return ResourceManager.GetString("ConfigTabServerConfigHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add fixture.
+        /// </summary>
+        public static string ConfigWindowChannelsAnAddFixture {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnAddFixture", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Channels.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureChannels {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureChannels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fixture count.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureCount {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureHeight {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rotation.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureRotation {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureRotation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fixtures.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtures {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start address.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureStart {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureType {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureWidth {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X position.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureX {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y position.
+        /// </summary>
+        public static string ConfigWindowChannelsAnFixtureY {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnFixtureY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Host.
+        /// </summary>
+        public static string ConfigWindowChannelsAnHost {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnHost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Port.
+        /// </summary>
+        public static string ConfigWindowChannelsAnPort {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh rate.
+        /// </summary>
+        public static string ConfigWindowChannelsAnRate {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Universe.
+        /// </summary>
+        public static string ConfigWindowChannelsAnUniverse {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsAnUniverse", resourceCulture);
             }
         }
         
@@ -306,6 +599,33 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Layer.
+        /// </summary>
+        public static string ConfigWindowChannelsChannelProducerLayer {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsChannelProducerLayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Media.
+        /// </summary>
+        public static string ConfigWindowChannelsChannelProducerMedia {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsChannelProducerMedia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Producers.
+        /// </summary>
+        public static string ConfigWindowChannelsChannelProducers {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsChannelProducers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channels.
         /// </summary>
         public static string ConfigWindowChannelsChannels {
@@ -324,6 +644,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Channel video mode.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerChannelVideoMode {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerChannelVideoMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Consumer settings.
         /// </summary>
         public static string ConfigWindowChannelsConsumerConfigGbHeader {
@@ -338,6 +667,87 @@ namespace CasparLauncher.Properties {
         public static string ConfigWindowChannelsConsumers {
             get {
                 return ResourceManager.GetString("ConfigWindowChannelsConsumers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination X.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionDestX {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionDestX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination Y.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionDestY {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionDestY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable subregion.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionEnable {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionHeight {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source X.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionSrcX {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionSrcX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source Y.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionSrcY {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionSrcY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerSubregionWidth {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerSubregionWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video mode.
+        /// </summary>
+        public static string ConfigWindowChannelsConsumerVideoMode {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsConsumerVideoMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add port.
+        /// </summary>
+        public static string ConfigWindowChannelsDlAddPort {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlAddPort", resourceCulture);
             }
         }
         
@@ -401,6 +811,60 @@ namespace CasparLauncher.Properties {
         public static string ConfigWindowChannelsDlLatency {
             get {
                 return ResourceManager.GetString("ConfigWindowChannelsDlLatency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        public static string ConfigWindowChannelsDlPortDevice {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlPortDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key only.
+        /// </summary>
+        public static string ConfigWindowChannelsDlPortKeyOnly {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlPortKeyOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional synced ports.
+        /// </summary>
+        public static string ConfigWindowChannelsDlPorts {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlPorts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for reference.
+        /// </summary>
+        public static string ConfigWindowChannelsDlWaitForReference {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlWaitForReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait for reference duration.
+        /// </summary>
+        public static string ConfigWindowChannelsDlWaitForReferenceDuration {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlWaitForReferenceDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (time in seconds).
+        /// </summary>
+        public static string ConfigWindowChannelsDlWaitForReferenceDurationDetail {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlWaitForReferenceDurationDetail", resourceCulture);
             }
         }
         
@@ -657,6 +1121,24 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default output device.
+        /// </summary>
+        public static string ConfigWindowOptionsTabAudioDefaultDevice {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabAudioDefaultDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audio.
+        /// </summary>
+        public static string ConfigWindowOptionsTabAudioGb {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabAudioGb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deinterlace.
         /// </summary>
         public static string ConfigWindowOptionsTabFfmpegDeinterlace {
@@ -720,6 +1202,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ANGLE graphics backend.
+        /// </summary>
+        public static string ConfigWindowOptionsTabHtmlAngleBackend {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabHtmlAngleBackend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debugging port.
         /// </summary>
         public static string ConfigWindowOptionsTabHtmlDebugPort {
@@ -747,6 +1238,24 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable column alignment.
+        /// </summary>
+        public static string ConfigWindowOptionsTabLogDisableColumnAlignment {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabLogDisableColumnAlignment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option is supported for compatibility purposes. It does not affect the behavior in this launcher&apos;s console..
+        /// </summary>
+        public static string ConfigWindowOptionsTabLogDisableColumnAlignmentNotice {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabLogDisableColumnAlignmentNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string ConfigWindowOptionsTabLogGb {
@@ -761,6 +1270,15 @@ namespace CasparLauncher.Properties {
         public static string ConfigWindowOptionsTabLogLogLevel {
             get {
                 return ResourceManager.GetString("ConfigWindowOptionsTabLogLogLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable logging to file.
+        /// </summary>
+        public static string ConfigWindowOptionsTabLogLogToFile {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabLogLogToFile", resourceCulture);
             }
         }
         
@@ -954,6 +1472,96 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cadence.
+        /// </summary>
+        public static string ConfigWindowVideoModesCadence {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesCadence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom video mode.
+        /// </summary>
+        public static string ConfigWindowVideoModesCustomVideoModeGb {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesCustomVideoModeGb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom video modes.
+        /// </summary>
+        public static string ConfigWindowVideoModesCustomVideoModes {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesCustomVideoModes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        public static string ConfigWindowVideoModesDuration {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Height.
+        /// </summary>
+        public static string ConfigWindowVideoModesHeight {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesHeight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video mode ID.
+        /// </summary>
+        public static string ConfigWindowVideoModesId {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NewVideoMode.
+        /// </summary>
+        public static string ConfigWindowVideoModesNewModeId {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesNewModeId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Video modes.
+        /// </summary>
+        public static string ConfigWindowVideoModesTab {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time scale.
+        /// </summary>
+        public static string ConfigWindowVideoModesTimeScale {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesTimeScale", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Width.
+        /// </summary>
+        public static string ConfigWindowVideoModesWidth {
+            get {
+                return ResourceManager.GetString("ConfigWindowVideoModesWidth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configuration.
         /// </summary>
         public static string ContextMenuExecConfigItemHeader {
@@ -1053,11 +1661,149 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string CreateConfigFileErrorCaption {
+            get {
+                return ResourceManager.GetString("CreateConfigFileErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error creating the configuration file.
+        ///Could not write the file to disk..
+        /// </summary>
+        public static string CreateConfigFileIOError {
+            get {
+                return ResourceManager.GetString("CreateConfigFileIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Decklink consumer.
         /// </summary>
         public static string DecklinkConsumer {
             get {
                 return ResourceManager.GetString("DecklinkConsumer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DecklinkKeyer_Default {
+            get {
+                return ResourceManager.GetString("DecklinkKeyer_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External.
+        /// </summary>
+        public static string DecklinkKeyer_External {
+            get {
+                return ResourceManager.GetString("DecklinkKeyer_External", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External (separate device).
+        /// </summary>
+        public static string DecklinkKeyer_ExternalSeparateDevice {
+            get {
+                return ResourceManager.GetString("DecklinkKeyer_ExternalSeparateDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Internal.
+        /// </summary>
+        public static string DecklinkKeyer_Internal {
+            get {
+                return ResourceManager.GetString("DecklinkKeyer_Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DecklinkLatency_Default {
+            get {
+                return ResourceManager.GetString("DecklinkLatency_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Low.
+        /// </summary>
+        public static string DecklinkLatency_Low {
+            get {
+                return ResourceManager.GetString("DecklinkLatency_Low", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Normal.
+        /// </summary>
+        public static string DecklinkLatency_Normal {
+            get {
+                return ResourceManager.GetString("DecklinkLatency_Normal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Auto.
+        /// </summary>
+        public static string DecklinkWaitForReference_Auto {
+            get {
+                return ResourceManager.GetString("DecklinkWaitForReference_Auto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string DecklinkWaitForReference_Disable {
+            get {
+                return ResourceManager.GetString("DecklinkWaitForReference_Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string DecklinkWaitForReference_Enable {
+            get {
+                return ResourceManager.GetString("DecklinkWaitForReference_Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error deleting the configuration file.
+        ///Unknown error..
+        /// </summary>
+        public static string DeleteConfigFileError {
+            get {
+                return ResourceManager.GetString("DeleteConfigFileError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string DeleteConfigFileErrorCaption {
+            get {
+                return ResourceManager.GetString("DeleteConfigFileErrorCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error deleting the configuration file.
+        ///Write error..
+        /// </summary>
+        public static string DeleteConfigFileIOError {
+            get {
+                return ResourceManager.GetString("DeleteConfigFileIOError", resourceCulture);
             }
         }
         
@@ -1179,6 +1925,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configuration file.
+        /// </summary>
+        public static string ExecutableConfigWindowConfigFile {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Startup delay.
         /// </summary>
         public static string ExecutableConfigWindowDelay {
@@ -1197,11 +1952,57 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete executable.
+        /// </summary>
+        public static string ExecutableConfigWindowDeleteButton {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowDeleteButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete configuration file.
+        /// </summary>
+        public static string ExecutableConfigWindowDeleteFilePromptCaption {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowDeleteFilePromptCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete the configuration file &apos;{0}&apos;?
+        ///The file will be deleted permanently..
+        /// </summary>
+        public static string ExecutableConfigWindowDeleteFilePromptMessage {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowDeleteFilePromptMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executable options.
         /// </summary>
         public static string ExecutableConfigWindowGbOptionsHeader {
             get {
                 return ResourceManager.GetString("ExecutableConfigWindowGbOptionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kill current path only.
+        /// </summary>
+        public static string ExecutableConfigWindowKillOnlyCurrentPathEnabled {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowKillOnlyCurrentPathEnabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If enabled, only processes runnning on the same path are killed. Otherwise, any process with the same name will be terminated..
+        /// </summary>
+        public static string ExecutableConfigWindowKillOnlyCurrentPathEnabledDesc {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowKillOnlyCurrentPathEnabledDesc", resourceCulture);
             }
         }
         
@@ -1278,11 +2079,47 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The process has been started successfully.
+        /// </summary>
+        public static string ExecutableStartedMessage {
+            get {
+                return ResourceManager.GetString("ExecutableStartedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The process has stopped.
         /// </summary>
         public static string ExecutableStoppedMessage {
             get {
                 return ResourceManager.GetString("ExecutableStoppedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong executable path.
+        /// </summary>
+        public static string ExecutableTabNotFoundCaption {
+            get {
+                return ResourceManager.GetString("ExecutableTabNotFoundCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the correct path in the executable&apos;s configuration window.
+        /// </summary>
+        public static string ExecutableTabNotFoundMessage {
+            get {
+                return ResourceManager.GetString("ExecutableTabNotFoundMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open configuration.
+        /// </summary>
+        public static string ExecutableTabOpenConfigButton {
+            get {
+                return ResourceManager.GetString("ExecutableTabOpenConfigButton", resourceCulture);
             }
         }
         
@@ -1305,11 +2142,65 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string FfmpegDeinterlace_All {
+            get {
+                return ResourceManager.GetString("FfmpegDeinterlace_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interlaced.
+        /// </summary>
+        public static string FfmpegDeinterlace_Interlaced {
+            get {
+                return ResourceManager.GetString("FfmpegDeinterlace_Interlaced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string FfmpegDeinterlace_None {
+            get {
+                return ResourceManager.GetString("FfmpegDeinterlace_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executables.
         /// </summary>
         public static string FileDialogFilterDescription {
             get {
                 return ResourceManager.GetString("FileDialogFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D3D11.
+        /// </summary>
+        public static string HtmlAngleGraphicsBackend_D3D11 {
+            get {
+                return ResourceManager.GetString("HtmlAngleGraphicsBackend_D3D11", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to D3D9.
+        /// </summary>
+        public static string HtmlAngleGraphicsBackend_D3D9 {
+            get {
+                return ResourceManager.GetString("HtmlAngleGraphicsBackend_D3D9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OpenGL.
+        /// </summary>
+        public static string HtmlAngleGraphicsBackend_OpenGL {
+            get {
+                return ResourceManager.GetString("HtmlAngleGraphicsBackend_OpenGL", resourceCulture);
             }
         }
         
@@ -1332,6 +2223,222 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string LanguagesDefault {
+            get {
+                return ResourceManager.GetString("LanguagesDefault", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string LanguagesEnglish {
+            get {
+                return ResourceManager.GetString("LanguagesEnglish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Español.
+        /// </summary>
+        public static string LanguagesEspañol {
+            get {
+                return ResourceManager.GetString("LanguagesEspañol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Debug.
+        /// </summary>
+        public static string LogLevel_Debug {
+            get {
+                return ResourceManager.GetString("LogLevel_Debug", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string LogLevel_Error {
+            get {
+                return ResourceManager.GetString("LogLevel_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fatal.
+        /// </summary>
+        public static string LogLevel_Fatal {
+            get {
+                return ResourceManager.GetString("LogLevel_Fatal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Info.
+        /// </summary>
+        public static string LogLevel_Info {
+            get {
+                return ResourceManager.GetString("LogLevel_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trace.
+        /// </summary>
+        public static string LogLevel_Trace {
+            get {
+                return ResourceManager.GetString("LogLevel_Trace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string LogLevel_Warning {
+            get {
+                return ResourceManager.GetString("LogLevel_Warning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About....
+        /// </summary>
+        public static string MenuBarHelpAbout {
+            get {
+                return ResourceManager.GetString("MenuBarHelpAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CasparCG porject.
+        /// </summary>
+        public static string MenuBarHelpCasparCGProject {
+            get {
+                return ResourceManager.GetString("MenuBarHelpCasparCGProject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string MenuBarHelpMenuHeader {
+            get {
+                return ResourceManager.GetString("MenuBarHelpMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report issue.
+        /// </summary>
+        public static string MenuBarHelpReportIssue {
+            get {
+                return ResourceManager.GetString("MenuBarHelpReportIssue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Language.
+        /// </summary>
+        public static string MenuBarOptionsLanguage {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string MenuBarOptionsMenuHeader {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notifications.
+        /// </summary>
+        public static string MenuBarOptionsNotifications {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsNotifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process errors.
+        /// </summary>
+        public static string MenuBarOptionsNotificationsErrors {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsNotificationsErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process started.
+        /// </summary>
+        public static string MenuBarOptionsNotificationsStarted {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsNotificationsStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Process stopped.
+        /// </summary>
+        public static string MenuBarOptionsNotificationsStopped {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsNotificationsStopped", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open at login.
+        /// </summary>
+        public static string MenuBarOptionsOpenAtLogin {
+            get {
+                return ResourceManager.GetString("MenuBarOptionsOpenAtLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Crop console lines.
+        /// </summary>
+        public static string MenuBarViewCropLines {
+            get {
+                return ResourceManager.GetString("MenuBarViewCropLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark mode.
+        /// </summary>
+        public static string MenuBarViewDarkMode {
+            get {
+                return ResourceManager.GetString("MenuBarViewDarkMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string MenuBarViewMenuHeader {
+            get {
+                return ResourceManager.GetString("MenuBarViewMenuHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stylize console.
+        /// </summary>
+        public static string MenuBarViewStylizeConsole {
+            get {
+                return ResourceManager.GetString("MenuBarViewStylizeConsole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NDI consumer.
         /// </summary>
         public static string NdiConsumer {
@@ -1346,6 +2453,15 @@ namespace CasparLauncher.Properties {
         public static string NewExecutableName {
             get {
                 return ResourceManager.GetString("NewExecutableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not running.
+        /// </summary>
+        public static string NotRunning {
+            get {
+                return ResourceManager.GetString("NotRunning", resourceCulture);
             }
         }
         
@@ -1395,6 +2511,69 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Running.
+        /// </summary>
+        public static string Running {
+            get {
+                return ResourceManager.GetString("Running", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 16:9.
+        /// </summary>
+        public static string ScreenAspectRatio_16_9 {
+            get {
+                return ResourceManager.GetString("ScreenAspectRatio_16:9", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 4:3.
+        /// </summary>
+        public static string ScreenAspectRatio_4_3 {
+            get {
+                return ResourceManager.GetString("ScreenAspectRatio_4:3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string ScreenAspectRatio_Default {
+            get {
+                return ResourceManager.GetString("ScreenAspectRatio_Default", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataVideo (Full).
+        /// </summary>
+        public static string ScreenColourSpace_DataVideo_Full {
+            get {
+                return ResourceManager.GetString("ScreenColourSpace_DataVideo_Full", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DataVideo (Limited).
+        /// </summary>
+        public static string ScreenColourSpace_DataVideo_Limited {
+            get {
+                return ResourceManager.GetString("ScreenColourSpace_DataVideo_Limited", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RGB.
+        /// </summary>
+        public static string ScreenColourSpace_RGB {
+            get {
+                return ResourceManager.GetString("ScreenColourSpace_RGB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Screen consumer.
         /// </summary>
         public static string ScreenConsumer {
@@ -1404,11 +2583,74 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Fill.
+        /// </summary>
+        public static string ScreenStretch_Fill {
+            get {
+                return ResourceManager.GetString("ScreenStretch_Fill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string ScreenStretch_None {
+            get {
+                return ResourceManager.GetString("ScreenStretch_None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uniform.
+        /// </summary>
+        public static string ScreenStretch_Uniform {
+            get {
+                return ResourceManager.GetString("ScreenStretch_Uniform", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uniform to fill.
+        /// </summary>
+        public static string ScreenStretch_UniformToFill {
+            get {
+                return ResourceManager.GetString("ScreenStretch_UniformToFill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string StatusTabHeader {
             get {
                 return ResourceManager.GetString("StatusTabHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matrix.
+        /// </summary>
+        public static string SystemAudioChannelLayout_Matrix {
+            get {
+                return ResourceManager.GetString("SystemAudioChannelLayout_Matrix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mono.
+        /// </summary>
+        public static string SystemAudioChannelLayout_Mono {
+            get {
+                return ResourceManager.GetString("SystemAudioChannelLayout_Mono", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stereo.
+        /// </summary>
+        public static string SystemAudioChannelLayout_Stereo {
+            get {
+                return ResourceManager.GetString("SystemAudioChannelLayout_Stereo", resourceCulture);
             }
         }
         

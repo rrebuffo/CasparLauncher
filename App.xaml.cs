@@ -1,107 +1,134 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using CasparLauncher.Properties;
-using S = CasparLauncher.Properties.Settings;
+﻿namespace CasparLauncher;
 
-namespace CasparLauncher
+public partial class App : Application
 {
-    /// <summary>
-    /// Lógica de interacción para App.xaml
-    /// </summary>
-    public partial class App : Application
+    private static readonly CultureInfo DefaultCulture = Thread.CurrentThread.CurrentCulture;
+    public static TrayIcon Tray { get; } = new();
+    public static Launchpad Launchpad { get; } = new();
+    public StatusWindow? Window { get; set; }
+
+    public static System.Drawing.Icon? AppIcon
     {
-        static Mutex Mutex;
-        private EventWaitHandle eventWaitHandle;
-        private string EventName = "bd8e7274f5de4f00b6793bea0928b584";
+        get => Environment.ProcessPath is null ? null : System.Drawing.Icon.ExtractAssociatedIcon(Environment.ProcessPath);
+    }
 
-        protected override void OnStartup(StartupEventArgs e)
+    public App() : base()
+    {
+        AppContext.SetSwitch("Switch.System.Windows.Controls.Text.UseAdornerForTextboxSelectionRendering", false);
+        LocalizationHelper.Init(L.ResourceManager);
+        if (Process.GetCurrentProcess() is Process p &&
+            p.MainModule is ProcessModule m &&
+            m.FileName is string f &&
+            Path.GetDirectoryName(f) is string d)
         {
-            base.OnStartup(e);
-            Mutex = new Mutex(true, "{4D1BD577-550D-40BF-A10C-255C4B2FA406}", out bool owned);
-            eventWaitHandle = new EventWaitHandle(false, EventResetMode.AutoReset, EventName);
-            GC.KeepAlive(Mutex);
-            if (owned)
-            {
-                var thread = new Thread(() =>
-                {
-                    while (eventWaitHandle.WaitOne())
-                    {
-                        Current.Dispatcher.BeginInvoke((Action)(() => ((Launcher)Current.MainWindow).ActivateInstance()));
-                    }
-                });
-                thread.IsBackground = true;
-                thread.Start();
-                SetLanguageDictionary();
-                return;
-            }
-            eventWaitHandle.Set();
-            Process.GetCurrentProcess().Kill();
-        }
-
-        public void SetLanguageDictionary()
-        {
-            try
-            {
-                switch ((Languages)S.Default.ForcedLanguage)
-                {
-                    case Languages.en:
-                        CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("en-US");
-                        break;
-                    case Languages.es:
-                        CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("es-ES");
-                        break;
-                    case Languages.none:
-                    default:
-                        switch (Thread.CurrentThread.CurrentCulture.ToString())
-                        {
-                            case "es-ES":
-                            case "es-MX":
-                            case "es-AR":
-                                CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("es-ES");
-                                break;
-                            default:
-                                CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("en-US");
-                                break;
-                        }
-                        break;
-                }
-            }
-            catch(Exception)
-            {
-                CasparLauncher.Properties.Resources.Culture = new System.Globalization.CultureInfo("en-US");
-            }
-        }
-
-        private void Application_SessionEnding(object sender, SessionEndingCancelEventArgs e)
-        {
-            Current.Dispatcher.BeginInvoke((Action)(() => ((Launcher)Current.MainWindow).Shutdown()));
-        }
-
-        private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
-        {
-            var comException = e.Exception as System.Runtime.InteropServices.COMException;
-
-            if (comException != null && comException.ErrorCode == -2147221040) e.Handled = true;
+            Directory.SetCurrentDirectory(d);
         }
     }
 
-    public enum Languages
+    protected override void OnStartup(StartupEventArgs e)
     {
-        [Description("Ninguno")]
-        none,
+        base.OnStartup(e);
+        SetLanguageDictionary();
+        _ = AppInitHelper.SingleInstanceCheck("CasparLauncher");
+        AppInitHelper.RequestActivate += ActivateSingleInstance;
+        SetDarkMode(Launchpad.DarkMode);
+        Tray.SetupTray();
+        Launchpad.StartAll(true);
+    }
 
-        [Description("English")]
-        en,
+    protected override void OnExit(ExitEventArgs e)
+    {
+        Launchpad.Exiting = true;
+        Tray.HideIcon();
+        base.OnExit(e);
+    }
 
-        [Description("Español")]
-        es
+    public static void Shutdown(bool prompt = false)
+    {
+        if (prompt)
+        {
+            MessageBoxResult close = MessageBox.Show(L.ClosePromptMessage, L.ClosePromptCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            switch (close)
+            {
+                case MessageBoxResult.Yes:
+                    break;
+                case MessageBoxResult.No:
+                default:
+                    return;
+            }
+        }
+        Launchpad.StopAll();
+        Current.Shutdown();
+    }
+
+    private void ActivateSingleInstance(object? sender, EventArgs e)
+    {
+        Dispatcher.BeginInvoke((() =>
+        {
+            ShowWindow();
+        }));
+    }
+
+    internal void ShowWindow(int? tab = null)
+    {
+        if (Window is not null && Window.IsLoaded)
+        {
+            Window.Topmost = true;
+            if (tab is int index) Launchpad.SelectedTab = index;
+            Window.Activate();
+            Window.Topmost = false;
+        }
+        else
+        {
+            Window = new()
+            {
+                DataContext = Launchpad
+            };
+            if (tab is int index) Launchpad.SelectedTab = index;
+            Window.Show();
+        }
+    }
+
+    public static void SetLanguageDictionary()
+    {
+        try
+        {
+            L.Culture = Launchpad.ForcedLanguage switch
+            {
+                Languages.en => new CultureInfo("en-US"),
+                Languages.es => new CultureInfo("es-ES"),
+                _ => DefaultCulture.ToString() switch
+                {
+                    "es-ES" or "es-MX" or "es-AR" => new("es-ES"),
+                    _ => new("en-US"),
+                },
+            };
+            Thread.CurrentThread.CurrentCulture = L.Culture;
+            Thread.CurrentThread.CurrentUICulture = L.Culture;
+            Thread.CurrentThread.CurrentCulture.ClearCachedData();
+            Thread.CurrentThread.CurrentUICulture.ClearCachedData();
+            L.Culture.ClearCachedData();
+            LocalizationHelper.Instance.CurrentCulture = L.Culture;
+        }
+        catch (Exception)
+        {
+            L.Culture = new("en-US");
+        }
+    }
+
+
+    const string THEMES_KEYPATH = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+    const string THEMES_VALUEPATH = "SystemUsesLightTheme";
+
+    public static void SetDarkMode(bool enabled)
+    {
+        Current.Resources.MergedDictionaries[0].Source = enabled ? new Uri("pack://application:,,,/BaseUISupport;component/Styles/DarkColors.xaml", UriKind.RelativeOrAbsolute) : new Uri("pack://application:,,,/BaseUISupport;component/Styles/LightColors.xaml", UriKind.RelativeOrAbsolute);
+    }
+
+    public static bool IsSystemThemeLight()
+    {
+        using RegistryKey? key = Registry.CurrentUser.OpenSubKey(THEMES_KEYPATH);
+        if (key is not null && key.GetValue(THEMES_VALUEPATH) is object obj) return (int)obj > 0;
+        else return false;
     }
 }

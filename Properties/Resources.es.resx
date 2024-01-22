@@ -117,11 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutWindowNotice" xml:space="preserve">
+    <value>Este programa es software libre: puede redistribuirlo y/o modificarlo bajo los términos de la Licencia General Pública de GNU publicada por la Free Software Foundation, ya sea la versión 3 de la Licencia, o (a su elección) cualquier versión posterior.
+
+Este programa se distribuye con la esperanza de que sea útil pero SIN NINGUNA GARANTÍA; incluso sin la garantía implícita de MERCANTIBILIDAD o CALIFICADA PARA UN PROPÓSITO EN PARTICULAR. Vea la Licencia General Pública de GNU para más detalles.
+
+Usted ha debido de recibir una copia de la Licencia General Pública de GNU junto con este programa. Si no, vea
+&lt;https://www.gnu.org/licenses/&gt;.</value>
+  </data>
+  <data name="AboutWindowTagline" xml:space="preserve">
+    <value>Interfaz gráfica para el servidor CasparCG</value>
+  </data>
+  <data name="AboutWindowTitle" xml:space="preserve">
+    <value>Acerca de</value>
+  </data>
+  <data name="AboutWindowVersion" xml:space="preserve">
+    <value>Versión {0}</value>
+  </data>
   <data name="AppTitle" xml:space="preserve">
     <value>Estado del servidor</value>
   </data>
+  <data name="ArtnetConsumer" xml:space="preserve">
+    <value>Salida ArtNet</value>
+  </data>
+  <data name="ArtnetFixtureType_DIMMER" xml:space="preserve">
+    <value>Dimmer</value>
+  </data>
+  <data name="ArtnetFixtureType_RGB" xml:space="preserve">
+    <value>RGB</value>
+  </data>
+  <data name="ArtnetFixtureType_RGBW" xml:space="preserve">
+    <value>RGBW</value>
+  </data>
   <data name="BluefishConsumer" xml:space="preserve">
     <value>Salida Bluefish</value>
+  </data>
+  <data name="BluefishKeyerAudio_Input" xml:space="preserve">
+    <value>Entrada de video SDI</value>
+  </data>
+  <data name="BluefishKeyerAudio_Output" xml:space="preserve">
+    <value>Canal de salida de video</value>
+  </data>
+  <data name="BluefishKeyer_Disabled" xml:space="preserve">
+    <value>Deshabilitado</value>
+  </data>
+  <data name="BluefishKeyer_External" xml:space="preserve">
+    <value>Externo</value>
+  </data>
+  <data name="BluefishKeyer_Internal" xml:space="preserve">
+    <value>Interno</value>
+  </data>
+  <data name="BluefishUhdMode_Auto" xml:space="preserve">
+    <value>Automático</value>
+  </data>
+  <data name="BluefishUhdMode_DisableBVC" xml:space="preserve">
+    <value>Deshabilitar BVC-Multi_Link</value>
+  </data>
+  <data name="BluefishUhdMode_Force2SI" xml:space="preserve">
+    <value>Forzar salida 2SI</value>
+  </data>
+  <data name="BluefishUhdMode_ForceSQ" xml:space="preserve">
+    <value>Forzar salida SQ</value>
   </data>
   <data name="BrowseForFileButton" xml:space="preserve">
     <value>Examinar...</value>
@@ -129,18 +185,58 @@
   <data name="BrowseForPathButton" xml:space="preserve">
     <value>Elegir carpeta...</value>
   </data>
+  <data name="BrowseForPathDialogCaption" xml:space="preserve">
+    <value>Seleccionar ruta para la carpeta '{0}'</value>
+  </data>
   <data name="ClosePromptCaption" xml:space="preserve">
     <value>Cerrar aplicación</value>
   </data>
   <data name="ClosePromptMessage" xml:space="preserve">
-    <value>Esta aplicación controla el correcto funcionamiento de los componentes del servidor. Al cerrarla se detendrán todos los servicios.
+    <value>Esta aplicación controla el correcto funcionamiento de los componentes del servidor.
+Al cerrarla se detendrán todos los servicios.
 ¿Desea continuar?</value>
+  </data>
+  <data name="ConfigBufferLines" xml:space="preserve">
+    <value>Líneas de consola</value>
+  </data>
+  <data name="MenuBarViewDarkMode" xml:space="preserve">
+    <value>Modo oscuro</value>
   </data>
   <data name="ConfigFileDialogFilterDescription" xml:space="preserve">
     <value>Archivos de configuración</value>
   </data>
   <data name="ConfigFileText" xml:space="preserve">
     <value>Archivo de configuración</value>
+  </data>
+  <data name="MenuBarHelpAbout" xml:space="preserve">
+    <value>Acerca de...</value>
+  </data>
+  <data name="MenuBarHelpCasparCGProject" xml:space="preserve">
+    <value>Proyecto CasparCG</value>
+  </data>
+  <data name="MenuBarHelpMenuHeader" xml:space="preserve">
+    <value>Ayuda</value>
+  </data>
+  <data name="MenuBarHelpReportIssue" xml:space="preserve">
+    <value>Reportar problemas</value>
+  </data>
+  <data name="MenuBarOptionsNotifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="MenuBarOptionsNotificationsErrors" xml:space="preserve">
+    <value>Errores del proceso</value>
+  </data>
+  <data name="MenuBarOptionsNotificationsStarted" xml:space="preserve">
+    <value>Proceso iniciado</value>
+  </data>
+  <data name="MenuBarOptionsNotificationsStopped" xml:space="preserve">
+    <value>Proceso detenido</value>
+  </data>
+  <data name="MenuBarOptionsOpenAtLogin" xml:space="preserve">
+    <value>Abrir al inicio</value>
+  </data>
+  <data name="ConfigSupressEmptyLines" xml:space="preserve">
+    <value>Ignorar líneas vacías de la consola</value>
   </data>
   <data name="ConfigTabAboutGb" xml:space="preserve">
     <value>Acerca de</value>
@@ -152,14 +248,74 @@ Más información en:</value>
   <data name="ConfigTabAboutProjectName" xml:space="preserve">
     <value>Proyecto CasparCG</value>
   </data>
+  <data name="ConfigTabEditConfigFilesDesc" xml:space="preserve">
+    <value>Para editar un archivo de configuración diferente a 'casparcg.config' mantenga presionada la tecla Mayús mientras presiona el botón 'Editar archivo'</value>
+  </data>
+  <data name="ConfigTabExecGbHeader" xml:space="preserve">
+    <value>Ejecutables</value>
+  </data>
+  <data name="MenuBarOptionsLanguage" xml:space="preserve">
+    <value>Idioma</value>
+  </data>
   <data name="ConfigTabOptionsCbHead" xml:space="preserve">
     <value>Opciones</value>
   </data>
-  <data name="ConfigTabLangValue" xml:space="preserve">
-    <value>Forzar idioma</value>
-  </data>
   <data name="ConfigTabServerConfigHeader" xml:space="preserve">
     <value>Configuración del servidor</value>
+  </data>
+  <data name="MenuBarViewCropLines" xml:space="preserve">
+    <value>Recortar líneas de consola</value>
+  </data>
+  <data name="MenuBarViewMenuHeader" xml:space="preserve">
+    <value>Ver</value>
+  </data>
+  <data name="MenuBarViewStylizeConsole" xml:space="preserve">
+    <value>Estilizar consola</value>
+  </data>
+  <data name="ConfigWindowChannelsAnAddFixture" xml:space="preserve">
+    <value>Agregar equipo</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureChannels" xml:space="preserve">
+    <value>Canales</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureCount" xml:space="preserve">
+    <value>Cantidad de equipos</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureHeight" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureRotation" xml:space="preserve">
+    <value>Rotación</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtures" xml:space="preserve">
+    <value>Equipos</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureStart" xml:space="preserve">
+    <value>Canal de inicio</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureType" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureWidth" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureX" xml:space="preserve">
+    <value>Posición X</value>
+  </data>
+  <data name="ConfigWindowChannelsAnFixtureY" xml:space="preserve">
+    <value>Posición Y</value>
+  </data>
+  <data name="ConfigWindowChannelsAnHost" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="ConfigWindowChannelsAnPort" xml:space="preserve">
+    <value>Puerto</value>
+  </data>
+  <data name="ConfigWindowChannelsAnRate" xml:space="preserve">
+    <value>Tasa de refresco</value>
+  </data>
+  <data name="ConfigWindowChannelsAnUniverse" xml:space="preserve">
+    <value>Universo</value>
   </data>
   <data name="ConfigWindowChannelsBfDevice" xml:space="preserve">
     <value>Dispositivo</value>
@@ -176,6 +332,9 @@ Más información en:</value>
   <data name="ConfigWindowChannelsBfSdiStream" xml:space="preserve">
     <value>Flujo SDI</value>
   </data>
+  <data name="ConfigWindowChannelsBfUhdMode" xml:space="preserve">
+    <value>Modo UHD</value>
+  </data>
   <data name="ConfigWindowChannelsBfWatchdog" xml:space="preserve">
     <value>Watchdog</value>
   </data>
@@ -185,17 +344,56 @@ Más información en:</value>
   <data name="ConfigWindowChannelsChannelListItemDisplay" xml:space="preserve">
     <value>Canal {0}</value>
   </data>
+  <data name="ConfigWindowChannelsChannelProducerLayer" xml:space="preserve">
+    <value>Capa</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelProducerMedia" xml:space="preserve">
+    <value>Medio</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelProducers" xml:space="preserve">
+    <value>Medios (producers)</value>
+  </data>
   <data name="ConfigWindowChannelsChannels" xml:space="preserve">
     <value>Canales</value>
   </data>
   <data name="ConfigWindowChannelsChannelVideoMode" xml:space="preserve">
     <value>Formato de video</value>
   </data>
+  <data name="ConfigWindowChannelsConsumerChannelVideoMode" xml:space="preserve">
+    <value>Modo de video del canal</value>
+  </data>
   <data name="ConfigWindowChannelsConsumerConfigGbHeader" xml:space="preserve">
     <value>Configuración de la salida</value>
   </data>
   <data name="ConfigWindowChannelsConsumers" xml:space="preserve">
     <value>Salidas</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionDestX" xml:space="preserve">
+    <value>Destino X</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionDestY" xml:space="preserve">
+    <value>Destino Y</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionEnable" xml:space="preserve">
+    <value>Habilitar subregión</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionHeight" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionSrcX" xml:space="preserve">
+    <value>Origen X</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionSrcY" xml:space="preserve">
+    <value>Origen Y</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerSubregionWidth" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="ConfigWindowChannelsConsumerVideoMode" xml:space="preserve">
+    <value>Modo de video</value>
+  </data>
+  <data name="ConfigWindowChannelsDlAddPort" xml:space="preserve">
+    <value>Agregar puerto</value>
   </data>
   <data name="ConfigWindowChannelsDlBuffer" xml:space="preserve">
     <value>Tamaño del buffer</value>
@@ -217,6 +415,24 @@ Más información en:</value>
   </data>
   <data name="ConfigWindowChannelsDlLatency" xml:space="preserve">
     <value>Latencia</value>
+  </data>
+  <data name="ConfigWindowChannelsDlPortDevice" xml:space="preserve">
+    <value>Dispositivo</value>
+  </data>
+  <data name="ConfigWindowChannelsDlPortKeyOnly" xml:space="preserve">
+    <value>Sólo alpha</value>
+  </data>
+  <data name="ConfigWindowChannelsDlPorts" xml:space="preserve">
+    <value>Puertos adicionales sincronizados</value>
+  </data>
+  <data name="ConfigWindowChannelsDlWaitForReference" xml:space="preserve">
+    <value>Espera de referencia</value>
+  </data>
+  <data name="ConfigWindowChannelsDlWaitForReferenceDuration" xml:space="preserve">
+    <value>Duración de espera de referencia</value>
+  </data>
+  <data name="ConfigWindowChannelsDlWaitForReferenceDurationDetail" xml:space="preserve">
+    <value>(tiempo en segundos)</value>
   </data>
   <data name="ConfigWindowChannelsFfArgs" xml:space="preserve">
     <value>Argumentos</value>
@@ -266,6 +482,9 @@ Más información en:</value>
   <data name="ConfigWindowChannelsScKeyOnly" xml:space="preserve">
     <value>Solo alfa</value>
   </data>
+  <data name="ConfigWindowChannelsScName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
   <data name="ConfigWindowChannelsScSbsKey" xml:space="preserve">
     <value>Alfa lado a lado</value>
   </data>
@@ -299,14 +518,35 @@ Más información en:</value>
   <data name="ConfigWindowOptionsTabAmcpPort" xml:space="preserve">
     <value>Puerto</value>
   </data>
+  <data name="ConfigWindowOptionsTabAudioDefaultDevice" xml:space="preserve">
+    <value>Dispositivo de salida por defecto</value>
+  </data>
+  <data name="ConfigWindowOptionsTabAudioGb" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegDeinterlace" xml:space="preserve">
+    <value>Desentrelazado</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegGb" xml:space="preserve">
+    <value>FFmpeg</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFfmpegThreads" xml:space="preserve">
+    <value>Hilos de CPU</value>
+  </data>
   <data name="ConfigWindowOptionsTabFlashBuffer" xml:space="preserve">
     <value>Tamaño del buffer</value>
+  </data>
+  <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
+    <value>Habilitar</value>
   </data>
   <data name="ConfigWindowOptionsTabFlashGb" xml:space="preserve">
     <value>Flash</value>
   </data>
   <data name="ConfigWindowOptionsTabHeader" xml:space="preserve">
     <value>Opciones del servidor</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlAngleBackend" xml:space="preserve">
+    <value>Soporte de gráficos ANGLE</value>
   </data>
   <data name="ConfigWindowOptionsTabHtmlDebugPort" xml:space="preserve">
     <value>Puerto de depuración</value>
@@ -317,11 +557,20 @@ Más información en:</value>
   <data name="ConfigWindowOptionsTabHtmlGb" xml:space="preserve">
     <value>HTML</value>
   </data>
+  <data name="ConfigWindowOptionsTabLogDisableColumnAlignment" xml:space="preserve">
+    <value>Desactivar la alineación por columnas</value>
+  </data>
+  <data name="ConfigWindowOptionsTabLogDisableColumnAlignmentNotice" xml:space="preserve">
+    <value>Esta opción está incluida sólo por motivos de compatibilidad y no afectará el comportamiento de la consola en este programa.</value>
+  </data>
   <data name="ConfigWindowOptionsTabLogGb" xml:space="preserve">
     <value>Registro</value>
   </data>
   <data name="ConfigWindowOptionsTabLogLogLevel" xml:space="preserve">
     <value>Nivel</value>
+  </data>
+  <data name="ConfigWindowOptionsTabLogLogToFile" xml:space="preserve">
+    <value>Permitir escribir el registro a un archivo</value>
   </data>
   <data name="ConfigWindowOptionsTabNdiAutoload" xml:space="preserve">
     <value>Carga automática</value>
@@ -356,6 +605,9 @@ Más información en:</value>
   <data name="ConfigWindowOptionsTabPathsDataPath" xml:space="preserve">
     <value>Ruta de datos</value>
   </data>
+  <data name="ConfigWindowOptionsTabPathsFontPath" xml:space="preserve">
+    <value>Ruta de fuentes</value>
+  </data>
   <data name="ConfigWindowOptionsTabPathsGb" xml:space="preserve">
     <value>Rutas</value>
   </data>
@@ -371,11 +623,68 @@ Más información en:</value>
   <data name="ConfigWindowSaveButton" xml:space="preserve">
     <value>Guardar</value>
   </data>
+  <data name="ConfigWindowStatusMessageSaveError" xml:space="preserve">
+    <value>Ocurrió un error desconocido</value>
+  </data>
+  <data name="ConfigWindowStatusMessageSaveIOError" xml:space="preserve">
+    <value>Error al escribir el archivo</value>
+  </data>
+  <data name="ConfigWindowStatusMessageSaveSuccess" xml:space="preserve">
+    <value>El archivo se guardó correctamente</value>
+  </data>
   <data name="ConfigWindowTitle" xml:space="preserve">
     <value>Editar configuración del servidor</value>
   </data>
   <data name="ContextMenuRestartAllHeader" xml:space="preserve">
     <value>Reiniciar todos</value>
+  </data>
+  <data name="ConfigWindowVideoModesCadence" xml:space="preserve">
+    <value>Cadencia</value>
+  </data>
+  <data name="ConfigWindowVideoModesCustomVideoModeGb" xml:space="preserve">
+    <value>Modo de video personalizado</value>
+  </data>
+  <data name="ConfigWindowVideoModesCustomVideoModes" xml:space="preserve">
+    <value>Modos personalizados</value>
+  </data>
+  <data name="ConfigWindowVideoModesDuration" xml:space="preserve">
+    <value>Duración</value>
+  </data>
+  <data name="ConfigWindowVideoModesHeight" xml:space="preserve">
+    <value>Alto</value>
+  </data>
+  <data name="ConfigWindowVideoModesId" xml:space="preserve">
+    <value>ID del modo de video</value>
+  </data>
+  <data name="ConfigWindowVideoModesNewModeId" xml:space="preserve">
+    <value>NuevoModoDeVideo</value>
+  </data>
+  <data name="ConfigWindowVideoModesTab" xml:space="preserve">
+    <value>Modos de video</value>
+  </data>
+  <data name="ConfigWindowVideoModesTimeScale" xml:space="preserve">
+    <value>Escala de tiempo</value>
+  </data>
+  <data name="ConfigWindowVideoModesWidth" xml:space="preserve">
+    <value>Ancho</value>
+  </data>
+  <data name="ContextMenuExecConfigItemHeader" xml:space="preserve">
+    <value>Configuración</value>
+  </data>
+  <data name="ContextMenuExecDiagItemHeader" xml:space="preserve">
+    <value>Abrir ventana de diagnóstico</value>
+  </data>
+  <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
+    <value>Abrir ventana de grilla de canales</value>
+  </data>
+  <data name="ContextMenuExecRestartItemHeader" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
+  <data name="ContextMenuExecStartItemHeader" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="ContextMenuExecStopItemHeader" xml:space="preserve">
+    <value>Detener</value>
   </data>
   <data name="ContextMenuExitItemHeader" xml:space="preserve">
     <value>Salir</value>
@@ -383,56 +692,62 @@ Más información en:</value>
   <data name="ContextMenuStartAllHeader" xml:space="preserve">
     <value>Iniciar todos</value>
   </data>
+  <data name="ContextMenuStopAllHeader" xml:space="preserve">
+    <value>Detener todos</value>
+  </data>
+  <data name="CreateConfigFileErrorCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="CreateConfigFileIOError" xml:space="preserve">
+    <value>Error al crear el archivo de configuración.
+No se pudo escribir el archivo en el disco.</value>
+  </data>
   <data name="DecklinkConsumer" xml:space="preserve">
     <value>Salida Decklink</value>
   </data>
-  <data name="FFConsumer" xml:space="preserve">
-    <value>Salida FFmpeg</value>
+  <data name="DecklinkKeyer_Default" xml:space="preserve">
+    <value>Por defecto</value>
   </data>
-  <data name="FileDialogFilterDescription" xml:space="preserve">
-    <value>Ejecutables</value>
+  <data name="DecklinkKeyer_External" xml:space="preserve">
+    <value>Externo</value>
   </data>
-  <data name="IvgaConsumer" xml:space="preserve">
-    <value>Salida iVGA</value>
+  <data name="DecklinkKeyer_ExternalSeparateDevice" xml:space="preserve">
+    <value>Externo (dispositivo separado)</value>
   </data>
-  <data name="NdiConsumer" xml:space="preserve">
-    <value>Salida NDI</value>
+  <data name="DecklinkKeyer_Internal" xml:space="preserve">
+    <value>Interno</value>
   </data>
-  <data name="OpenConfigEditorEditButtonText" xml:space="preserve">
-    <value>Editar archivo</value>
+  <data name="DecklinkLatency_Default" xml:space="preserve">
+    <value>Por defecto</value>
   </data>
-  <data name="ScreenConsumer" xml:space="preserve">
-    <value>Salida a Pantalla</value>
+  <data name="DecklinkLatency_Low" xml:space="preserve">
+    <value>Baja</value>
   </data>
-  <data name="StatusTabHeader" xml:space="preserve">
-    <value>Estado</value>
+  <data name="DecklinkLatency_Normal" xml:space="preserve">
+    <value>Normal</value>
   </data>
-  <data name="SystemAudioConsumer" xml:space="preserve">
-    <value>Salida a Audio de Sistema</value>
+  <data name="DecklinkWaitForReference_Auto" xml:space="preserve">
+    <value>Automática</value>
   </data>
-  <data name="ConfigBufferLines" xml:space="preserve">
-    <value>Líneas de consola</value>
+  <data name="DecklinkWaitForReference_Disable" xml:space="preserve">
+    <value>Deshabilitar</value>
   </data>
-  <data name="ConfigOpenAtLogin" xml:space="preserve">
-    <value>Abrir al inicio</value>
-  </data>
-  <data name="ExecutableNotFoundWarningCaption" xml:space="preserve">
-    <value>Ubicación del ejecutable incorrecta</value>
-  </data>
-  <data name="ExecutableNotFoundWarningMessage" xml:space="preserve">
-    <value>Compruebe la ruta del ejecutable</value>
-  </data>
-  <data name="ContextMenuExecDiagItemHeader" xml:space="preserve">
-    <value>Abrir ventana de diagnóstico</value>
+  <data name="DecklinkWaitForReference_Enable" xml:space="preserve">
+    <value>Habilitar</value>
   </data>
   <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
     <value>Reconstruir medios</value>
   </data>
-  <data name="ConfigTabExecGbHeader" xml:space="preserve">
-    <value>Ejecutables</value>
+  <data name="DeleteConfigFileError" xml:space="preserve">
+    <value>Error al eliminar el archivo de configuración.
+Error desconocido.</value>
   </data>
-  <data name="NewExecutableName" xml:space="preserve">
-    <value>Nuevo ejecutable</value>
+  <data name="DeleteConfigFileErrorCaption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DeleteConfigFileIOError" xml:space="preserve">
+    <value>Error al eliminar el archivo de configuración.
+Error de escritura.</value>
   </data>
   <data name="DeleteExecutablePromptCaption" xml:space="preserve">
     <value>Eliminar ejecutable</value>
@@ -467,11 +782,45 @@ Más información en:</value>
   <data name="ExecutableConfigWindowCommandsEnabledDesc" xml:space="preserve">
     <value>Habilita el envío de comandos al ejecutable en la consola</value>
   </data>
+  <data name="ExecutableConfigWindowCommandsExport" xml:space="preserve">
+    <value>Exportar...</value>
+  </data>
+  <data name="ExecutableConfigWindowCommandsImport" xml:space="preserve">
+    <value>Importar...</value>
+  </data>
+  <data name="ExecutableConfigWindowConfigFile" xml:space="preserve">
+    <value>Archivo de configuración</value>
+  </data>
   <data name="ExecutableConfigWindowDelay" xml:space="preserve">
     <value>Retardo de inicio</value>
   </data>
   <data name="ExecutableConfigWindowDelayDesc" xml:space="preserve">
     <value>Tiempo de espera antes de la ejecución (milisegundos)</value>
+  </data>
+  <data name="ExecutableConfigWindowDeleteButton" xml:space="preserve">
+    <value>Eliminar ejecutable</value>
+  </data>
+  <data name="ExecutableConfigWindowDeleteFilePromptCaption" xml:space="preserve">
+    <value>Eliminar archivo de configuración</value>
+  </data>
+  <data name="ExecutableConfigWindowDeleteFilePromptMessage" xml:space="preserve">
+    <value>Esta seguro que desea eliminar el archivo '{0}'?
+El archivo se eliminará permanentemente.</value>
+  </data>
+  <data name="ExecutableConfigWindowGbOptionsHeader" xml:space="preserve">
+    <value>Opciones del ejecutable</value>
+  </data>
+  <data name="ExecutableConfigWindowKillOnlyCurrentPathEnabled" xml:space="preserve">
+    <value>Solo ruta actual</value>
+  </data>
+  <data name="ExecutableConfigWindowKillOnlyCurrentPathEnabledDesc" xml:space="preserve">
+    <value>Al habilitarse, sólo se finalizarán los procesos con la misma ruta. De lo contrario se detendrá cualquier proceso con el mismo nombre.</value>
+  </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabled" xml:space="preserve">
+    <value>Múltiples instancias</value>
+  </data>
+  <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
+    <value>Permite la ejecución de múltiples procesos con el mismo nombre (CasparCG.exe permite diferentes archivos de configuración especificando la ruta en el campo argumentos)</value>
   </data>
   <data name="ExecutableConfigWindowName" xml:space="preserve">
     <value>Nombre</value>
@@ -482,71 +831,92 @@ Más información en:</value>
   <data name="ExecutableConfigWindowTitle" xml:space="preserve">
     <value>Configuración del ejecutable</value>
   </data>
-  <data name="OpenConfigEditorNewButtonText" xml:space="preserve">
-    <value>Nuevo archivo</value>
-  </data>
-  <data name="ConfigWindowOptionsTabPathsFontPath" xml:space="preserve">
-    <value>Ruta de fuentes</value>
-  </data>
-  <data name="ExecutableConfigWindowMultipleInstancesEnabled" xml:space="preserve">
-    <value>Múltiples instancias</value>
-  </data>
-  <data name="ExecutableConfigWindowMultipleInstancesEnabledDesc" xml:space="preserve">
-    <value>Permite la ejecución de múltiples procesos con el mismo nombre (CasparCG.exe permite diferentes archivos de configuración especificando la ruta en el campo argumentos)</value>
-  </data>
-  <data name="ContextMenuStopAllHeader" xml:space="preserve">
-    <value>Detener todos</value>
-  </data>
-  <data name="ConfigTabEditConfigFilesDesc" xml:space="preserve">
-    <value>Para editar un archivo de configuración diferente a 'casparcg.config' mantenga presionada la tecla Mayús mientras presiona el botón 'Editar archivo'</value>
-  </data>
-  <data name="ContextMenuExecConfigItemHeader" xml:space="preserve">
-    <value>Configuración</value>
-  </data>
-  <data name="ContextMenuExecRestartItemHeader" xml:space="preserve">
-    <value>Reiniciar</value>
-  </data>
-  <data name="ContextMenuExecStartItemHeader" xml:space="preserve">
-    <value>Iniciar</value>
-  </data>
-  <data name="ContextMenuExecStopItemHeader" xml:space="preserve">
-    <value>Detener</value>
-  </data>
-  <data name="ExecutableConfigWindowGbOptionsHeader" xml:space="preserve">
-    <value>Opciones del ejecutable</value>
-  </data>
   <data name="ExecutableErrorMessage" xml:space="preserve">
     <value>Error al iniciar el proceso</value>
+  </data>
+  <data name="ExecutableNotFoundWarningCaption" xml:space="preserve">
+    <value>Ubicación del ejecutable incorrecta</value>
+  </data>
+  <data name="ExecutableNotFoundWarningMessage" xml:space="preserve">
+    <value>Compruebe la ruta del ejecutable</value>
+  </data>
+  <data name="ExecutableStartedMessage" xml:space="preserve">
+    <value>Se inició el proceso correctamente</value>
   </data>
   <data name="ExecutableStoppedMessage" xml:space="preserve">
     <value>El proceso se ha detenido</value>
   </data>
-  <data name="ConfigWindowOptionsTabFfmpegDeinterlace" xml:space="preserve">
-    <value>Desentrelazado</value>
+  <data name="ExecutableTabNotFoundCaption" xml:space="preserve">
+    <value>Ruta del ejecutable incorrecta</value>
   </data>
-  <data name="ConfigWindowOptionsTabFfmpegGb" xml:space="preserve">
-    <value>FFmpeg</value>
+  <data name="ExecutableTabNotFoundMessage" xml:space="preserve">
+    <value>Definir la ubicación correcta en la ventana de configuración del ejecutable:</value>
   </data>
-  <data name="ConfigWindowOptionsTabFfmpegThreads" xml:space="preserve">
-    <value>Hilos de CPU</value>
+  <data name="ExecutableTabOpenConfigButton" xml:space="preserve">
+    <value>Abrir configuración</value>
   </data>
-  <data name="ConfigWindowOptionsTabFlashEnableProducer" xml:space="preserve">
-    <value>Habilitar</value>
+  <data name="FFConsumer" xml:space="preserve">
+    <value>Salida FFmpeg</value>
   </data>
-  <data name="ConfigWindowChannelsBfUhdMode" xml:space="preserve">
-    <value>Modo UHD</value>
+  <data name="FfmpegDeinterlace_All" xml:space="preserve">
+    <value>Todos</value>
   </data>
-  <data name="ConfigWindowStatusMessageSaveError" xml:space="preserve">
-    <value>Ocurrió un error desconocido</value>
+  <data name="FfmpegDeinterlace_Interlaced" xml:space="preserve">
+    <value>Entrelazados</value>
   </data>
-  <data name="ConfigWindowStatusMessageSaveIOError" xml:space="preserve">
-    <value>Error al escribir el archivo</value>
+  <data name="FfmpegDeinterlace_None" xml:space="preserve">
+    <value>Ninguno</value>
   </data>
-  <data name="ConfigWindowStatusMessageSaveSuccess" xml:space="preserve">
-    <value>El archivo se guardó correctamente</value>
+  <data name="FileDialogFilterDescription" xml:space="preserve">
+    <value>Ejecutables</value>
   </data>
-  <data name="OpenConfigEditorIOError" xml:space="preserve">
-    <value>Error al abrir el archivo de configuración</value>
+  <data name="HtmlAngleGraphicsBackend_D3D11" xml:space="preserve">
+    <value>D3D11</value>
+  </data>
+  <data name="HtmlAngleGraphicsBackend_D3D9" xml:space="preserve">
+    <value>D3D9</value>
+  </data>
+  <data name="HtmlAngleGraphicsBackend_OpenGL" xml:space="preserve">
+    <value>OpenGL</value>
+  </data>
+  <data name="IvgaConsumer" xml:space="preserve">
+    <value>Salida iVGA</value>
+  </data>
+  <data name="LanguagesDefault" xml:space="preserve">
+    <value>Por defecto</value>
+  </data>
+  <data name="LogLevel_Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="LogLevel_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="LogLevel_Fatal" xml:space="preserve">
+    <value>Fatal</value>
+  </data>
+  <data name="LogLevel_Info" xml:space="preserve">
+    <value>Información</value>
+  </data>
+  <data name="LogLevel_Trace" xml:space="preserve">
+    <value>Trace</value>
+  </data>
+  <data name="LogLevel_Warning" xml:space="preserve">
+    <value>Advertencia</value>
+  </data>
+  <data name="MenuBarOptionsMenuHeader" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="NdiConsumer" xml:space="preserve">
+    <value>Salida NDI</value>
+  </data>
+  <data name="NewExecutableName" xml:space="preserve">
+    <value>Nuevo ejecutable</value>
+  </data>
+  <data name="NotRunning" xml:space="preserve">
+    <value>Detenido</value>
+  </data>
+  <data name="OpenConfigEditorEditButtonText" xml:space="preserve">
+    <value>Editar archivo</value>
   </data>
   <data name="OpenConfigEditorErrorCaption" xml:space="preserve">
     <value>Error</value>
@@ -554,28 +924,80 @@ Más información en:</value>
   <data name="OpenConfigEditorFileError" xml:space="preserve">
     <value>El archivo de configuración contiene errores</value>
   </data>
-  <data name="ConfigWindowChannelsScName" xml:space="preserve">
-    <value>Nombre</value>
+  <data name="OpenConfigEditorIOError" xml:space="preserve">
+    <value>Error al abrir el archivo de configuración</value>
+  </data>
+  <data name="OpenConfigEditorNewButtonText" xml:space="preserve">
+    <value>Nuevo archivo</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>En ejecución</value>
+  </data>
+  <data name="ScreenAspectRatio_16:9" xml:space="preserve">
+    <value>16:9</value>
+  </data>
+  <data name="ScreenAspectRatio_4:3" xml:space="preserve">
+    <value>4:3</value>
+  </data>
+  <data name="ScreenAspectRatio_Default" xml:space="preserve">
+    <value>Por defecto</value>
+  </data>
+  <data name="ScreenColourSpace_DataVideo_Full" xml:space="preserve">
+    <value>DataVideo (Completo)</value>
+  </data>
+  <data name="ScreenColourSpace_DataVideo_Limited" xml:space="preserve">
+    <value>DataVideo (Limitado)</value>
+  </data>
+  <data name="ScreenColourSpace_RGB" xml:space="preserve">
+    <value>RGB</value>
+  </data>
+  <data name="ScreenConsumer" xml:space="preserve">
+    <value>Salida a Pantalla</value>
+  </data>
+  <data name="ScreenStretch_Fill" xml:space="preserve">
+    <value>Rellenar</value>
+  </data>
+  <data name="ScreenStretch_None" xml:space="preserve">
+    <value>Ninguna</value>
+  </data>
+  <data name="ScreenStretch_Uniform" xml:space="preserve">
+    <value>Uniforme</value>
+  </data>
+  <data name="ScreenStretch_UniformToFill" xml:space="preserve">
+    <value>Rellenar uniformemente</value>
+  </data>
+  <data name="StatusTabHeader" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="SystemAudioChannelLayout_Matrix" xml:space="preserve">
+    <value>Matriz</value>
+  </data>
+  <data name="SystemAudioChannelLayout_Mono" xml:space="preserve">
+    <value>Mono</value>
+  </data>
+  <data name="SystemAudioChannelLayout_Stereo" xml:space="preserve">
+    <value>Stéreo</value>
+  </data>
+  <data name="SystemAudioConsumer" xml:space="preserve">
+    <value>Salida a Audio de Sistema</value>
   </data>
   <data name="UptimeDaysFormat" xml:space="preserve">
-    <value>{0:%d} días,</value>
+    <value>{0:%d} días, </value>
+    <comment>Cuidado con el espacio al final</comment>
   </data>
   <data name="UptimeTimeFormat" xml:space="preserve">
     <value>{0:%h\:mm\:ss}</value>
-  </data>
-  <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
-    <value>Abrir ventana de grilla de canales</value>
-  </data>
-  <data name="ExecutableConfigWindowCommandsExport" xml:space="preserve">
-    <value>Exportar...</value>
-  </data>
-  <data name="ExecutableConfigWindowCommandsImport" xml:space="preserve">
-    <value>Importar...</value>
   </data>
   <data name="ExportCommandsDialogTitle" xml:space="preserve">
     <value>Seleccionar ubicación de exportación</value>
   </data>
   <data name="ImportCommandsDialogTitle" xml:space="preserve">
     <value>Seleccionar archivo con comandos</value>
+  </data>
+  <data name="LanguagesEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguagesEspañol" xml:space="preserve">
+    <value>Español</value>
   </data>
 </root>

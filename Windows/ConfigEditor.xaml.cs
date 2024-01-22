@@ -1,446 +1,315 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using WF = System.Windows.Forms;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Microsoft.Win32;
-using System.Windows.Media.Animation;
-using System.Windows.Threading;
-using System.IO;
-using l = CasparLauncher.Properties.Resources;
-using System.ComponentModel;
+﻿namespace CasparLauncher;
 
-namespace CasparLauncher
+public partial class ConfigEditor : DialogWindow
 {
-    /// <summary>
-    /// Lógica de interacción para ConfigEditor.xaml
-    /// </summary>
-    public partial class ConfigEditor : Window, INotifyPropertyChanged
+    public ConfigEditor()
     {
-        public ConfigEditor()
+        InitializeComponent();
+        DataContextChanged += ConfigEditor_DataContextChanged;
+    }
+
+    private void ConfigEditor_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.OldValue is null && e.NewValue is ConfigFile file)
         {
-            InitializeComponent();
+            file.Channels.CollectionChanged -= Channels_CollectionChanged;
+            file.Channels.CollectionChanged += Channels_CollectionChanged;
+            Debug.WriteLine("Initialized");
         }
+    }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); }
+    private void Channels_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(ChannelsUpdated));
+    }
 
-        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+    protected override void OnClosing(CancelEventArgs e)
+    {
+        base.OnClosing(e);
+        if (null != Owner)
         {
-            base.OnClosing(e);
-            if (null != Owner)
-            {
-                Owner.Activate();
-            }
+            Owner.Activate();
         }
+    }
 
-        private void AddChannel(object sender, RoutedEventArgs e)
+    private void AddVideoMode(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        file.VideoModes.Add(new CustomVideoMode() { Id = L.ConfigWindowVideoModesNewModeId });
+    }
+
+    private void RemVideoMode(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (VideoModesList.SelectedIndex >= 0)
         {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            file.Channels.Add(new Channel());
+            CustomVideoMode target = (CustomVideoMode)VideoModesList.SelectedItem;
+
+            foreach (Channel channel in file.Channels)
+                if (channel.VideoMode == target)
+                    channel.VideoMode = ConfigFile.DefaultVideoModes.First();
+
+            file.VideoModes.Remove(target);
         }
+    }
 
-        private void RemChannel(object sender, RoutedEventArgs e)
+    private void AddChannel(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        file.Channels.Add(new Channel() { VideoMode = ConfigFile.DefaultVideoModes.First() });
+    }
+
+    private void RemChannel(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (ChannelList.SelectedIndex >= 0)
         {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-
-            if (ChannelList.SelectedIndex>=0)
-            {
-                file.Channels.Remove((Channel)ChannelList.SelectedItem);
-            }
+            file.Channels.Remove((Channel)ChannelList.SelectedItem);
         }
+    }
 
-        private void AddConsumer(object sender, RoutedEventArgs e)
+    private void AddConsumer(object sender, RoutedEventArgs e)
+    {
+        Consumer consumer;
+        switch (((FrameworkElement)e.OriginalSource).Name)
         {
-            object consumer;
-            switch (((FrameworkElement)e.OriginalSource).Name)
-            {
-                case "AddDecklinkMenuItem":
-                    consumer = new DecklinkConsumer();
-                    break;
-                case "AddBluefishMenuItem":
-                    consumer = new BluefishConsumer();
-                    break;
-                case "AddScreenMenuItem":
-                    consumer = new ScreenConsumer();
-                    break;
-                case "AddSystemAudioMenuItem":
-                    consumer = new SystemAudioConsumer();
-                    break;
-                case "AddIvgaMenuItem":
-                    consumer = new NewtekIvgaConsumer();
-                    break;
-                case "AddNdiMenuItem":
-                    consumer = new NdiConsumer();
-                    break;
-                case "AddFfmpegMenuItem":
-                    consumer = new FfmpegConsumer();
-                    break;
-                default:
-                    return;
-            }
-            if(ChannelList.SelectedIndex>=0)
-            {
-                ((Channel)ChannelList.SelectedItem).Consumers.Add(consumer);
-            }
-        }
-
-        private void RemConsumer(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-
-            if (ChannelList.SelectedIndex >=0 && ConsumerList.SelectedIndex >= 0)
-            {
-                file.Channels[ChannelList.SelectedIndex].Consumers.Remove(ConsumerList.SelectedItem);
-            }
-        }
-
-        #region Status Message
-
-        DispatcherTimer ShowStatusTimer = new DispatcherTimer();
-        DoubleAnimation fade = new DoubleAnimation();
-        Storyboard status = new Storyboard();
-
-        private void fadeInStatus()
-        {
-            //FadeIn
-            fade.From = 0.0;
-            fade.To = 1.0;
-            fade.Duration = TimeSpan.FromMilliseconds(500);
-            fade.AutoReverse = false;
-            status.Children.Add(fade);
-            Storyboard.SetTargetName(fade, StatusText.Name);
-            Storyboard.SetTargetProperty(fade, new PropertyPath(TextBlock.OpacityProperty));
-            status.Begin(this);
-        }
-
-        private void fadeOutStatus()
-        {
-            //FadeIn
-            fade.From = 1.0;
-            fade.To = 0.0;
-            fade.Duration = TimeSpan.FromMilliseconds(500);
-            fade.AutoReverse = false;
-            status.Children.Add(fade);
-            status.Completed += StatusFaded;
-            Storyboard.SetTargetName(fade, StatusText.Name);
-            Storyboard.SetTargetProperty(fade, new PropertyPath(TextBlock.OpacityProperty));
-            status.Begin(this);
-        }
-
-        private void StatusFaded(object sender, EventArgs e)
-        {
-            status.Completed -= StatusFaded;
-            StatusText.Text = "";
-        }
-
-        private void ShowStatusMessage(string message)
-        {
-            StatusText.Text = message;
-            fadeInStatus();
-            ShowStatusTimer.Interval = TimeSpan.FromMilliseconds(5000);
-            ShowStatusTimer.Tick += RemoveStatusMessage;
-            ShowStatusTimer.Start();
-        }
-
-        private void RemoveStatusMessage(object sender, EventArgs e)
-        {
-            ShowStatusTimer.Stop();
-            fadeOutStatus();
-        }
-
-        #endregion
-
-
-        private void SaveFile(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-
-            if (file.File == null)
-            {
-                var filename = ShowSaveDialog();
-                if (filename != null) file.File = filename;
-                else return;
-            }
-
-            try
-            {
-                file.SaveConfigFile(file.File);
-            }
-            catch(IOException)
-            {
-                ShowStatusMessage(l.ConfigWindowStatusMessageSaveIOError); // IO error
+            case "AddDecklinkMenuItem":
+                consumer = new DecklinkConsumer();
+                break;
+            case "AddBluefishMenuItem":
+                consumer = new BluefishConsumer();
+                break;
+            case "AddScreenMenuItem":
+                consumer = new ScreenConsumer();
+                break;
+            case "AddSystemAudioMenuItem":
+                consumer = new SystemAudioConsumer();
+                break;
+            case "AddIvgaMenuItem":
+                consumer = new NewtekIvgaConsumer();
+                break;
+            case "AddNdiMenuItem":
+                consumer = new NdiConsumer();
+                break;
+            case "AddFfmpegMenuItem":
+                consumer = new FfmpegConsumer();
+                break;
+            case "AddArtnetMenuItem":
+                consumer = new ArtnetConsumer();
+                break;
+            default:
                 return;
-            }
-            catch(Exception ex)
-            {
-                ShowStatusMessage($"{l.ConfigWindowStatusMessageSaveError} ({ex.GetType()})"); // Unknown error
-                return;
-            }
+        }
+        if (ChannelList.SelectedIndex >= 0)
+        {
+            ((Channel)ChannelList.SelectedItem).Consumers.Add(consumer);
+        }
+    }
 
-            ShowStatusMessage(l.ConfigWindowStatusMessageSaveSuccess); // Success
+    private void RemConsumer(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+
+        if (ChannelList.SelectedIndex >= 0 && ConsumerList.SelectedIndex >= 0)
+        {
+            file.Channels[ChannelList.SelectedIndex].Consumers.Remove(ConsumerList.SelectedItem);
+        }
+    }
+
+
+    private void SaveFile(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+
+        if (file.File is null)
+        {
+            if (ShowSaveDialog() is string filename) file.File = filename;
+            else return;
         }
 
-        private string ShowSaveDialog()
+        try
         {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Filter = "Archivo de configuración |*.config";
-            if (saveFileDialog.ShowDialog() == true)
-            {
-                return saveFileDialog.FileName;
-            }
-            return null;
+            file.SaveConfigFile(file.File);
         }
-
-        private string SelectFolder(string path = null, bool newFolder = false)
+        catch (IOException)
         {
-            WF.FolderBrowserDialog Browser = new WF.FolderBrowserDialog();
-            Browser.ShowNewFolderButton = newFolder;
-            if (path != null && System.IO.Directory.Exists(path)) Browser.SelectedPath = path;
-            else Browser.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
-            WF.DialogResult Result = Browser.ShowDialog();
-            if (Result == WF.DialogResult.OK)
+            MessageBox.Show(L.ConfigWindowStatusMessageSaveIOError, L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"{L.ConfigWindowStatusMessageSaveError}\n{ex.GetType()}", L.OpenConfigEditorErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+            return;
+        }
+        Close();
+    }
+
+    private static string? ShowSaveDialog()
+    {
+        SaveFileDialog saveFileDialog = new() { Filter = "Archivo de configuración |*.config" };
+        if (saveFileDialog.ShowDialog() == true) return saveFileDialog.FileName;
+        else return null;
+    }
+
+    private static string? SelectFolder(string? path = null, string? caption = null, bool newFolder = false)
+    {
+        WF.FolderBrowserDialog Browser = new() { ShowNewFolderButton = newFolder };
+        if (path is not null && Directory.Exists(path)) Browser.SelectedPath = path;
+        Browser.UseDescriptionForTitle = true;
+        if (caption is not null) Browser.Description = caption;
+        else Browser.SelectedPath = AppDomain.CurrentDomain.BaseDirectory;
+        if (Browser.ShowDialog() == WF.DialogResult.OK)
+        {
+            string folder = Browser.SelectedPath;
+            if (Directory.Exists(folder))
             {
-                string folder = Browser.SelectedPath;
-                if (System.IO.Directory.Exists(folder))
+                return folder;
+            }
+        }
+        return null;
+    }
+
+    private void PickMediaPathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.MediaPath, string.Format(L.BrowseForPathDialogCaption,"media"), true) is string newFolder) file.MediaPath = newFolder;
+    }
+
+    private void PickDataPathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.DataPath, string.Format(L.BrowseForPathDialogCaption, "data"), true) is string newFolder) file.DataPath = newFolder;
+    }
+
+    private void PickTemplatePathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.TemplatePath, string.Format(L.BrowseForPathDialogCaption, "template"), true) is string newFolder) file.TemplatePath = newFolder;
+    }
+
+    private void PickFontPathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.FontPath, string.Format(L.BrowseForPathDialogCaption, "font"), true) is string newFolder) file.FontPath = newFolder;
+    }
+
+    private void PickLogPathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.LogPath, string.Format(L.BrowseForPathDialogCaption, "log"), true) is string newFolder) file.LogPath = newFolder;
+    }
+
+    #region Drag & Drop
+
+    private bool move = false;
+    public bool Move
+    {
+        get
+        {
+            return move;
+        }
+        set
+        {
+            if (move != value)
+            {
+                move = value;
+                OnPropertyChanged(nameof(Move));
+            }
+        }
+    }
+
+    private void ChannelItem_Drop(object sender, DragEventArgs e)
+    {
+        e.Handled = false;
+        if (sender is ListBoxItem item
+            && item.DataContext is Channel target
+            && e.Data.GetData(typeof(List<object>)) is List<object> droppedItems)
+        {
+            foreach (object dropped in droppedItems)
+            {
+                if (dropped is Consumer consumer
+                    && GetConsumerChannel(consumer) is Channel origin
+                    && origin != target)
                 {
-                    return folder;
-                }
-            }
-            return null;
-        }
-
-        private void PickMediaPathButton_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            string newFolder = SelectFolder(file.MediaPath, true);
-            if (newFolder != null) file.MediaPath = newFolder;
-        }
-
-        private void PickDataPathButton_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            string newFolder = SelectFolder(file.DataPath, true);
-            if (newFolder != null) file.DataPath = newFolder;
-        }
-
-        private void PickTemplatePathButton_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            string newFolder = SelectFolder(file.TemplatePath, true);
-            if (newFolder != null) file.TemplatePath = newFolder;
-        }
-
-        private void PickFontPathButton_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            string newFolder = SelectFolder(file.FontPath, true);
-            if (newFolder != null) file.FontPath = newFolder;
-        }
-
-        private void PickLogPathButton_Click(object sender, RoutedEventArgs e)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            string newFolder = SelectFolder(file.LogPath, true);
-            if (newFolder != null) file.LogPath = newFolder;
-        }
-
-        #region Drag & Drop
-
-        private void TopDropBorder_Drop(object sender, DragEventArgs e)
-        {
-            e.Handled = true;
-            ((Border)sender).Opacity = 0;
-            MoveChannel(DraggedItem.DataContext as Channel, ((Border)sender).DataContext as Channel, false);
-        }
-
-        private void BotDropBorder_Drop(object sender, DragEventArgs e)
-        {
-            e.Handled = true;
-            ((Border)sender).Opacity = 0;
-            MoveChannel(DraggedItem.DataContext as Channel, ((Border)sender).DataContext as Channel, true);
-        }
-
-        private void MoveChannel(Channel origin, Channel target, bool bottom)
-        {
-            Drag = false;
-            if (origin == target) return;
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            file.Channels.Remove(origin);
-            file.Channels.Insert(file.Channels.IndexOf(target) + (bottom?1:0), origin);
-            ChannelsUpdated = true;
-            DraggedItem = null;
-        }
-
-        private Point StartPoint;
-
-        private bool drag = false;
-        public bool Drag
-        {
-            get
-            {
-                return drag;
-            }
-            set
-            {
-                if (drag != value)
-                {
-                    drag = value;
-                    OnPropertyChanged("Drag");
+                    origin.Consumers.Remove(consumer);
+                    target.Consumers.Add(consumer);
+                    Debug.WriteLine(item);
                 }
             }
         }
+    }
 
-        public bool ChannelsUpdated
+    private Channel? GetConsumerChannel(Consumer consumer)
+    {
+        if (DataContext is ConfigFile file)
         {
-            get
-            {
-                return false;
-            }
-            set
-            {
-                OnPropertyChanged("ChannelsUpdated");
-            }
+            return file.Channels.FirstOrDefault(c => c.Consumers.Contains(consumer));
         }
+        return null;
+    }
 
-        private ListBoxItem DraggedItem;
+    #endregion
 
-        private void ListBoxItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private void AddDecklinkPort(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is DecklinkConsumer decklink)
         {
-            if (sender is ListBoxItem)
+            decklink.Ports.Add(new());
+        }
+    }
+
+    private void RemDecklinkPort(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is DecklinkPort port
+            && element.FindParent<ItemsControl>() is ItemsControl parent && parent.DataContext is DecklinkConsumer decklink)
+        {
+            decklink.Ports.Remove(port);
+        }
+    }
+
+    private void AddArtnetFixture(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is ArtnetConsumer artnet)
+        {
+            artnet.Fixtures.Add(new());
+        }
+    }
+
+    private void RemArtnetFixture(object sender, RoutedEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is ArtnetFixture fixture
+            && element.FindParent<ItemsControl>() is ItemsControl parent && parent.DataContext is ArtnetConsumer artnet)
+        {
+            artnet.Fixtures.Remove(fixture);
+        }
+    }
+
+    private object? _selectedPort;
+    public object? SelectedPort
+    {
+        get
+        {
+            return _selectedPort;
+        }
+        set
+        {
+            if (_selectedPort != value)
             {
-                DraggedItem = sender as ListBoxItem;
-                this.MouseMove += HandleDrag;
-                StartPoint = e.GetPosition(this);
-            }
-        }
-
-        private void ListBoxItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            DraggedItem = null;
-            MouseMove -= HandleDrag;
-            Drag = false;
-        }
-
-        private void HandleMouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.LeftButton == MouseButtonState.Pressed)
-                (sender as ListBox).ReleaseMouseCapture();
-        }
-
-        private void HandleDrag(object sender, MouseEventArgs e)
-        {
-            if (DraggedItem is null)
-            {
-                ((Border)sender).Opacity = 0;
-                Drag = false;
-                MouseMove -= HandleDrag;
-                return;
-            }
-            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Launchpad.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Launchpad.DragThreshold)
-            {
-                Drag = true;
-                DragDrop.DoDragDrop(DraggedItem, DraggedItem.DataContext, DragDropEffects.Move);
-                MouseMove -= HandleDrag;
-            }
-        }
-
-        private void Border_DragEnter(object sender, DragEventArgs e)
-        {
-            ((Border)sender).Opacity = 1;
-        }
-
-        private void Border_DragLeave(object sender, DragEventArgs e)
-        {
-            ((Border)sender).Opacity = 0;
-        }
-
-        private ListBoxItem DraggedConsumer;
-
-        private bool move = false;
-        public bool Move
-        {
-            get
-            {
-                return move;
-            }
-            set
-            {
-                if (move != value)
-                {
-                    move = value;
-                    OnPropertyChanged("Move");
-                }
+                _selectedPort = value;
+                OnPropertyChanged(nameof(SelectedPort));
             }
         }
+    }
 
-
-        private void ConsumerItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    public bool ChannelsUpdated
+    {
+        get
         {
-            if (sender is ListBoxItem)
-            {
-                DraggedConsumer = sender as ListBoxItem;
-                this.MouseMove += HandleMove;
-                StartPoint = e.GetPosition(this);
-            }
+            return false;
         }
-
-        private void ConsumerItem_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        set
         {
-            DraggedConsumer = null;
-            MouseMove -= HandleMove;
-            Move = false;
+            OnPropertyChanged(nameof(ChannelsUpdated));
         }
-
-        private void HandleMove(object sender, MouseEventArgs e)
-        {
-            if (DraggedConsumer is null)
-            {
-                Move = false;
-                MouseMove -= HandleMove;
-                return;
-            }
-            if (Math.Abs(e.GetPosition(this).X - StartPoint.X) > Launchpad.DragThreshold || Math.Abs(e.GetPosition(this).Y - StartPoint.Y) > Launchpad.DragThreshold)
-            {
-                Move = true;
-                DragDrop.DoDragDrop(DraggedConsumer, DraggedConsumer.DataContext, DragDropEffects.Move);
-                MouseMove -= HandleMove;
-            }
-        }
-
-        private void ConsumerItem_Drop(object sender, DragEventArgs e)
-        {
-            e.Handled = true;
-            if (DraggedConsumer is null) return;
-            var consumer = DraggedConsumer.DataContext;
-            var target = ((ListBoxItem)sender).DataContext as Channel;
-            Move = false;
-            Channel origin = GetConsumerChannel(consumer);
-            if (origin == target) return;
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            origin.Consumers.Remove(consumer);
-            target.Consumers.Add(consumer);
-            DraggedConsumer = null;
-        }
-
-        private Channel GetConsumerChannel(object consumer)
-        {
-            ConfigurationFile file = DataContext as ConfigurationFile;
-            foreach (Channel channel in file.Channels) if (channel.Consumers.Contains(consumer)) return channel;
-            return null;
-        }
-
-        #endregion
-
     }
 }
