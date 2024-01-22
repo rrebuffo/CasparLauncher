@@ -181,6 +181,11 @@
                                 <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabNdiAutoload}" Type="CheckBox" Binding="{Binding Path=NdiAutoLoad}"/>
                             </StackPanel>
                         </GroupBox>
+                        <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabAudioGb}">
+                            <StackPanel>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabAudioDefaultDevice}" Type="Text" Binding="{Binding Path=DefaultAudioOutputDevice}"/>
+                            </StackPanel>
+                        </GroupBox>
                         <GroupBox Header="{helpers:Localization ConfigWindowOptionsTabOscGb}">
                             <StackPanel>
                                 <ui:ConfigItem Label="{helpers:Localization ConfigWindowOptionsTabOscAmcpDisable}" Type="CheckBox" Binding="{Binding Path=OscDisableAmcpClients}"/>
@@ -399,7 +404,7 @@
                         </Grid>
                     </Grid>
                     <GridSplitter ResizeBehavior="CurrentAndNext" Width="4" Margin="0 0 -2 0" Background="Transparent" />
-                    <Grid Grid.Column="1" Margin="0" Grid.IsSharedSizeScope="True">
+                    <Grid Grid.Column="1" Margin="0" Grid.IsSharedSizeScope="True" Visibility="{Binding }">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
