@@ -17,9 +17,8 @@ public partial class AboutWindow : DialogWindow
     {
         get
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            FileVersionInfo version = FileVersionInfo.GetVersionInfo(assembly.Location);
-            return string.Format(L.AboutWindowVersion,version.ProductVersion);
+            FileVersionInfo? version = Process.GetCurrentProcess().MainModule?.FileVersionInfo;
+            return version is not null ? string.Format(L.AboutWindowVersion, version.ProductVersion) : "";
         }
     }
 
