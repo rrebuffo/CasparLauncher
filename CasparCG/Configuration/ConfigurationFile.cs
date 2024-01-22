@@ -1049,6 +1049,21 @@ public class ConfigFile : INotifyPropertyChanged
                                 targetVideoMode ??= DefaultVideoModes.First();
                                 channel.VideoMode = targetVideoMode;
                             }
+                            if (channel_node.Descendants("producers").Any())
+                            {
+                                foreach(XElement producer in channel_node.Descendants("producers").First().Descendants())
+                                {
+                                    Debug.WriteLine(producer.ToString());
+                                    if (producer.Attribute("id") is XAttribute id)
+                                    {
+                                        channel.Producers.Add(new()
+                                        {
+                                            Layer = int.Parse(id.Value),
+                                            Media = producer.Value
+                                        });
+                                    }
+                                }
+                            }
                             if (channel_node.Descendants("consumers").Any())
                             {
                                 foreach (XElement consumer in channel_node.Descendants("consumers").First().Descendants())
