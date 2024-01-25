@@ -585,6 +585,7 @@ public class Executable : INotifyPropertyChanged
         info.WorkingDirectory = System.IO.Path.GetDirectoryName(_path);
         info.FileName = System.IO.Path.Combine(_path);
         info.RedirectStandardOutput = true;
+        info.RedirectStandardError = true;
         info.RedirectStandardInput = true;
         info.StandardOutputEncoding = CurrentEncoding;
         info.Environment.Add("ERRORLEVEL", "0");
@@ -624,6 +625,7 @@ public class Executable : INotifyPropertyChanged
             Process.Exited += Process_Exited;
             Process.EnableRaisingEvents = true;
             Process.BeginOutputReadLine();
+            Process.BeginErrorReadLine();
         }
         catch (Exception e)
         {
