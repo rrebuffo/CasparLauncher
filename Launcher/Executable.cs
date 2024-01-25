@@ -15,7 +15,7 @@ public class Executable : INotifyPropertyChanged
     private readonly DispatcherTimer UptimeTimer = new(DispatcherPriority.Normal, Application.Current.Dispatcher);
     private int CurrentCommandIndex = 0;
     private DateTime StartupTime;
-    private Encoding CurrentEncoding = Encoding.ASCII;
+    private Encoding CurrentEncoding = Encoding.UTF8;
     private Thread? ExecutableThread;
 
     public Executable()
