@@ -416,8 +416,8 @@
                                                     <Grid IsHitTestVisible="False">
                                                         <Grid.ColumnDefinitions>
                                                             <ColumnDefinition Width="Auto" SharedSizeGroup="ExecutableIconCSG" />
-                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ExecutableDetailsCSG" />
                                                             <ColumnDefinition Width="*" />
+                                                            <ColumnDefinition Width="Auto" SharedSizeGroup="ExecutableDetailsCSG" />
                                                             <ColumnDefinition Width="Auto" />
                                                         </Grid.ColumnDefinitions>
                                                         <Grid Grid.Column="0" Margin="5">
@@ -434,13 +434,13 @@
                                                                 <RowDefinition Height="Auto" SharedSizeGroup="ExecutablePathCSG"/>
                                                             </Grid.RowDefinitions>
                                                             <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 1 5 1" FontSize="16" />
-                                                            <TextBlock Grid.Row="1" Text="{Binding Path=Path, Mode=OneWay}" Style="{StaticResource FieldDescriptionTextBlock}" Margin="5 2 5 4" TextWrapping="Wrap" FontSize="10" />
+                                                            <TextBlock Grid.Row="1" Text="{Binding Path=Path, Mode=OneWay}" Style="{StaticResource FieldDescriptionTextBlock}" Margin="5 2 5 4" TextWrapping="NoWrap" FontSize="10" TextTrimming="CharacterEllipsis" helpers:TextBoxHelper.AutoTooltip="True" />
                                                         </Grid>
                                                         <ui:StatusLabel x:Name="ExecutableStatusLabel" Grid.Column="3" Margin="10 0" VerticalAlignment="Center" LabelState="Idle" Height="36">
                                                             <ui:StatusLabel.Label>
                                                                 <Grid Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center">
                                                                     <TextBlock Text="{helpers:Localization NotRunning}" FontSize="14" FontWeight="Regular" Visibility="{Binding Path=IsRunning, Converter={StaticResource InvertBoolToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                                    <TextBlock FontSize="18" Margin="0 2 0 0" FontWeight="Regular" FontFamily="{DynamicResource TimecodeFont}" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" TextAlignment="Center">
+                                                                    <TextBlock FontSize="18" Margin="0 1 0 0" FontWeight="Regular" FontFamily="{DynamicResource TimecodeFont}" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" TextAlignment="Center">
                                                                         <TextBlock.Text>
                                                                             <MultiBinding Converter="{StaticResource UptimeConverter}">
                                                                                 <Binding Path="Uptime"/>
@@ -453,12 +453,29 @@
                                                             </ui:StatusLabel.Label>
                                                         </ui:StatusLabel>
                                                     </Grid>
-                                                    <Grid Grid.Column="2">
-                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <Grid Grid.Column="2" Background="Transparent">
+                                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="5">
                                                             <Border Width="10" Background="Transparent" />
                                                             <ui:IconButton x:Name="ExecutableDiag" Click="OpenDiag_Click" Icon="{DynamicResource DiagIcon}" ToolTip="{helpers:Localization ContextMenuExecDiagItemHeader}" Visibility="{Binding Path=IsServer, Converter={StaticResource BoolToVisibility}}" IsEnabled="{Binding Path=IsRunning}" />
                                                             <ui:IconButton x:Name="ExecutableGrid" Click="OpenGrid_Click" Icon="{DynamicResource GridIcon}" ToolTip="{helpers:Localization ContextMenuExecGridItemHeader}" Visibility="{Binding Path=IsServer, Converter={StaticResource BoolToVisibility}}" IsEnabled="{Binding Path=IsRunning}" />
                                                             <ui:IconButton x:Name="ExecutableRebuild" Click="RebuildMedia_Click" Icon="{DynamicResource RefreshIcon}" ToolTip="{helpers:Localization ContextMenuRebuildMediaDbItemHeader}" Visibility="{Binding Path=IsScanner, Converter={StaticResource BoolToVisibility}}" />
+                                                            <Border Width="10" Background="Transparent">
+                                                                <Border.Style>
+                                                                    <Style TargetType="{x:Type Border}">
+                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                        <Style.Triggers>
+                                                                            <MultiDataTrigger>
+                                                                                <MultiDataTrigger.Conditions>
+                                                                                    <Condition Binding="{Binding ElementName=ElecutableDiag, Path=Visibility}" Value="Collapsed"/>
+                                                                                    <Condition Binding="{Binding ElementName=ExecutableGrid, Path=Visibility}" Value="Collapsed"/>
+                                                                                    <Condition Binding="{Binding ElementName=ExecutableRebuild, Path=Visibility}" Value="Collapsed"/>
+                                                                                </MultiDataTrigger.Conditions>
+                                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                            </MultiDataTrigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </Border.Style>
+                                                            </Border>
                                                             <ui:IconButton x:Name="ExecutableStart" Click="StartButton_Click" Icon="{DynamicResource PlayIcon}" ToolTip="{helpers:Localization ContextMenuExecStartItemHeader}" IsEnabled="{Binding Path=IsRunning, Converter={StaticResource InvertBool}}" />
                                                             <ui:IconButton x:Name="ExecutableStop" Click="StopButton_Click" Icon="{DynamicResource StopIcon}" ToolTip="{helpers:Localization ContextMenuExecStopItemHeader}" IsEnabled="{Binding Path=IsRunning}" />
                                                             <ui:IconButton x:Name="ExecutableRestart" Click="RestartButton_Click" Icon="{DynamicResource RestartIcon}" ToolTip="{helpers:Localization ContextMenuExecRestartItemHeader}" IsEnabled="{Binding Path=IsRunning}" />
