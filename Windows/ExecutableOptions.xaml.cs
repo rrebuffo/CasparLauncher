@@ -17,9 +17,14 @@ public partial class ExecutableOptions : DialogWindow
             if (!string.IsNullOrEmpty(value))
             {
                 Executable.ConfigFile = value;
-                FindConfigFiles();
             }
         }
+    }
+
+    private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        OnPropertyChanged(nameof(CustomPath));
+        Keyboard.ClearFocus();
     }
 
     public ExecutableOptions()

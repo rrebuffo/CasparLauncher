@@ -88,7 +88,7 @@
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox Margin="2 2" Grid.Column="0" VerticalContentAlignment="Center" IsEditable="True" Text="{Binding ElementName=OptionsWindow, Path=CustomPath, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding ElementName=OptionsWindow, Path=ConfigFiles}" SelectedValue="{Binding Path=ConfigFile, Mode=TwoWay}" HorizontalAlignment="Stretch">
+                                <ComboBox Margin="2 2" Grid.Column="0" VerticalContentAlignment="Center" IsEditable="True" Text="{Binding ElementName=OptionsWindow, Path=CustomPath, Mode=TwoWay, UpdateSourceTrigger=LostFocus}" ItemsSource="{Binding ElementName=OptionsWindow, Path=ConfigFiles}" SelectedValue="{Binding Path=ConfigFile, Mode=TwoWay}" SelectionChanged="ComboBox_SelectionChanged" IsTextSearchEnabled="False" HorizontalAlignment="Stretch">
                                 </ComboBox>
                                 <StackPanel Grid.Column="1" Orientation="Horizontal">
                                     <Button Width="26" Height="26" Margin="2 1" Padding="0" Click="EditConfigButton_Click">
