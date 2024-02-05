@@ -1000,4 +1000,7 @@ The file will be deleted permanently.</value>
   <data name="ImportCommandsDialogTitle" xml:space="preserve">
     <value>Select File With Commands</value>
   </data>
+  <data name="ExecutableConfigWindowScannerPort" xml:space="preserve">
+    <value>Media Scanner port</value>
+  </data>
 </root>

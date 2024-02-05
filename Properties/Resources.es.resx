@@ -1000,4 +1000,7 @@ El archivo se eliminará permanentemente.</value>
   <data name="LanguagesEspañol" xml:space="preserve">
     <value>Español</value>
   </data>
+  <data name="ExecutableConfigWindowScannerPort" xml:space="preserve">
+    <value>Puerto del escáner de medios</value>
+  </data>
 </root>

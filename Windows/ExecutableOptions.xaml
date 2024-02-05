@@ -68,6 +68,7 @@
                             </ui:ConfigItem.Actions>
                         </ui:ConfigItem>
                         <ui:ConfigItem Label="{helpers:Localization ExecutableConfigWindowArgs}" Type="Text" Binding="{Binding Path=Args, Mode=TwoWay}"/>
+                        <ui:ConfigItem Label="{helpers:Localization ExecutableConfigWindowScannerPort}" Type="Integer" Binding="{Binding Path=ScannerPort, Mode=TwoWay}" Visibility="{Binding Path=IsScanner, Converter={StaticResource boolToVisibility}}"/>
                         <ui:ConfigItem Label="{helpers:Localization ExecutableConfigWindowConfigFile}" Type="Custom">
                             <ui:ConfigItem.Style>
                                 <Style TargetType="ui:ConfigItem" BasedOn="{StaticResource ConfigItem}">

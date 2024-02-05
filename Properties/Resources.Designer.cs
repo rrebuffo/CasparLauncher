@@ -2043,6 +2043,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Media Scanner port.
+        /// </summary>
+        public static string ExecutableConfigWindowScannerPort {
+            get {
+                return ResourceManager.GetString("ExecutableConfigWindowScannerPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Executable configuration.
         /// </summary>
         public static string ExecutableConfigWindowTitle {

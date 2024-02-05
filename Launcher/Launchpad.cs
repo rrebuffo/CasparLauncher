@@ -256,6 +256,7 @@ public class Launchpad : INotifyPropertyChanged
                         BufferLines = S.GetOrSetValue(path + "buff", 1000),
                         SuppressEmptyLines = S.GetOrSetValue(path + "seln", false),
                         ConfigFile = S.GetOrSetValue(path + "config", ""),
+                        ScannerPort = S.GetOrSetValue(path + "sprt", 8000),
                     };
 
                     if ((new_executable.IsServer || new_executable.IsScanner)
@@ -381,6 +382,7 @@ public class Launchpad : INotifyPropertyChanged
                 S.Set(s + "kocp", executable.KillOnlyCurrentPath);
                 S.Set(s + "cdel", executable.CommandsDelay);
                 S.Set(s + "config", executable.ConfigFile);
+                S.Set(s + "sprt", executable.ScannerPort);
                 S.Set(s + "buff", executable.BufferLines);
                 S.Set(s + "seln", executable.SuppressEmptyLines);
 

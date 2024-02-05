@@ -196,6 +196,23 @@ public class Executable : INotifyPropertyChanged
         }
     }
 
+    private int _scannerPort = 8000;
+    public int ScannerPort
+    {
+        get
+        {
+            return _scannerPort;
+        }
+        set
+        {
+            if (_scannerPort != value)
+            {
+                _scannerPort = value;
+                OnPropertyChanged(nameof(ScannerPort));
+            }
+        }
+    }
+
     private string _args = "";
     public string Args
     {
@@ -596,6 +613,10 @@ public class Executable : INotifyPropertyChanged
         {
             if (IsScanner) arguments.Append($@"--caspar.config ");
             arguments.Append($@"""{ConfigFile}"" ");
+        }
+        if (IsScanner && ScannerPort != 8000)
+        {
+            arguments.Append($@"--http.port {ScannerPort} ");
         }
         if (!string.IsNullOrEmpty(Args)) arguments.Append(Args);
         if (arguments.Length > 0) info.Arguments = arguments.ToString();
