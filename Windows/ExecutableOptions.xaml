@@ -122,16 +122,14 @@
                     </StackPanel>
                 </GroupBox>
                 <ui:TabbedPanel Margin="5" BorderBrush="{DynamicResource ControlBgIdle}" Visibility="{Binding Path=AllowCommands, Converter={StaticResource boolToVisibility}, FallbackValue=Collapsed}">
-                    <ui:TabbedPanel.CommandIcons>
-                        <x:Array Type="{x:Type Button}">
-                            <Button Name="ImportCommands" Click="ImportCommands_Click">
-                                <TextBlock Text="{helpers:Localization ExecutableConfigWindowCommandsImport}" Margin="0"/>
-                            </Button>
-                            <Button Name="ExportCommands" Click="ExportCommands_Click">
-                                <TextBlock Text="{helpers:Localization ExecutableConfigWindowCommandsExport}" Margin="0"/>
-                            </Button>
-                        </x:Array>
-                    </ui:TabbedPanel.CommandIcons>
+                    <ui:TabbedPanel.CommandButtons>
+                        <Button Name="ImportCommands" Click="ImportCommands_Click">
+                            <TextBlock Text="{helpers:Localization ExecutableConfigWindowCommandsImport}" Margin="0"/>
+                        </Button>
+                        <Button Name="ExportCommands" Click="ExportCommands_Click">
+                            <TextBlock Text="{helpers:Localization ExecutableConfigWindowCommandsExport}" Margin="0"/>
+                        </Button>
+                    </ui:TabbedPanel.CommandButtons>
                     <ui:TabbedPanelItem Header="{helpers:Localization ExecutableConfigWindowCommands}" Background="{DynamicResource ControlBgIdle}" Style="{DynamicResource TabbedToolBoxItem}">
                         <DataGrid Grid.Column="1" ItemsSource="{Binding Path=Commands, Mode=TwoWay}" VerticalContentAlignment="Center" AutoGenerateColumns="False" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserResizeColumns="False" CanUserResizeRows="True" CanUserAddRows="True" CanUserDeleteRows="True" Height="150">
                             <DataGrid.ContextMenu>
