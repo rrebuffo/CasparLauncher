@@ -29,7 +29,7 @@
     <ProjectReference Include="..\BaseUISupport\src\BaseUISupport.csproj" />
   </ItemGroup>
   <ItemGroup Condition="!Exists('..\BaseUISupport\src\BaseUISupport.csproj')">
-    <PackageReference Include="rrebuffo.BaseUISupport" Version="1.0.3" />
+    <PackageReference Include="rrebuffo.BaseUISupport" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup>
