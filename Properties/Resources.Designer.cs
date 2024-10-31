@@ -1211,6 +1211,24 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cache path.
+        /// </summary>
+        public static string ConfigWindowOptionsTabHtmlCachePath {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabHtmlCachePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (CEF writes some caches next to the executable, which can fail depending on permissions. This changes it to use another path).
+        /// </summary>
+        public static string ConfigWindowOptionsTabHtmlCachePathDescription {
+            get {
+                return ResourceManager.GetString("ConfigWindowOptionsTabHtmlCachePathDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debugging port.
         /// </summary>
         public static string ConfigWindowOptionsTabHtmlDebugPort {

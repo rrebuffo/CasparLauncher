@@ -199,6 +199,12 @@ public partial class ConfigEditor : DialogWindow
         if (SelectFolder(file.LogPath, string.Format(L.BrowseForPathDialogCaption, "log"), true) is string newFolder) file.LogPath = newFolder;
     }
 
+    private void PickHtmlCachePathButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is not ConfigFile file) return;
+        if (SelectFolder(file.HtmlCachePath, string.Format(L.BrowseForPathDialogCaption, "HTML cache"), true) is string newFolder) file.HtmlCachePath = newFolder;
+    }
+
     #region Drag & Drop
 
     private bool move = false;

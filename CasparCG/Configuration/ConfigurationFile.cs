@@ -1,4 +1,5 @@
-﻿using System.Xml;
+﻿using System.ComponentModel;
+using System.Xml;
 using System.Xml.Linq;
 using XH = BaseUISupport.Helpers.XmlHelper;
 
@@ -161,6 +162,24 @@ public class ConfigFile : INotifyPropertyChanged
             {
                 _htmlEnableGpu = value;
                 OnPropertyChanged(nameof(HtmlEnableGpu));
+            }
+        }
+    }
+
+    private string? _htmlCachePath = null;
+    public string? HtmlCachePath
+    {
+        get
+        {
+            return _htmlCachePath;
+        }
+        set
+        {
+            if (_htmlCachePath != value)
+            {
+                if (value == "") _htmlCachePath = null;
+                else _htmlCachePath = value;
+                OnPropertyChanged(nameof(HtmlCachePath));
             }
         }
     }
@@ -743,6 +762,7 @@ public class ConfigFile : INotifyPropertyChanged
         XH.NewTextNode(x, "remote-debugging-port", I(HtmlRemoteDebugPort), n_html);
         XH.NewTextNode(x, "enable-gpu", B(HtmlEnableGpu), n_html);
         XH.NewTextNode(x, "angle-backend", E(HtmlAngleBackend), n_html);
+        if (HtmlCachePath is not null) XH.NewTextNode(x, "cache-path", HtmlCachePath, n_html);
         #endregion
 
         #region FFmpeg
@@ -913,6 +933,7 @@ public class ConfigFile : INotifyPropertyChanged
                     break;
 
                 case "html":
+                    HtmlCachePath = null;
                     foreach (XElement sub_element in element.Descendants())
                     {
                         switch (sub_element.Name.LocalName)
@@ -925,6 +946,9 @@ public class ConfigFile : INotifyPropertyChanged
                                 break;
                             case "angle-backend":
                                 HtmlAngleBackend = CheckForEnumValue<HtmlAngleGraphicsBackend>(sub_element.Value);;
+                                break;
+                            case "cache-path":
+                                HtmlCachePath = sub_element.Value;
                                 break;
                         }
                     }

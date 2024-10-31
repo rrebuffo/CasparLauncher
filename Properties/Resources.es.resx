@@ -635,9 +635,6 @@ Más información en:</value>
   <data name="ConfigWindowTitle" xml:space="preserve">
     <value>Editar configuración del servidor</value>
   </data>
-  <data name="ContextMenuRestartAllHeader" xml:space="preserve">
-    <value>Reiniciar todos</value>
-  </data>
   <data name="ConfigWindowVideoModesCadence" xml:space="preserve">
     <value>Cadencia</value>
   </data>
@@ -674,9 +671,6 @@ Más información en:</value>
   <data name="ContextMenuExecDiagItemHeader" xml:space="preserve">
     <value>Abrir ventana de diagnóstico</value>
   </data>
-  <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
-    <value>Abrir ventana de grilla de canales</value>
-  </data>
   <data name="ContextMenuExecRestartItemHeader" xml:space="preserve">
     <value>Reiniciar</value>
   </data>
@@ -688,6 +682,12 @@ Más información en:</value>
   </data>
   <data name="ContextMenuExitItemHeader" xml:space="preserve">
     <value>Salir</value>
+  </data>
+  <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
+    <value>Reconstruir medios</value>
+  </data>
+  <data name="ContextMenuRestartAllHeader" xml:space="preserve">
+    <value>Reiniciar todos</value>
   </data>
   <data name="ContextMenuStartAllHeader" xml:space="preserve">
     <value>Iniciar todos</value>
@@ -734,9 +734,6 @@ No se pudo escribir el archivo en el disco.</value>
   </data>
   <data name="DecklinkWaitForReference_Enable" xml:space="preserve">
     <value>Habilitar</value>
-  </data>
-  <data name="ContextMenuRebuildMediaDbItemHeader" xml:space="preserve">
-    <value>Reconstruir medios</value>
   </data>
   <data name="DeleteConfigFileError" xml:space="preserve">
     <value>Error al eliminar el archivo de configuración.
@@ -885,6 +882,12 @@ El archivo se eliminará permanentemente.</value>
   <data name="LanguagesDefault" xml:space="preserve">
     <value>Por defecto</value>
   </data>
+  <data name="LanguagesEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="LanguagesEspañol" xml:space="preserve">
+    <value>Español</value>
+  </data>
   <data name="LogLevel_Debug" xml:space="preserve">
     <value>Debug</value>
   </data>
@@ -988,19 +991,22 @@ El archivo se eliminará permanentemente.</value>
   <data name="UptimeTimeFormat" xml:space="preserve">
     <value>{0:%h\:mm\:ss}</value>
   </data>
+  <data name="ContextMenuExecGridItemHeader" xml:space="preserve">
+    <value>Abrir ventana de grilla de canales</value>
+  </data>
   <data name="ExportCommandsDialogTitle" xml:space="preserve">
     <value>Seleccionar ubicación de exportación</value>
   </data>
   <data name="ImportCommandsDialogTitle" xml:space="preserve">
     <value>Seleccionar archivo con comandos</value>
   </data>
-  <data name="LanguagesEnglish" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="LanguagesEspañol" xml:space="preserve">
-    <value>Español</value>
-  </data>
   <data name="ExecutableConfigWindowScannerPort" xml:space="preserve">
     <value>Puerto del escáner de medios</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlCachePath" xml:space="preserve">
+    <value>Ruta de cache</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlCachePathDescription" xml:space="preserve">
+    <value>(CEF guarda la cache junto al ejecutable, lo que puede fallar dependiendo de los permisos. Esto lo cambia para que use otra ruta)</value>
   </data>
 </root>

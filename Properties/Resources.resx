@@ -1003,4 +1003,10 @@ The file will be deleted permanently.</value>
   <data name="ExecutableConfigWindowScannerPort" xml:space="preserve">
     <value>Media Scanner port</value>
   </data>
+  <data name="ConfigWindowOptionsTabHtmlCachePath" xml:space="preserve">
+    <value>Cache path</value>
+  </data>
+  <data name="ConfigWindowOptionsTabHtmlCachePathDescription" xml:space="preserve">
+    <value>(CEF writes some caches next to the executable, which can fail depending on permissions. This changes it to use another path)</value>
+  </data>
 </root>
