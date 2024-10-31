@@ -154,10 +154,12 @@ public partial class ConfigEditor : DialogWindow
     private static string? SelectFolder(string? path = null, string? caption = null, bool newFolder = false)
     {
         WF.FolderBrowserDialog Browser = new() { ShowNewFolderButton = newFolder };
-        if (path is not null && Directory.Exists(path)) Browser.SelectedPath = path;
+        if (string.IsNullOrEmpty(path)) path = Environment.CurrentDirectory;
+        if (!Path.IsPathRooted(path)) path = Path.Combine(Environment.CurrentDirectory, path);
+        if (Directory.Exists(path)) Browser.SelectedPath = path;
+        else Browser.SelectedPath = "";
         Browser.UseDescriptionForTitle = true;
         if (caption is not null) Browser.Description = caption;
-        else Browser.SelectedPath = AppDomain.CurrentDomain.BaseDirectory;
         if (Browser.ShowDialog() == WF.DialogResult.OK)
         {
             string folder = Browser.SelectedPath;

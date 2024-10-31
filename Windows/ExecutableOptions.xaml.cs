@@ -73,7 +73,10 @@ public partial class ExecutableOptions : DialogWindow
         {
             if (Executable is null) return;
             ConfigFiles.Clear();
-            if (Path.GetDirectoryName(Executable.Path) is string folder)
+            var path = Executable.Path;
+            if (string.IsNullOrEmpty(path)) path = Environment.CurrentDirectory;
+            if (!Path.IsPathRooted(path)) path = Path.Combine(Environment.CurrentDirectory, path);
+            if (Path.GetDirectoryName(path) is string folder)
             {
                 IEnumerable<string> files = Directory.GetFiles(folder)
                     .Select(f => Path.GetFileName(f).ToLower())
