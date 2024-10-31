@@ -436,11 +436,11 @@
                                                             <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5 1 5 1" FontSize="16" />
                                                             <TextBlock Grid.Row="1" Text="{Binding Path=Path, Mode=OneWay}" Style="{StaticResource FieldDescriptionTextBlock}" Margin="5 2 5 4" TextWrapping="NoWrap" FontSize="10" TextTrimming="CharacterEllipsis" helpers:TextBoxHelper.AutoTooltip="True" />
                                                         </Grid>
-                                                        <ui:StatusLabel x:Name="ExecutableStatusLabel" Grid.Column="3" Margin="10 0" VerticalAlignment="Center" LabelState="Idle" Height="36">
+                                                        <ui:StatusLabel x:Name="ExecutableStatusLabel" Grid.Column="3" Margin="10 0" VerticalAlignment="Center" LabelState="Idle">
                                                             <ui:StatusLabel.Label>
-                                                                <Grid Margin="2" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                                    <TextBlock Text="{helpers:Localization NotRunning}" FontSize="14" FontWeight="Regular" Visibility="{Binding Path=IsRunning, Converter={StaticResource InvertBoolToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                                                    <TextBlock FontSize="18" Margin="0 1 0 0" FontWeight="Regular" FontFamily="{DynamicResource TimecodeFont}" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" TextAlignment="Center">
+                                                                <Grid Margin="3" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                                    <TextBlock Text="{helpers:Localization NotRunning}" FontSize="14" LineStackingStrategy="BlockLineHeight" LineHeight="16" FontWeight="Regular" Visibility="{Binding Path=IsRunning, Converter={StaticResource InvertBoolToVisibility}}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                                                    <TextBlock FontSize="18" LineStackingStrategy="BlockLineHeight" LineHeight="18" Margin="0 3 0 -3" FontWeight="Regular" FontFamily="{DynamicResource TimecodeFont}" Visibility="{Binding Path=IsRunning, Converter={StaticResource BoolToVisibility}}" VerticalAlignment="Center" TextAlignment="Center">
                                                                         <TextBlock.Text>
                                                                             <MultiBinding Converter="{StaticResource UptimeConverter}">
                                                                                 <Binding Path="Uptime"/>
