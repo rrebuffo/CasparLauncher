@@ -617,6 +617,9 @@ public class ConfigFile : INotifyPropertyChanged
                     XmlNode n_prod_media = XH.NewAttribute(x, "id", I(producer.Layer), n_prod);
                 }
             }
+            if (ch.ColorDepth is not null) XH.NewTextNode(x, "color-depth", E(ch.ColorDepth), n_ch);
+            if (ch.ColorSpace is not null) XH.NewTextNode(x, "color-space", E(ch.ColorSpace), n_ch);
+
             XmlNode n_ch_c = XH.NewNode(x, "consumers", n_ch);
             foreach (object consumer in ch.Consumers)
             {
@@ -646,6 +649,15 @@ public class ConfigFile : INotifyPropertyChanged
                                 if (p.VideoMode != "") XH.NewTextNode(x, "video-mode", p.VideoMode, n_dl_p);
                                 CheckPortSubregion(x, p, n_dl_p);
                             }
+                        }
+                        if (c.HdrMetadata)
+                        {
+                            XmlNode dl_hdr = XH.NewNode(x, "hdr-metadata", dl);
+                            XH.NewTextNode(x, "max-cll", I(c.HdrMaxCll), dl_hdr);
+                            XH.NewTextNode(x, "max-fall", I(c.HdrMaxFall), dl_hdr);
+                            XH.NewTextNode(x, "min-dml", D(c.HdrMinDml), dl_hdr);
+                            XH.NewTextNode(x, "max-dml", D(c.HdrMaxDml), dl_hdr);
+                            XH.NewTextNode(x, "default-color-space", E(c.DefaultColorSpace), dl_hdr);
                         }
                         break;
                     case BluefishConsumer c:
@@ -1073,6 +1085,16 @@ public class ConfigFile : INotifyPropertyChanged
                                 targetVideoMode ??= DefaultVideoModes.First();
                                 channel.VideoMode = targetVideoMode;
                             }
+                            if (channel_node.Descendants("color-depth").Any())
+                            {
+                                string channel_color_depth = channel_node.Descendants("color-depth").First().Value;
+                                channel.ColorDepth = CheckForEnumValue<ChannelColorDepth>(channel_color_depth);
+                            }
+                            if (channel_node.Descendants("color-space").Any())
+                            {
+                                string channel_color_space = channel_node.Descendants("color-space").First().Value;
+                                channel.ColorSpace = CheckForEnumValue<ChannelColorSpace>(channel_color_space);
+                            }
                             if (channel_node.Descendants("producers").Any())
                             {
                                 foreach(XElement producer in channel_node.Descendants("producers").First().Descendants())
@@ -1166,6 +1188,33 @@ public class ConfigFile : INotifyPropertyChanged
                                                                         }
                                                                         CheckPortSubregion(n_dl_p, port);
                                                                         n_dl.Ports.Add(n_dl_p);
+                                                                    }
+                                                                }
+                                                            }
+                                                            break;
+                                                        case "hdr-metadata":
+                                                            if (consumer_sub.Descendants().Any())
+                                                            {
+                                                                n_dl.HdrMetadata = true;
+                                                                foreach (XElement hdr_sub in  consumer_sub.Descendants())
+                                                                {
+                                                                    switch (hdr_sub.Name.LocalName)
+                                                                    {
+                                                                        case "max-cll":
+                                                                            n_dl.HdrMaxCll = int.Parse(hdr_sub.Value);
+                                                                            break;
+                                                                        case "max-fall":
+                                                                            n_dl.HdrMaxFall = int.Parse(hdr_sub.Value);
+                                                                            break;
+                                                                        case "min-dml":
+                                                                            n_dl.HdrMinDml = double.Parse(hdr_sub.Value);
+                                                                            break;
+                                                                        case "max-dml":
+                                                                            n_dl.HdrMaxDml = double.Parse(hdr_sub.Value);
+                                                                            break;
+                                                                        case "default-color-space":
+                                                                            n_dl.DefaultColorSpace = CheckForEnumValue<DecklinkDefaultColorSpace>(hdr_sub.Value);
+                                                                            break;
                                                                     }
                                                                 }
                                                             }
@@ -1445,6 +1494,11 @@ public class ConfigFile : INotifyPropertyChanged
     }
 
     public static string I(int v)
+    {
+        return v.ToString();
+    }
+
+    public static string D(double v)
     {
         return v.ToString();
     }

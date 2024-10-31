@@ -263,6 +263,42 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 16-bit.
+        /// </summary>
+        public static string ChannelColorDepth_16 {
+            get {
+                return ResourceManager.GetString("ChannelColorDepth_16", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 8-bit.
+        /// </summary>
+        public static string ChannelColorDepth_8 {
+            get {
+                return ResourceManager.GetString("ChannelColorDepth_8", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.2020.
+        /// </summary>
+        public static string ChannelColorSpace_BT2020 {
+            get {
+                return ResourceManager.GetString("ChannelColorSpace_BT2020", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.709.
+        /// </summary>
+        public static string ChannelColorSpace_BT709 {
+            get {
+                return ResourceManager.GetString("ChannelColorSpace_BT709", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Close application.
         /// </summary>
         public static string ClosePromptCaption {
@@ -581,6 +617,24 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Color depth.
+        /// </summary>
+        public static string ConfigWindowChannelsChannelColorDepth {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsChannelColorDepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color space.
+        /// </summary>
+        public static string ConfigWindowChannelsChannelColorSpace {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsChannelColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Channel settings.
         /// </summary>
         public static string ConfigWindowChannelsChannelConfigGbHeader {
@@ -775,6 +829,60 @@ namespace CasparLauncher.Properties {
         public static string ConfigWindowChannelsDlEmbedAudio {
             get {
                 return ResourceManager.GetString("ConfigWindowChannelsDlEmbedAudio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default Color Space.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrDefaultColorSpace {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrDefaultColorSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MaxCLL.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrMaxCll {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrMaxCll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MaxDML.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrMaxDml {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrMaxDml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MaxFALL.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrMaxFall {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrMaxFall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HDR Metadata.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrMetadata {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrMetadata", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MinDML.
+        /// </summary>
+        public static string ConfigWindowChannelsDlHdrMinDml {
+            get {
+                return ResourceManager.GetString("ConfigWindowChannelsDlHdrMinDml", resourceCulture);
             }
         }
         
@@ -1703,6 +1811,33 @@ namespace CasparLauncher.Properties {
         public static string DecklinkConsumer {
             get {
                 return ResourceManager.GetString("DecklinkConsumer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.2020.
+        /// </summary>
+        public static string DecklinkDefaultColorSpace_BT2020 {
+            get {
+                return ResourceManager.GetString("DecklinkDefaultColorSpace_BT2020", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.601.
+        /// </summary>
+        public static string DecklinkDefaultColorSpace_BT601 {
+            get {
+                return ResourceManager.GetString("DecklinkDefaultColorSpace_BT601", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BT.709.
+        /// </summary>
+        public static string DecklinkDefaultColorSpace_BT709 {
+            get {
+                return ResourceManager.GetString("DecklinkDefaultColorSpace_BT709", resourceCulture);
             }
         }
         

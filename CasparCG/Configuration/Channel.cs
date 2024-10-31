@@ -19,6 +19,40 @@ public class Channel : INotifyPropertyChanged
         }
     }
 
+    private ChannelColorDepth? _colorDepth = null;
+    public ChannelColorDepth? ColorDepth
+    {
+        get
+        {
+            return _colorDepth;
+        }
+        set
+        {
+            if (_colorDepth != value)
+            {
+                _colorDepth = value;
+                OnPropertyChanged(nameof(ColorDepth));
+            }
+        }
+    }
+
+    private ChannelColorSpace? _colorSpace = null;
+    public ChannelColorSpace? ColorSpace
+    {
+        get
+        {
+            return _colorSpace;
+        }
+        set
+        {
+            if (_colorSpace != value)
+            {
+                _colorSpace = value;
+                OnPropertyChanged(nameof(ColorSpace));
+            }
+        }
+    }
+
     private int _selectedConsumer = 0;
     public int SelectedConsumer
     {

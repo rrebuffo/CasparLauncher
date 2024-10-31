@@ -36,6 +36,7 @@
         <converters:DragBorderHeightConverter x:Key="DragBorderHeight" />
         <converters:DragTopBorderOffsetConverter x:Key="DragBorderTop" />
         <converters:DragBottomBorderOffsetConverter x:Key="DragBorderBottom" />
+        <converters:NullComboBoxConverter x:Key="NullComboBoxConverter" />
 
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource PropertyNameTextBlock}" />
 
@@ -437,6 +438,52 @@
                                         </ComboBox.Resources>
                                     </ComboBox>
                                 </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsChannelColorSpace}" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                                    <ui:ConfigItem.Resources>
+                                        <ObjectDataProvider x:Key="ChannelColorSpaceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="e:ChannelColorSpace" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                        <CompositeCollection x:Key="NullableChannelColorSpaceList">
+                                            <sys:String>null</sys:String>
+                                            <CollectionContainer Collection="{Binding Source={StaticResource ChannelColorSpaceList}}"/>
+                                        </CompositeCollection>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource NullableChannelColorSpaceList}}" SelectedValue="{Binding Path=ColorSpace, Converter={StaticResource NullComboBoxConverter}, ConverterParameter='null'}">
+                                        <ComboBox.Resources>
+                                            <DataTemplate DataType="{x:Type sys:String}">
+                                                <TextBlock Text=""/>
+                                            </DataTemplate>
+                                            <DataTemplate DataType="{x:Type e:ChannelColorSpace}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.Resources>
+                                    </ComboBox>
+                                </ui:ConfigItem>
+                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsChannelColorDepth}" IsEnabled="{Binding ElementName=ChannelList, Path=SelectedIndex, Converter={StaticResource lbSelected}}">
+                                    <ui:ConfigItem.Resources>
+                                        <ObjectDataProvider x:Key="ChannelColorDepthList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                            <ObjectDataProvider.MethodParameters>
+                                                <x:Type TypeName="e:ChannelColorDepth" />
+                                            </ObjectDataProvider.MethodParameters>
+                                        </ObjectDataProvider>
+                                        <CompositeCollection x:Key="NullableChannelColorDepthList">
+                                            <sys:String>null</sys:String>
+                                            <CollectionContainer Collection="{Binding Source={StaticResource ChannelColorDepthList}}"/>
+                                        </CompositeCollection>
+                                    </ui:ConfigItem.Resources>
+                                    <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource NullableChannelColorDepthList}}" SelectedValue="{Binding Path=ColorDepth, Converter={StaticResource NullComboBoxConverter}, ConverterParameter='null'}">
+                                        <ComboBox.Resources>
+                                            <DataTemplate DataType="{x:Type sys:String}">
+                                                <TextBlock Text=""/>
+                                            </DataTemplate>
+                                            <DataTemplate DataType="{x:Type e:ChannelColorDepth}">
+                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                            </DataTemplate>
+                                        </ComboBox.Resources>
+                                    </ComboBox>
+                                </ui:ConfigItem>
                                 <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsChannelProducers}">
                                     <DataGrid Grid.Column="1" Margin="0 1" ItemsSource="{Binding Path=Producers, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" HeadersVisibility="Column" Height="100" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False" CanUserReorderColumns="False">
                                         <DataGrid.Columns>
@@ -568,6 +615,31 @@
                                                 </DataTemplate>
                                             </ItemsControl.Resources>
                                         </ItemsControl>
+                                        <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrMetadata}" Type="CheckBox" Binding="{Binding Path=HdrMetadata}"/>
+                                        <Border Grid.Row="1" Visibility="{Binding Path=HdrMetadata, Converter={StaticResource boolToVisibility}}" Background="{DynamicResource DialogBackground}" CornerRadius="{DynamicResource CompactRadius}" Margin="2" Padding="2">
+                                            <StackPanel>
+                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrMaxCll}" Type="Integer" Binding="{Binding Path=HdrMaxCll}" Description="(1 - 65535)"/>
+                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrMaxFall}" Type="Integer" Binding="{Binding Path=HdrMaxFall}" Description="(50 - 65535)"/>
+                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrMinDml}" Type="Integer" Binding="{Binding Path=HdrMinDml}" Description="(0.0001 - 6.5535)"/>
+                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrMaxDml}" Type="Integer" Binding="{Binding Path=HdrMaxDml}" Description="(1 - 65535)"/>
+                                                <ui:ConfigItem Label="{helpers:Localization ConfigWindowChannelsDlHdrDefaultColorSpace}">
+                                                    <ui:ConfigItem.Resources>
+                                                        <ObjectDataProvider x:Key="DecklinkDefaultColorSpaceList" ObjectType="{x:Type sys:Enum}" MethodName="GetValues">
+                                                            <ObjectDataProvider.MethodParameters>
+                                                                <x:Type TypeName="e:DecklinkDefaultColorSpace" />
+                                                            </ObjectDataProvider.MethodParameters>
+                                                        </ObjectDataProvider>
+                                                    </ui:ConfigItem.Resources>
+                                                    <ComboBox VerticalContentAlignment="Center" ItemsSource="{Binding Source={StaticResource DecklinkDefaultColorSpaceList}}" SelectedValue="{Binding Path=DefaultColorSpace}">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate DataType="{x:Type e:DecklinkDefaultColorSpace}">
+                                                                <TextBlock Text="{Binding Converter={StaticResource enumConverter}}" />
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+                                                </ui:ConfigItem>
+                                            </StackPanel>
+                                        </Border>
                                     </StackPanel>
                                 </DataTemplate>
                                 <DataTemplate DataType="{x:Type consumers:BluefishConsumer}">

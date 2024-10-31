@@ -173,4 +173,114 @@ public class DecklinkConsumer : FrameConsumer
             }
         }
     }
+
+    private bool _hdrMetadata = false;
+    public bool HdrMetadata
+    {
+        get
+        {
+            return _hdrMetadata;
+        }
+        set
+        {
+            if (_hdrMetadata != value)
+            {
+                _hdrMetadata = value;
+                OnPropertyChanged(nameof(HdrMetadata));
+            }
+        }
+    }
+
+    private int _hdrMaxCll = 1000;
+    public int HdrMaxCll
+    {
+        get
+        {
+            return _hdrMaxCll;
+        }
+        set
+        {
+            if (_hdrMaxCll != value)
+            {
+                if (value < 1) _hdrMaxCll = 1;
+                else if (value > 65535) _hdrMaxCll = 65535;
+                else _hdrMaxCll = value;
+                OnPropertyChanged(nameof(HdrMaxCll));
+            }
+        }
+    }
+
+    private int _hdrMaxFall = 1000;
+    public int HdrMaxFall
+    {
+        get
+        {
+            return _hdrMaxFall;
+        }
+        set
+        {
+            if (_hdrMaxFall != value)
+            {
+                if (value < 50) _hdrMaxFall = 50;
+                else if (value > 65535) _hdrMaxFall = 65535;
+                else _hdrMaxFall = value;
+                OnPropertyChanged(nameof(HdrMaxFall));
+            }
+        }
+    }
+
+    private double _hdrMinDml = 0.005;
+    public double HdrMinDml
+    {
+        get
+        {
+            return _hdrMinDml;
+        }
+        set
+        {
+            if (_hdrMinDml != value)
+            {
+                if (value < 0.0001) _hdrMinDml = 0.0001;
+                else if (value > 6.5535) _hdrMinDml = 6.5535;
+                else _hdrMinDml = value;
+                OnPropertyChanged(nameof(HdrMinDml));
+            }
+        }
+    }
+
+    private double _hdrMaxDml = 1000;
+    public double HdrMaxDml
+    {
+        get
+        {
+            return _hdrMaxDml;
+        }
+        set
+        {
+            if (_hdrMaxDml != value)
+            {
+                if (value < 1) _hdrMaxDml = 1;
+                else if (value > 65535) _hdrMaxDml = 65535;
+                else _hdrMaxDml = value;
+                OnPropertyChanged(nameof(HdrMaxDml));
+            }
+        }
+    }
+
+    private DecklinkDefaultColorSpace _defaultColorSpace = DecklinkDefaultColorSpace._bt709;
+    public DecklinkDefaultColorSpace DefaultColorSpace
+    {
+        get
+        {
+            return _defaultColorSpace;
+        }
+        set
+        {
+            if (_defaultColorSpace != value)
+            {
+                _defaultColorSpace = value;
+                OnPropertyChanged(nameof(DefaultColorSpace));
+            }
+        }
+    }
 }

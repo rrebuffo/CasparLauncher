@@ -1009,4 +1009,49 @@ El archivo se eliminará permanentemente.</value>
   <data name="ConfigWindowOptionsTabHtmlCachePathDescription" xml:space="preserve">
     <value>(CEF guarda la cache junto al ejecutable, lo que puede fallar dependiendo de los permisos. Esto lo cambia para que use otra ruta)</value>
   </data>
+  <data name="ChannelColorDepth_8" xml:space="preserve">
+    <value>8-bit</value>
+  </data>
+  <data name="ChannelColorDepth_16" xml:space="preserve">
+    <value>&#x8;16-bit</value>
+  </data>
+  <data name="ChannelColorSpace_BT709" xml:space="preserve">
+    <value>BT.709</value>
+  </data>
+  <data name="ChannelColorSpace_BT2020" xml:space="preserve">
+    <value>BT.2020</value>
+  </data>
+  <data name="DecklinkDefaultColorSpace_BT601" xml:space="preserve">
+    <value>BT.601</value>
+  </data>
+  <data name="DecklinkDefaultColorSpace_BT709" xml:space="preserve">
+    <value>BT.709</value>
+  </data>
+  <data name="DecklinkDefaultColorSpace_BT2020" xml:space="preserve">
+    <value>BT.2020</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrMaxCll" xml:space="preserve">
+    <value>MaxCLL</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrMaxFall" xml:space="preserve">
+    <value>MaxFALL</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrMaxDml" xml:space="preserve">
+    <value>MaxDML</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrMinDml" xml:space="preserve">
+    <value>MinDML</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrMetadata" xml:space="preserve">
+    <value>Metadatos HDR</value>
+  </data>
+  <data name="ConfigWindowChannelsDlHdrDefaultColorSpace" xml:space="preserve">
+    <value>Espacio de color por defecto</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelColorSpace" xml:space="preserve">
+    <value>Espacio de color</value>
+  </data>
+  <data name="ConfigWindowChannelsChannelColorDepth" xml:space="preserve">
+    <value>Profundidad de color</value>
+  </data>
 </root>
