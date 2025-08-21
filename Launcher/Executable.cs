@@ -17,6 +17,7 @@ public class Executable : INotifyPropertyChanged
     private DateTime StartupTime;
     private Encoding CurrentEncoding = Encoding.UTF8;
     private Thread? ExecutableThread;
+    private Job? Job; 
 
     public Executable()
     {
@@ -631,8 +632,9 @@ public class Executable : INotifyPropertyChanged
     private void StopProcess()
     {
         if (!Enabled) return;
+        Job?.Dispose();
+        Job = null;
         Enabled = false;
-        Process?.Kill();
     }
 
     private void StartProcess()
@@ -643,7 +645,9 @@ public class Executable : INotifyPropertyChanged
             Setup();
             Enabled = true;
             if (Process is null) return;
+            Job = new();
             Process.Start();
+            Job.AddProcess(Process);
             Process.OutputDataReceived += Process_OutputDataReceived;
             Process.ErrorDataReceived += Process_OutputDataReceived;
             Process.Exited += Process_Exited;
@@ -762,6 +766,11 @@ public class Executable : INotifyPropertyChanged
         }
         IsRunning = false;
         OnProcessExited();
+        if (Job is not null)
+        {
+            Job.Dispose();
+            Job = null;
+        }
         if (!Enabled) return;
         Thread.Sleep(100);
         StartProcess();
