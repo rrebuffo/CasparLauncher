@@ -721,11 +721,9 @@ public class Executable : INotifyPropertyChanged
         {
             if (IsServer && CurrentEncoding == Encoding.UTF8)
             {
-            
-                    byte[] data = Encoding.Unicode.GetBytes(command + Process.StandardInput.NewLine);
-                    Process.StandardInput.BaseStream.Write(data, 0, data.Length);
-                    Process.StandardInput.BaseStream.Flush();
-            
+                byte[] data = Encoding.UTF8.GetBytes(command + Process.StandardInput.NewLine);
+                Process.StandardInput.BaseStream.Write(data, 0, data.Length);
+                Process.StandardInput.BaseStream.Flush();
             }
             else
             {
