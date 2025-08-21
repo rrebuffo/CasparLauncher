@@ -15,7 +15,7 @@ public partial class TrayIcon
     private static partial int SetWindowLongA(IntPtr hWnd, int nIndex, int dwNewLong);
 
     private readonly WF.NotifyIcon Icon = new();
-    private TrayMenu Menu = new();
+    private readonly TrayMenu Menu = new();
     
     static bool IsColorLight(Color clr) => ((5 * clr.G) + (2 * clr.R) + clr.B) > (8 * 128);
 

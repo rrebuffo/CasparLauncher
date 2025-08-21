@@ -63,7 +63,7 @@ public class Launchpad : INotifyPropertyChanged
                 S.Set("/ui/language", (int)value);
                 OnPropertyChanged(nameof(ForcedLanguage));
                 App.SetLanguageDictionary();
-                LocalizationHelper.Instance.CurrentCulture = L.Culture;
+                LocalizationHelper.Instance!.CurrentCulture = L.Culture;
             }
         }
     }

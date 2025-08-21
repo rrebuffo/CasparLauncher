@@ -95,7 +95,7 @@ public class Executable : INotifyPropertyChanged
         {
             if(_isServer.HasValue) return _isServer.Value;
             if (_path is null || !Exists) return false;
-            _isServer = System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "casparcg";
+            _isServer = System.IO.Path.GetFileNameWithoutExtension(_path).Equals("casparcg", StringComparison.CurrentCultureIgnoreCase);
             return _isServer.Value;
         }
         private set
@@ -112,7 +112,7 @@ public class Executable : INotifyPropertyChanged
         {
             if (_isScanner.HasValue) return _isScanner.Value;
             if (_path is null || !Exists) return false;
-            _isScanner = System.IO.Path.GetFileNameWithoutExtension(_path).ToLower() == "scanner";
+            _isScanner = System.IO.Path.GetFileNameWithoutExtension(_path).Equals("scanner", StringComparison.CurrentCultureIgnoreCase);
             return _isScanner ?? false;
         }
         private set
@@ -498,7 +498,7 @@ public class Executable : INotifyPropertyChanged
     {
         try
         {
-            return Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(file)).Any();
+            return Process.GetProcessesByName(System.IO.Path.GetFileNameWithoutExtension(file)).Length != 0;
         }
         catch (Exception)
         {
@@ -590,15 +590,17 @@ public class Executable : INotifyPropertyChanged
             await Task.Delay(100);
         }
         if (IsServer) CurrentEncoding = GetEncodingByVersion(_path);
-        ProcessStartInfo info = new();
-        info.CreateNoWindow = true;
-        info.UseShellExecute = false;
-        info.WorkingDirectory = System.IO.Path.GetDirectoryName(_path);
-        info.FileName = System.IO.Path.Combine(_path);
-        info.RedirectStandardOutput = true;
-        info.RedirectStandardError = true;
-        info.RedirectStandardInput = true;
-        info.StandardOutputEncoding = CurrentEncoding;
+        ProcessStartInfo info = new()
+        {
+            CreateNoWindow = true,
+            UseShellExecute = false,
+            WorkingDirectory = System.IO.Path.GetDirectoryName(_path),
+            FileName = System.IO.Path.Combine(_path),
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            RedirectStandardInput = true,
+            StandardOutputEncoding = CurrentEncoding
+        };
         info.Environment.Add("ERRORLEVEL", "0");
         StringBuilder arguments = new();
         if ((IsServer || IsScanner)
@@ -615,7 +617,7 @@ public class Executable : INotifyPropertyChanged
         if (!string.IsNullOrEmpty(Args)) arguments.Append(Args);
         if (arguments.Length > 0) info.Arguments = arguments.ToString();
 
-        if (Process is not null) Process.Dispose();
+        Process?.Dispose();
         Process = new()
         {
             StartInfo = info
@@ -735,7 +737,7 @@ public class Executable : INotifyPropertyChanged
 
     private void Process_OutputDataReceived(object? sender, DataReceivedEventArgs e)
     {
-        if (Application.Current is null || e.Data is null) return;
+        if (Application.Current is null || string.IsNullOrEmpty(e.Data)) return;
         bool remove_line = false;
         Application.Current.Dispatcher.BeginInvoke(() =>
         {
@@ -748,7 +750,7 @@ public class Executable : INotifyPropertyChanged
                     int start = LOG_LEVEL_START.Length;
                     int end = data.IndexOf(LOG_LEVEL_END, start);
 
-                    if (data.IndexOf(LOG_LEVEL_START) == 0 && end > 0)
+                    if (data.StartsWith(LOG_LEVEL_START) && end > 0)
                     {
                         var level = LogLine.GetLevel(data[start..end]);
                         CurrentLogLevel = level;
