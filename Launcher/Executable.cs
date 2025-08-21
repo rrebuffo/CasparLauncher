@@ -679,10 +679,10 @@ public class Executable : INotifyPropertyChanged
 
     private void StartUptimeTimer()
     {
-        OnPropertyChanged(nameof(Uptime));
         UptimeTimer.Interval = TimeSpan.FromSeconds(1);
         UptimeTimer.Start();
         StartupTime = DateTime.Now; 
+        OnPropertyChanged(nameof(Uptime));
     }
 
     private void StopUptimeTimer()
