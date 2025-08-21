@@ -10,22 +10,15 @@ public class Executable : INotifyPropertyChanged
     const string LOG_LEVEL_START = "Logging [";
     const string LOG_LEVEL_END = "] or higher severity to log";
 
-    private readonly Timer StartupTimer = new();
-    private readonly Timer CommandsTimer = new();
     private readonly DispatcherTimer UptimeTimer = new(DispatcherPriority.Normal, Application.Current.Dispatcher);
-    private int CurrentCommandIndex = 0;
     private DateTime StartupTime;
     private Encoding CurrentEncoding = Encoding.UTF8;
-    private Thread? ExecutableThread;
     private Job? Job; 
+    private CancellationTokenSource? StartupCts;
 
     public Executable()
     {
         History.Add("");
-        StartupTimer.Elapsed += StartupTimer_Elapsed;
-        StartupTimer.AutoReset = false;
-        CommandsTimer.Elapsed += SendStartupCommand;
-        CommandsTimer.AutoReset = true;
         UptimeTimer.Tick += UptimeTimer_Tick;
         PropertyChanged += Executable_PropertyChanged;
         Commands.CollectionChanged += Commands_CollectionChanged;
@@ -513,7 +506,7 @@ public class Executable : INotifyPropertyChanged
         }
     }
 
-    private static void KillAllRunningInstances(string file, bool allInstances = false)
+    private static async Task KillAllRunningInstances(string file, bool allInstances = false)
     {
         try
         {
@@ -544,7 +537,7 @@ public class Executable : INotifyPropertyChanged
                 {
                     runningProcess.Kill();
                 }
-                Thread.Sleep(10);
+                await Task.Delay(10);
             }
         }
         catch { }
@@ -585,7 +578,7 @@ public class Executable : INotifyPropertyChanged
 
     #region PRIVATE METHODS
 
-    private void Setup()
+    private async Task Setup()
     {
         if (_path is null || !Exists)
         {
@@ -593,8 +586,8 @@ public class Executable : INotifyPropertyChanged
         }
         if (!AllowMultipleInstances && CheckIfRunning(_path))
         {
-            KillAllRunningInstances(_path);
-            Thread.Sleep(100);
+            await KillAllRunningInstances(_path);
+            await Task.Delay(100);
         }
         if (IsServer) CurrentEncoding = GetEncodingByVersion(_path);
         ProcessStartInfo info = new();
@@ -632,17 +625,28 @@ public class Executable : INotifyPropertyChanged
     private void StopProcess()
     {
         if (!Enabled) return;
+        StartupCts?.Cancel();
+        StartupCts?.Dispose();
+        StartupCts = null;
         Job?.Dispose();
         Job = null;
         Enabled = false;
     }
 
-    private void StartProcess()
+    private async Task StartProcess(bool auto = false)
     {
         if (Launchpad.DisableStart) return;
+        StartupCts?.Cancel();
+        StartupCts = new();
+        var token = StartupCts.Token;
         try
         {
-            Setup();
+            if (auto && StartupDelay > 0)
+            {
+                await Task.Delay(StartupDelay, token);
+                if (token.IsCancellationRequested) return;
+            }
+            await Setup();
             Enabled = true;
             if (Process is null) return;
             Job = new();
@@ -655,52 +659,59 @@ public class Executable : INotifyPropertyChanged
             Process.BeginOutputReadLine();
             Process.BeginErrorReadLine();
         }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
         catch (Exception e)
         {
             if (e.Message == "ExecutablePathNotFound") OnProcessPathError();
             else OnProcessError(e);
             return;
         }
-        StartupTime = DateTime.Now;
-        OnPropertyChanged(nameof(Uptime));
-        UptimeTimer.Interval = TimeSpan.FromSeconds(.2);
-        UptimeTimer.Start();
         IsRunning = true;
         OnProcessStarted();
-        if (AllowCommands && Commands.Any()) SendStartupCommands();
+        StartUptimeTimer();
+        _ = SendStartupCommands();
     }
 
-    private void StartupTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+    private void StartUptimeTimer()
     {
-        StartProcess();
+        OnPropertyChanged(nameof(Uptime));
+        UptimeTimer.Interval = TimeSpan.FromSeconds(1);
+        UptimeTimer.Start();
+        StartupTime = DateTime.Now; 
     }
 
-    private void SendStartupCommands()
+    private void StopUptimeTimer()
     {
-        if(CommandsDelay>0)
+        UptimeTimer.Stop();
+        OnPropertyChanged(nameof(Uptime));
+    }
+
+    private async Task SendStartupCommands()
+    {
+        if (!AllowCommands || !Commands.Any()) return;
+        if (StartupCts is null) return;
+        var token = StartupCts.Token;
+        try
         {
-            CurrentCommandIndex = 0;
-            CommandsTimer.Interval = CommandsDelay;
-            CommandsTimer.Start();
-        }
-        else
-        {
-            foreach(Command c in Commands)
+            foreach (Command c in Commands.ToList())
             {
+                if (token.IsCancellationRequested) break;
+                await Task.Delay(CommandsDelay, token);
                 SendCommand(c.Value);
             }
         }
-    }
-
-    private void SendStartupCommand(object? sender, EventArgs e)
-    {
-        if(CurrentCommandIndex >= Commands.Count)
+        catch (TaskCanceledException)
         {
-            CommandsTimer.Stop();
             return;
         }
-        SendCommand(Commands[CurrentCommandIndex].Value);
-        CurrentCommandIndex++;
+        catch (Exception e)
+        {
+            Debug.WriteLine($"Error sending startup commands: {e.Message}");
+            OnProcessError(e);
+        }
     }
 
     private void SendCommand(string command)
@@ -757,23 +768,31 @@ public class Executable : INotifyPropertyChanged
         });
     }
 
-    private void Process_Exited(object? sender, EventArgs e)
+    private async void Process_Exited(object? sender, EventArgs e)
     {
-        if (sender is Process process)
+        try
         {
-            if (process.ExitCode == 0) Enabled = false;
-            Debug.WriteLine($"Process exit code: {process.ExitCode}");
+            if (sender is Process process)
+            {
+                if (process.ExitCode == 0) Enabled = false;
+                Debug.WriteLine($"Process exit code: {process.ExitCode}");
+            }
+            IsRunning = false;
+            StopUptimeTimer();
+            OnProcessExited();
+            if (Job is not null)
+            {
+                Job.Dispose();
+                Job = null;
+            }
         }
-        IsRunning = false;
-        OnProcessExited();
-        if (Job is not null)
+        catch (Exception ex)
         {
-            Job.Dispose();
-            Job = null;
+            Debug.WriteLine($"Process_Exited error: {ex}");
         }
         if (!Enabled) return;
-        Thread.Sleep(100);
-        StartProcess();
+        await Task.Delay(100);
+        await StartProcess();
     }
 
     private void ChangeCasparLogLevel(LogLevel newLevel)
@@ -785,21 +804,9 @@ public class Executable : INotifyPropertyChanged
 
     #region PUBLIC METHODS
 
-    public void Start(bool auto = false)
+    public async Task Start(bool auto = false)
     {
-        ExecutableThread = new(() =>
-        {
-            if (auto && StartupDelay > 0)
-            {
-                StartupTimer.Interval = StartupDelay;
-                StartupTimer.Start();
-            }
-            else
-            {
-                StartProcess();
-            }
-        });
-        ExecutableThread.Start();
+        await StartProcess(auto);
     }
 
     public void Stop()
@@ -899,7 +906,7 @@ public class Executable : INotifyPropertyChanged
     {
         ProcessExited -= RebuildAndRestart;
         ClearScannerDatabases();
-        Start();
+        _ = Start();
     }
 
     #endregion
