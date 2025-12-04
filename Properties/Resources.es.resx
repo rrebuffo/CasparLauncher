@@ -1054,4 +1054,7 @@ El archivo se eliminará permanentemente.</value>
   <data name="ConfigWindowChannelsChannelColorDepth" xml:space="preserve">
     <value>Profundidad de color</value>
   </data>
+  <data name="Languages简体中文" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
 </root>

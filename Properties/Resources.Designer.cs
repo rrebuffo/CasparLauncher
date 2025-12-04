@@ -2412,6 +2412,15 @@ namespace CasparLauncher.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 简体中文.
+        /// </summary>
+        public static string Languages简体中文 {
+            get {
+                return ResourceManager.GetString("Languages简体中文", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Debug.
         /// </summary>
         public static string LogLevel_Debug {
