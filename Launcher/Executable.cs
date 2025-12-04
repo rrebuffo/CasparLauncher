@@ -605,7 +605,7 @@ public class Executable : INotifyPropertyChanged
         StringBuilder arguments = new();
         if ((IsServer || IsScanner)
             && !string.IsNullOrEmpty(ConfigFile)
-            && ConfigFile != "casparcg.config")
+            && (ConfigFile != "casparcg.config" || !string.IsNullOrEmpty(Args)))
         {
             if (IsScanner) arguments.Append($@"--caspar.config ");
             arguments.Append($@"""{ConfigFile}"" ");
