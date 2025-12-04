@@ -13,8 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
-    <PackageReference Include="System.Management" Version="8.0.0" />
+    <PackageReference Include="System.Drawing.Common" Version="10.0.0" />
+    <PackageReference Include="System.Management" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,7 @@
     <ProjectReference Include="..\BaseUISupport\src\BaseUISupport.csproj" />
   </ItemGroup>
   <ItemGroup Condition="!Exists('..\BaseUISupport\src\BaseUISupport.csproj')">
-    <PackageReference Include="rrebuffo.BaseUISupport" Version="1.0.5" />
+    <PackageReference Include="rrebuffo.BaseUISupport" Version="1.0.6" />
   </ItemGroup>
 
   <ItemGroup>
